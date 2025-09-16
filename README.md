@@ -1,25 +1,59 @@
-# ArtaferaFrontend
+# ArtaferaFrontendNew
 
-### The frontent for the <a href="www.Artafera.ch">Artafera Website</a>
+This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.1.
 
-## Development
+## Development server
 
-To start the Artafera frontend you the following things:
+To start a local development server, run:
 
-- Angular 18.3 or higher 
-- NPM
-- Node
+```bash
+ng serve
+```
 
-Run `npm install` to install all dependency's and afterward run `ng serve` to start the webserver.
+Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
-## Production
+## Code scaffolding
 
-There is a GitHub CI/CD file that is kinda janky but works. The problem I have is that I dont know how I can build a Docker image for an Angular SSR app. I will change that in the future but as it is not that important I dont think it will happen soon. <br>
-Currently it runs like this:
-- The repo is manually cloned on the backend (just for the first time obviously)
-- Whenever a Commit on Main is made, the CI/CD pipeline will execute a script on the server
-- The script goes into the cloned frontend repo and pulls the newest changes
-- Then it builds the application
-- Then it runs it
+Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
 
-I know its shit and I want to change it but my focus currently only lies on getting the website up and running.
+```bash
+ng generate component component-name
+```
+
+For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+
+```bash
+ng generate --help
+```
+
+## Building
+
+To build the project run:
+
+```bash
+ng build
+```
+
+This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+
+## Running unit tests
+
+To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+
+```bash
+ng test
+```
+
+## Running end-to-end tests
+
+For end-to-end (e2e) testing, run:
+
+```bash
+ng e2e
+```
+
+Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+
+## Additional Resources
+
+For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.

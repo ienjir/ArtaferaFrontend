@@ -1,0 +1,59 @@
+@use '../../../styles' as *;
+
+button {
+  max-width: 400px;
+  width: 100%;
+}
+
+.homepage {
+  &__grid {
+    display: grid;
+    gap: clamp(1rem, 3vw, 2rem);
+    width: 100%;
+    justify-content: center;
+    justify-items: center;
+    grid-template-columns: 1fr;
+
+    > * {
+      width: 100%;
+      min-width: 0;
+    }
+
+    @include respond-from(xs) {
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      max-width: 600px;
+    }
+
+   @include respond-from(sm) {
+     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+     max-width: 800px;
+    }
+
+    @include respond-from(md) {
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      max-width: 1000px;
+    }
+
+    @include respond-from(lg) {
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      max-width: 1200px;
+    }
+
+    @include respond-from(xl) {
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      max-width: 1400px;
+    }
+
+    @include respond-from(xxl) {
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      max-width: 1600px;
+    }
+  }
+
+  &__text {
+    text-align: center;
+    max-width: 800px;
+    line-height: 1.6;
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+  }
+}
