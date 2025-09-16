@@ -1,8 +1,11 @@
 import {Component, Input} from '@angular/core';
+import {TranslocoPipe} from '@jsverse/transloco';
 
 @Component({
   selector: 'Section',
-  imports: [],
+  imports: [
+    TranslocoPipe
+  ],
   templateUrl: './section.html',
   styleUrl: './section.scss'
 })

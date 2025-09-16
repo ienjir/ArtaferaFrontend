@@ -1,11 +1,13 @@
 import {Component, inject, PLATFORM_ID} from '@angular/core';
 import {Router} from 'express';
 import {Section} from '../../layout/section/section'
+import {TranslocoPipe} from '@jsverse/transloco';
 
 @Component({
   selector: 'app-homepage',
   imports: [
-    Section
+    Section,
+    TranslocoPipe
   ],
   templateUrl: './homepage.html',
   styleUrl: './homepage.scss'
