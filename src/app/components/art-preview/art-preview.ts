@@ -1,10 +1,12 @@
 import {Component, input, Input} from '@angular/core';
 import {Label} from '@components/label/label';
+import {NgOptimizedImage} from '@angular/common';
 
 @Component({
   selector: 'ArtPreview',
   imports: [
-    Label
+    Label,
+    NgOptimizedImage
   ],
   templateUrl: './art-preview.html',
   styleUrl: './art-preview.scss'

@@ -1,5 +1,5 @@
 <div class="art-preview">
-  <img class="art-preview__picture" [src]="pictureLink()" [alt]="pictureAlt()">
+  <img class="art-preview__picture" [ngSrc]="pictureLink()" width="400" height="300" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" [alt]="pictureAlt()">
   <div class="art-preview__information">
     <h3 class="art-preview__information__title">{{ pictureTitle() }}</h3>
     <Label label="testlabel" color="var(--Accent1)">{{ pictureLabel() }}</Label>
