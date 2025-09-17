@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 import {Footer} from '@components/footer/footer';
-import {NavigationBar} from '@app/navigation-bar/navigation-bar';
+import {NavigationBar} from '@components/navigation-bar/navigation-bar';
 
 @Component({
   selector: 'DefaultLayout',

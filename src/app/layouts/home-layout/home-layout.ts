@@ -3,7 +3,7 @@ import {RouterOutlet} from '@angular/router';
 import {Footer} from '@components/footer/footer';
 import {TranslocoPipe} from '@jsverse/transloco';
 import {isPlatformBrowser} from '@angular/common';
-import {NavigationBar} from '@app/navigation-bar/navigation-bar';
+import {NavigationBar} from '@components//navigation-bar/navigation-bar';
 
 @Component({
   selector: 'app-home-layout',
