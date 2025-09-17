@@ -4,6 +4,7 @@ import {Footer} from '@components/footer/footer';
 import {TranslocoPipe} from '@jsverse/transloco';
 import {isPlatformBrowser} from '@angular/common';
 import {NavigationBar} from '@components//navigation-bar/navigation-bar';
+import {ImageCarousel} from '@components/image-carousel/image-carousel';
 
 @Component({
   selector: 'app-home-layout',
@@ -11,7 +12,8 @@ import {NavigationBar} from '@components//navigation-bar/navigation-bar';
     RouterOutlet,
     Footer,
     TranslocoPipe,
-    NavigationBar
+    NavigationBar,
+    ImageCarousel
   ],
   templateUrl: './home-layout.html',
   styleUrl: './home-layout.scss'

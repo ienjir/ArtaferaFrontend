@@ -22,6 +22,7 @@
       "@environments/*": ["environments/*"],
       "@components/*": ["app/components/*"],
       "@pages/*": ["app/pages/*"],
+      "@layouts/*": ["app/layouts/*"]
     }
   },
   "angularCompilerOptions": {
