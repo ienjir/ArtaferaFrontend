@@ -1,7 +1,7 @@
 import {Component, inject, PLATFORM_ID} from '@angular/core';
-import {Section} from '../../layout/section/section'
+import {Section} from '@app/layout/section/section'
 import {TranslocoPipe} from '@jsverse/transloco';
-import {ArtPreview} from '../../components/art-preview/art-preview';
+import {ArtPreview} from '@components/art-preview/art-preview';
 import {Router} from '@angular/router';
 
 @Component({
