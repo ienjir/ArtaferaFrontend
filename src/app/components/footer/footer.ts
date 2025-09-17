@@ -3,7 +3,7 @@ import {TranslocoPipe} from '@jsverse/transloco';
 import {RouterLink} from '@angular/router';
 
 @Component({
-  selector: 'Footer',
+  selector: 'FooterBar',
   imports: [
     TranslocoPipe,
     RouterLink
