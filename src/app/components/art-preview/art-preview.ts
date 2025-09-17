@@ -1,8 +1,11 @@
 import {Component, input, Input} from '@angular/core';
+import {Label} from '@components/label/label';
 
 @Component({
-  selector: 'app-art-preview',
-  imports: [],
+  selector: 'ArtPreview',
+  imports: [
+    Label
+  ],
   templateUrl: './art-preview.html',
   styleUrl: './art-preview.scss'
 })

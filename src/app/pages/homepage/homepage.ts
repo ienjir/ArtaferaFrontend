@@ -2,12 +2,14 @@ import {Component, inject, PLATFORM_ID} from '@angular/core';
 import {Router} from 'express';
 import {Section} from '../../layout/section/section'
 import {TranslocoPipe} from '@jsverse/transloco';
+import {ArtPreview} from '../../components/art-preview/art-preview';
 
 @Component({
   selector: 'app-homepage',
   imports: [
     Section,
-    TranslocoPipe
+    TranslocoPipe,
+    ArtPreview
   ],
   templateUrl: './homepage.html',
   styleUrl: './homepage.scss'
