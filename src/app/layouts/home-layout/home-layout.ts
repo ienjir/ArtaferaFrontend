@@ -3,13 +3,15 @@ import {RouterOutlet} from '@angular/router';
 import {Footer} from '@components/footer/footer';
 import {TranslocoPipe} from '@jsverse/transloco';
 import {isPlatformBrowser} from '@angular/common';
+import {NavigationBar} from '@app/navigation-bar/navigation-bar';
 
 @Component({
   selector: 'app-home-layout',
   imports: [
     RouterOutlet,
     Footer,
-    TranslocoPipe
+    TranslocoPipe,
+    NavigationBar
   ],
   templateUrl: './home-layout.html',
   styleUrl: './home-layout.scss'
