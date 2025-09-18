@@ -1,148 +1,144 @@
-import {isPlatformBrowser, NgClass, NgForOf, NgIf} from '@angular/common';
-import {Component, inject, Input, PLATFORM_ID} from '@angular/core';
+import {isPlatformBrowser, NgOptimizedImage} from '@angular/common';
+import {Component, computed, effect, inject, input, OnDestroy, PLATFORM_ID, signal} from '@angular/core';
 
 @Component({
   selector: 'ImageCarousel',
   imports: [
-    NgForOf,
-    NgClass,
-    NgIf
+    NgOptimizedImage,
   ],
   templateUrl: './image-carousel.html',
   styleUrl: './image-carousel.scss'
 })
-export class ImageCarousel {
+export class ImageCarousel implements OnDestroy {
   private platformId = inject(PLATFORM_ID);
+  private autoPlayInterval: ReturnType<typeof setInterval> | null = null;
 
-  currentSlideIndex = 0;
-  previousSlideIndex = 0;
-  slideDirection = 'next';
-  isAnimating = false;
-  autoPlayInterval: any;
+  slides = input([
+    { id: 0, image: "/images/ding-dong3.jpg", caption: "Please change me!!" },
+    { id: 1, image: "/images/windBlumeWinter.jpg", caption: "Please change me!!" },
+    { id: 2, image: "/images/schildkröte.jpg", caption: "Please change me!!" },
+  ]);
+  autoPlay = input(true);
+  interval = input(5000);
+  darkened = input(false);
+  manualSwap = input(true);
 
-  @Input() slides: { image: string, caption: string }[] = [
-    {image: "/images/ding-dong3.jpg", caption: "Please change me!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"},
-    {image: "/images/windBlumeWinter.jpg", caption: "Please change me!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"},
-    {image: "/images/schildkröte.jpg", caption: "Please change me!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"},
-  ];
-  @Input() autoPlay = true;
-  @Input() interval = 5000;
-  @Input() darkened = false;
-  @Input() manualSwap = true;
+  currentSlideIndex = signal(0);
+  previousSlideIndex = signal(0);
+  slideDirection = signal<'next' | 'prev'>('next');
+  isAnimating = signal(false);
+  isAutoPlayActive = signal(false);
 
-  ngOnInit() {
-    // Only start autoplay in browser environment
-    if (this.autoPlay && isPlatformBrowser(this.platformId)) {
-      this.startAutoPlay();
-    }
+  slidesLength = computed(() => this.slides().length);
+
+  constructor() {
+    effect(() => {
+      if (this.autoPlay() && isPlatformBrowser(this.platformId)) {
+        this.startAutoPlay();
+      } else {
+        this.stopAutoPlay();
+      }
+    });
+
+    effect(() => {
+      if (this.autoPlay() && this.isAutoPlayActive()) {
+        this.stopAutoPlay();
+        this.startAutoPlay();
+      }
+    });
   }
 
-  startAutoPlay() {
-    // Guard against SSR
-    if (!isPlatformBrowser(this.platformId)) {
-      return;
-    }
+  ngOnDestroy() {
+    this.stopAutoPlay();
+  }
 
+  private startAutoPlay() {
+    if (!isPlatformBrowser(this.platformId) || this.autoPlayInterval) return;
+
+    this.isAutoPlayActive.set(true);
     this.autoPlayInterval = setInterval(() => {
       this.nextSlide();
-    }, this.interval);
+    }, this.interval());
   }
 
-  stopAutoPlay() {
-    // Guard against SSR
-    if (!isPlatformBrowser(this.platformId)) {
-      return;
-    }
-
+  private stopAutoPlay() {
     if (this.autoPlayInterval) {
       clearInterval(this.autoPlayInterval);
       this.autoPlayInterval = null;
+      this.isAutoPlayActive.set(false);
     }
   }
 
   nextSlide() {
-    if (this.isAnimating) return;
-    this.isAnimating = true;
-    this.slideDirection = 'next';
-    this.previousSlideIndex = this.currentSlideIndex;
-    this.currentSlideIndex = (this.currentSlideIndex + 1) % this.slides.length;
+    if (this.isAnimating()) return;
 
-    // Guard setTimeout for SSR
-    if (isPlatformBrowser(this.platformId)) {
-      setTimeout(() => {
-        this.isAnimating = false;
-      }, 600);
-    } else {
-      // In SSR, immediately set to false
-      this.isAnimating = false;
-    }
+    this.isAnimating.set(true);
+    this.slideDirection.set('next');
+    this.previousSlideIndex.set(this.currentSlideIndex());
+    this.currentSlideIndex.update(current =>
+      (current + 1) % this.slidesLength()
+    );
+
+    this.resetAnimation();
   }
 
   prevSlide() {
-    if (this.isAnimating) return;
-    this.isAnimating = true;
-    this.slideDirection = 'prev';
-    this.previousSlideIndex = this.currentSlideIndex;
-    this.currentSlideIndex = (this.currentSlideIndex - 1 + this.slides.length) % this.slides.length;
+    if (this.isAnimating()) return;
 
-    // Guard setTimeout for SSR
-    if (isPlatformBrowser(this.platformId)) {
-      setTimeout(() => {
-        this.isAnimating = false;
-      }, 600);
-    } else {
-      // In SSR, immediately set to false
-      this.isAnimating = false;
-    }
+    this.isAnimating.set(true);
+    this.slideDirection.set('prev');
+    this.previousSlideIndex.set(this.currentSlideIndex());
+    this.currentSlideIndex.update(current =>
+      (current - 1 + this.slidesLength()) % this.slidesLength()
+    );
+
+    this.resetAnimation();
   }
 
   goToSlide(index: number) {
-    if (this.isAnimating || index === this.currentSlideIndex) return;
-    this.isAnimating = true;
-    this.slideDirection = index > this.currentSlideIndex ? 'next' : 'prev';
-    this.previousSlideIndex = this.currentSlideIndex;
-    this.currentSlideIndex = index;
+    if (this.isAnimating() || index === this.currentSlideIndex()) return;
 
-    // Guard setTimeout for SSR
+    this.isAnimating.set(true);
+    this.slideDirection.set(index > this.currentSlideIndex() ? 'next' : 'prev');
+    this.previousSlideIndex.set(this.currentSlideIndex());
+    this.currentSlideIndex.set(index);
+
+    this.resetAnimation();
+  }
+
+  private resetAnimation() {
     if (isPlatformBrowser(this.platformId)) {
       setTimeout(() => {
-        this.isAnimating = false;
+        this.isAnimating.set(false);
       }, 600);
     } else {
-      // In SSR, immediately set to false
-      this.isAnimating = false;
+      this.isAnimating.set(false);
     }
   }
 
-  getSlideClass(index: number) {
-    if (index === this.currentSlideIndex) {
-      return 'active';
-    } else if (this.isAnimating && index === this.previousSlideIndex) {
-      return this.slideDirection === 'next' ? 'prev-slide' : 'next-slide';
-    } else if (this.isAnimating && index === this.currentSlideIndex) {
-      return 'new-active-slide';
+  getSlideClass(index: number): string {
+    const current = this.currentSlideIndex();
+    const previous = this.previousSlideIndex();
+    const animating = this.isAnimating();
+    const direction = this.slideDirection();
+
+    if (index === current) {
+      return animating ? 'new-active-slide' : 'active';
+    } else if (animating && index === previous) {
+      return direction === 'next' ? 'prev-slide' : 'next-slide';
     }
     return '';
   }
 
-  // Track mouse events to pause auto-play when user interacts with carousel
   onMouseEnter() {
-    if (this.autoPlay && isPlatformBrowser(this.platformId)) {
+    if (this.autoPlay()) {
       this.stopAutoPlay();
     }
   }
 
   onMouseLeave() {
-    if (this.autoPlay && isPlatformBrowser(this.platformId)) {
+    if (this.autoPlay()) {
       this.startAutoPlay();
     }
   }
-
-  ngOnDestroy() {
-    // Always try to stop autoplay, but guard the clearInterval call
-    if (isPlatformBrowser(this.platformId)) {
-      this.stopAutoPlay();
-    }
-  }
-
 }

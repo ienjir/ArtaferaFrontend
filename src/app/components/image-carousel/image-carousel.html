@@ -1,20 +1,24 @@
-<div class="carousel" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
+<div class="carousel"
+     (mouseenter)="onMouseEnter()"
+     (mouseleave)="onMouseLeave()">
   <div class="carousel-inner">
-    <div *ngFor="let slide of slides; let i = index"
-         class="carousel-item"
-         [ngClass]="getSlideClass(i)">
-      <img [src]="slide.image" [ngClass]="darkened? 'carousel-item--darkened' : ''" [alt]="slide.caption">
-    </div>
+    @for (slide of slides(); track slide.id; let idx = $index) {
+      <div class="carousel-item" [class]="getSlideClass(idx)">
+        <img [ngSrc]="slide.image" [class.carousel-item--darkened]="darkened()" [alt]="slide.caption" width="1920" height="1080" sizes="100vw" priority>
+      </div>
+    }
   </div>
 
-  <button *ngIf="manualSwap" class="prev" (click)="prevSlide()">&#10094;</button>
-  <button *ngIf="manualSwap" class="next" (click)="nextSlide()">&#10095;</button>
+  @if (manualSwap()) {
+    <button class="prev" (click)="prevSlide()">&#10094;</button>
+    <button class="next" (click)="nextSlide()">&#10095;</button>
+  }
 
   <div class="carousel-indicators">
-    <div *ngFor="let slide of slides; let i = index"
-         class="indicator"
-         [ngClass]="{'active': i === currentSlideIndex}"
-         (click)="goToSlide(i)">
-    </div>
+    @for (slide of slides(); track slide.id; let idx = $index) {
+      <div class="indicator"
+           [class.active]="idx === currentSlideIndex()"
+           (click)="goToSlide(idx)"></div>
+    }
   </div>
 </div>
