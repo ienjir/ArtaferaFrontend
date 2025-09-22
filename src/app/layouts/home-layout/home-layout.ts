@@ -1,8 +1,8 @@
-import {Component, inject, PLATFORM_ID} from '@angular/core';
+import {Component, inject, PLATFORM_ID, signal} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 import {Footer} from '@components/footer/footer';
 import {TranslocoPipe} from '@jsverse/transloco';
-import {isPlatformBrowser} from '@angular/common';
+import {isPlatformBrowser, NgOptimizedImage} from '@angular/common';
 import {NavigationBar} from '@components//navigation-bar/navigation-bar';
 import {ImageCarousel} from '@components/image-carousel/image-carousel';
 
@@ -13,7 +13,8 @@ import {ImageCarousel} from '@components/image-carousel/image-carousel';
     Footer,
     TranslocoPipe,
     NavigationBar,
-    ImageCarousel
+    ImageCarousel,
+    NgOptimizedImage
   ],
   templateUrl: './home-layout.html',
   styleUrl: './home-layout.scss'

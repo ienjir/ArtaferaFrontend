@@ -1,4 +1,5 @@
 @use "sass:map";
+@use 'bootstrap/scss/bootstrap';
 @import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
 
 $breakpoints: (
@@ -22,6 +23,7 @@ $breakpoints: (
   --Accent3: #1F93B4;
   --Red: #ad0000;
 }
+
 
 @mixin respond-from($breakpoint) {
   @if map.has-key($breakpoints, $breakpoint) {
@@ -388,4 +390,18 @@ button {
 
 Footer {
   width: 100%;
+}
+
+
+// Library components
+.carousel-inner {
+  height: 100%;
+}
+
+.carousel-item {
+  height: 100%;
+}
+
+.carousel-template {
+  height: 100%;
 }

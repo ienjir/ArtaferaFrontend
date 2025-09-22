@@ -1,24 +1,11 @@
-<div class="carousel"
-     (mouseenter)="onMouseEnter()"
-     (mouseleave)="onMouseLeave()">
-  <div class="carousel-inner">
-    @for (slide of slides(); track slide.id; let idx = $index) {
-      <div class="carousel-item" [class]="getSlideClass(idx)">
-        <img [ngSrc]="slide.image" [class.carousel-item--darkened]="darkened()" [alt]="slide.caption" width="1920" height="1080" sizes="100vw" priority>
-      </div>
+@if (images && images.length > 0) {
+  <ngb-carousel class="carousel" [showNavigationArrows]="true" [showNavigationIndicators]="false" >
+    @for (slide of images; track $index) {
+      <ng-template ngbSlide class="carousel-template">
+        <div class="picsum-img-wrapper carousel-image">
+          <img [ngSrc]="slide" fill alt="Random slide"/>
+        </div>
+      </ng-template>
     }
-  </div>
-
-  @if (manualSwap()) {
-    <button class="prev" (click)="prevSlide()">&#10094;</button>
-    <button class="next" (click)="nextSlide()">&#10095;</button>
-  }
-
-  <div class="carousel-indicators">
-    @for (slide of slides(); track slide.id; let idx = $index) {
-      <div class="indicator"
-           [class.active]="idx === currentSlideIndex()"
-           (click)="goToSlide(idx)"></div>
-    }
-  </div>
-</div>
+  </ngb-carousel>
+}
