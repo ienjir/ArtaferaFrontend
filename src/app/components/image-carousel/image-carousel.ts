@@ -7,7 +7,6 @@ import {NgClass, NgOptimizedImage} from '@angular/common';
   imports: [
     NgbCarouselModule,
     NgOptimizedImage,
-    NgClass
   ],
   templateUrl: './image-carousel.html',
   styleUrl: './image-carousel.scss'
