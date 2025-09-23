@@ -1,5 +1,5 @@
 <div class="image-carousel">
-  <ImageCarousel></ImageCarousel>
+  <ImageCarousel [images]="images"></ImageCarousel>
   <div class="image-carousel__welcome">
     <h1 class="image-carousel__welcome__title">
       {{ 'welcomeTo' | transloco }}
@@ -9,8 +9,7 @@
   </div>
   <div class="image-carousel__scroll-down">
     <button class="image-carousel__scroll-down__button" (click)="scrollToNavbar()">
-      <img class="image-carousel__scroll-down__button__chevron" src="assets/svg/Chevron.svg" [alt]="'scrollDownChevron' | transloco">
-      <img class="image-carousel__scroll-down__button__chevron" src="assets/svg/Chevron.svg" [alt]="'scrollDownChevron' | transloco">
+      <img class="image-carousel__scroll-down__button__chevron" src="assets/svg/Chevron.svg" [alt]="'scrollDownChevron' | transloco">      <img class="image-carousel__scroll-down__button__chevron" src="assets/svg/Chevron.svg" [alt]="'scrollDownChevron' | transloco">
     </button>
   </div>
 </div>

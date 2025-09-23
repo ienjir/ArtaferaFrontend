@@ -22,6 +22,10 @@ $breakpoints: (
   --Accent2: #DC58E7;
   --Accent3: #1F93B4;
   --Red: #ad0000;
+  --bs-carousel-indicator-width: 1rem;
+  --bs-carousel-indicator-height: 1rem !important;
+  --bs-carousel-indicator-spacer: 0.5rem; /* distance between dots */
+  --bs-carousel-indicator-active-bg: var(--Text);
 }
 
 
@@ -404,4 +408,10 @@ Footer {
 
 .carousel-template {
   height: 100%;
+}
+
+.carousel-indicators {
+  button {
+    min-height: 0;
+  }
 }

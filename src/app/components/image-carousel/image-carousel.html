@@ -1,9 +1,13 @@
-@if (images && images.length > 0) {
-  <ngb-carousel class="carousel" [showNavigationArrows]="true" [showNavigationIndicators]="false" >
-    @for (slide of images; track $index) {
+@if (images()) {
+  <ngb-carousel class="carousel" [showNavigationArrows]="showNavigation()" [showNavigationIndicators]="showIndicators()" [pauseOnFocus]="pauseOnFocus()" [pauseOnHover]="pauseOnHover()" [interval]="interval()" [wrap]="wrap()" >
+    @for (slide of images(); track $index) {
       <ng-template ngbSlide class="carousel-template">
         <div class="picsum-img-wrapper carousel-image">
-          <img [ngSrc]="slide" fill alt="Random slide"/>
+          <img [ngSrc]="slide.Link" fill [alt]="slide.Alt"/>
+        </div>
+        <div class="carousel-caption">
+          <h3>{{ slide.CaptionTitle }}</h3>
+          <p>{{ slide.CaptionSubtitle }}</p>
         </div>
       </ng-template>
     }

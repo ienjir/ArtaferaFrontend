@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, input} from '@angular/core';
 import {NgbCarousel, NgbCarouselModule} from '@ng-bootstrap/ng-bootstrap';
 import {NgOptimizedImage} from '@angular/common';
 
@@ -12,5 +12,11 @@ import {NgOptimizedImage} from '@angular/common';
   styleUrl: './image-carousel.scss'
 })
 export class ImageCarousel {
-  images = [944, 911, 922].map((n) => `https://picsum.photos/id/${n}/4000/2000`);
+  showNavigation = input<boolean>(true)
+  showIndicators = input<boolean>(true)
+  pauseOnFocus = input<boolean>(true)
+  pauseOnHover = input<boolean>(true)
+  interval = input<number>(4000)
+  wrap = input<boolean>(true)
+  images = input.required<{Link: string, Alt: string, CaptionTitle: string, CaptionSubtitle: string}[]>()
 }

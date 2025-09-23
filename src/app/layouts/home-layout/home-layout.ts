@@ -30,4 +30,10 @@ export class HomeLayout {
       }
     }
   }
+
+  images: {Link: string, Alt: string, CaptionTitle: string, CaptionSubtitle: string}[] =  [
+    {Link: "https://picsum.photos/id/911/4000/2000", Alt: "Slide 1", CaptionTitle: "Caption1", CaptionSubtitle: "Subtitle1"},
+    {Link: "https://picsum.photos/id/912/4000/2000", Alt: "Slide 2", CaptionTitle: "Caption2", CaptionSubtitle: "Subtitle2"},
+    {Link: "https://picsum.photos/id/913/4000/2000", Alt: "Slide 3", CaptionTitle: "Caption3", CaptionSubtitle: "Subtitle3"}
+  ]
 }
