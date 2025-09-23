@@ -2,8 +2,6 @@
   height: 100%;
 }
 
-
-
 .carousel-inner {
   height: 100%;
 }
@@ -20,4 +18,8 @@
     object-fit: cover;
     object-position: center;
   }
+}
+
+.darkened {
+  filter: brightness(40%);
 }
