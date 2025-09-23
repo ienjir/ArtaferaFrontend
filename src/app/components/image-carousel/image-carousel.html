@@ -3,7 +3,7 @@
     @for (slide of images(); track $index) {
       <ng-template ngbSlide class="carousel-template">
         <div class="picsum-img-wrapper carousel-image">
-          <img [ngSrc]="slide.Link" [class.darkened]="darkened()" fill [alt]="slide.Alt"/>
+          <img [ngSrc]="slide.Link" [class.darkened]="darkened()" fill [alt]="slide.Alt" priority/>
         </div>
         <div class="carousel-caption">
           <h3>{{ slide.CaptionTitle }}</h3>
