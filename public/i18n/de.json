@@ -1,8 +1,8 @@
 {
-  "Home": "Home",
-  "AboutMe": "Über mich",
-  "Projects": "Projekte",
-  "Contact": "Kontakt",
+  "navbar.home": "Home",
+  "navbar.aboutMe": "Über mich",
+  "navbar.projects": "Projekte",
+  "navbar.contact": "Kontakt",
   "contact": "Kontakt",
   "Email": "Email",
   "Password": "Passwort",
