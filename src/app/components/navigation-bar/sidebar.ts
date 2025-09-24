@@ -12,10 +12,10 @@ import {NgOptimizedImage} from "@angular/common";
     TranslocoPipe,
     NgOptimizedImage
   ],
-  templateUrl: './offcanvas.html',
+  templateUrl: './sidebar.html',
   styleUrl: './navigation-bar.scss'
 })
-export class NgbdOffcanvasContent {
+export class Sidebar {
   activeOffcanvas = inject(NgbActiveOffcanvas);
   @Input() navigationItems: NavigationItems = [];
 }

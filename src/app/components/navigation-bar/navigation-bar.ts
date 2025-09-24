@@ -3,7 +3,7 @@ import {TranslocoPipe} from '@jsverse/transloco';
 import {RouterLink} from '@angular/router';
 import {NgOptimizedImage} from '@angular/common';
 import {NgbOffcanvas} from '@ng-bootstrap/ng-bootstrap';
-import {NgbdOffcanvasContent} from '@components/navigation-bar/offcanvas';
+import {Sidebar} from '@components/navigation-bar/sidebar';
 
 export type NavigationItems = {NavigationItem: string, NavigationLink: string}[]
 
@@ -18,19 +18,13 @@ export type NavigationItems = {NavigationItem: string, NavigationLink: string}[]
   styleUrl: './navigation-bar.scss'
 })
 export class NavigationBar {
-  openSidebar = false;
+  private SidebarService = inject(NgbOffcanvas);
 
-  private offcanvasService = inject(NgbOffcanvas);
-
-  open() {
-    const offcanvasRef = this.offcanvasService.open(NgbdOffcanvasContent, {
+  openSidebar() {
+    const sideBarRef = this.SidebarService.open(Sidebar, {
       position: 'end'
     });
-    offcanvasRef.componentInstance.navigationItems = this.navigationItems;
-  }
-
-  toggleSidebar() {
-    this.openSidebar = !this.openSidebar;
+    sideBarRef.componentInstance.navigationItems = this.navigationItems;
   }
 
   navigationItems: NavigationItems = [
