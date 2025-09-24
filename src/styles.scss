@@ -392,6 +392,14 @@ button {
   }
 }
 
+
+.close-btn {
+  width: 40px;
+  height: 40px;
+  background: url('/svg/X.svg') no-repeat center;
+  background-size: 40px;
+}
+
 Footer {
   width: 100%;
 }
@@ -413,5 +421,20 @@ Footer {
 .carousel-indicators {
   button {
     min-height: 0;
+  }
+}
+
+.offcanvas {
+  width: 100vw !important;
+  height: 100vh !important;
+  max-width: 100vw !important;
+  max-height: 100vh !important;
+  top: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  border-radius: 0 !important;
+
+  @include respond-from(xs) {
+      width: 75vw !important;
   }
 }

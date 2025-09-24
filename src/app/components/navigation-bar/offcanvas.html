@@ -1,0 +1,23 @@
+<div class="offcanvas-header">
+  <a class="offcanvas-title flex-fill flex-wrap" routerLink="/">
+    <div class="logoDiv">
+      <img class="logoImg" priority ngSrc="/images/logos/Logo_Light_Big.png" alt="HomepageLogo" height="687" width="2150">
+    </div>
+  </a>
+  <button
+    (click)="activeOffcanvas.dismiss('Cross click')"
+    class="sideBar__button rightAlignedDiv close-btn"
+    aria-label="Close Sidebar">
+  </button>
+</div>
+<div class="offcanvas-body">
+  <ul>
+    @for (navigationItem of navigationItems; track $index) {
+      <li class="verticalLi">
+        <a [routerLink]="navigationItem.NavigationLink">
+          <h2>{{ navigationItem.NavigationItem | transloco }}</h2>
+        </a>
+      </li>
+    }
+  </ul>
+</div>

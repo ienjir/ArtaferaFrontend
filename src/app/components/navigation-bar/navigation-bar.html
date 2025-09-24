@@ -1,7 +1,7 @@
 <nav>
   <ul class="horizontalNavigation">
     <li class="logoListItem">
-      <a href="/home">
+      <a>
         <div class="logoDiv">
           <img class="logoImg" priority ngSrc="/images/logos/Logo_Light_Big.png" alt="HomepageLogo" height="687" width="2150">
         </div>
@@ -15,32 +15,10 @@
       </li>
     }
     <li class="BurgerMenuHorizontal rightAlignedDiv">
-      <button (click)="toggleSidebar()">
+      <button (click)="open()">
         <img ngSrc="/svg/Burger.svg" alt="Open Sidebar" height="35" width="40">
       </button>
     </li>
   </ul>
 
-  <ul [class.open]="openSidebar" class="sideBar">
-    <li>
-      <button (click)="toggleSidebar()" tabindex="0" class="sideBar__button">
-        <img ngSrc="/svg/X.svg" alt="Close Sidebar" class="close" height="40" width="40">
-      </button>
-    </li>
-    @for (navigationItem of navigationItems; track $index) {
-      <li class="verticalLi">
-        <a [routerLink]="navigationItem.NavigationLink">
-          <h2>{{ navigationItem.NavigationItem | transloco }}</h2>
-        </a>
-      </li>
-    }
-    <li class="logoListItem bottomAlignedDiv">
-      <a href="/">
-        <div class="logoDiv">
-          <img class="logoImg" priority ngSrc="/images/logos/Logo_Light_Big.png" alt="HomepageLogo" height="687"
-               width="2150">
-        </div>
-      </a>
-    </li>
-  </ul>
 </nav>
