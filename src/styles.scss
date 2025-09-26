@@ -99,33 +99,18 @@ $breakpoints: (
     display: flex;
     justify-content: center;
   }
+
+  &--v-centered {
+    display: flex;
+    align-items: center;
+  }
 }
 
 // Custom classes
-.rounded-image {
-  position: relative;
-  left: -1rem;
-  background: white;
-  border-radius: 0 1000rem 1000rem 0;
-  overflow: hidden;
-  display: inline-block;
-  max-width: 100%;
-
-  @include respond-from(xs) {
-    min-height: 60vh;
-  }
-
-  @include respond-from(sm) {
-    min-height: 50vh;
-  }
-
-  @include respond-from(md) {
-    min-height: unset;
-  }
-}
-
 .rounded-image__image {
   display: block;
+  position: relative;
+  left: -1rem;
   width: 100%;
   height: auto;
   object-fit: cover;
@@ -133,6 +118,8 @@ $breakpoints: (
 
   @include respond-from(xs) {
     height: 100%;
+    min-height: 40vh;
+    max-height: 50vh;
     width: auto;
     max-width: 100%;
   }
@@ -140,6 +127,7 @@ $breakpoints: (
   @include respond-from(md) {
     height: auto;
     min-height: 50vh;
+    max-height: 50vh;
     width: 100%;
   }
 
