@@ -1,4 +1,3 @@
-// input-wrapper.component.ts
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
