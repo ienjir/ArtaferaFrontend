@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, input, Input} from '@angular/core';
 import {TranslocoPipe} from '@jsverse/transloco';
 
 @Component({
@@ -10,6 +10,6 @@ import {TranslocoPipe} from '@jsverse/transloco';
   styleUrl: './section.scss'
 })
 export class Section {
-  @Input({ required: true }) titleKey!: string;
-  @Input() centered: boolean = false;
+  titleKey = input.required<string>()
+  centered = input<boolean>(false)
 }
