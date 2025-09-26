@@ -31,5 +31,7 @@
   "error": "Error",
   "backToHome": "Zurück zur Startseite",
   "message": "Nachricht",
-  "send": "Senden"
+  "send": "Senden",
+  "aboutMeText": "Ich bin Heiko Mach, Projektleiter im Bereich Sanitär- und Heizungstechnik und lebe seit 2001 in der Schweiz. Neben meiner beruflichen Tätigkeit schlägt mein Herz für die Kunst: In meiner Freizeit kreiere ich leidenschaftlich einzigartige Eisenkunstwerke unter dem Namen ArtaFera,\n        angetrieben von Experimentierfreude und Kreativität.",
+  "contactText": "Ich freue uns darauf, mit Ihnen in Verbindung zu treten und Ihre Fragen zu beantworten. Kontaktieren Sie mich jederzeit für Anfragen, Kooperationen oder weitere Informationen über die einzigartigen Kunstwerke von ArtaFera."
 }

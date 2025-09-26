@@ -1,7 +1,7 @@
 <div class="art-preview">
-  <img class="art-preview__picture" [ngSrc]="pictureLink()" width="400" height="300" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" [alt]="pictureAlt()">
+  <img class="art-preview__picture" [ngSrc]="artPreview().Link" width="400" height="300" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" [alt]="artPreview().Alt">
   <div class="art-preview__information">
-    <h3 class="art-preview__information__title">{{ pictureTitle() }}</h3>
-    <Label label="testlabel" color="var(--Accent1)">{{ pictureLabel() }}</Label>
+    <h3 class="art-preview__information__title">{{ artPreview().Title }}</h3>
+    <Label label="testlabel" color="var(--Accent1)">{{ artPreview().Label }}</Label>
   </div>
 </div>

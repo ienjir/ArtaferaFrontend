@@ -1,24 +1,24 @@
-import {Component, inject, PLATFORM_ID} from '@angular/core';
+import {Component} from '@angular/core';
 import {Section} from '@components/section/section'
 import {TranslocoPipe} from '@jsverse/transloco';
-import {ArtPreview} from '@components/art-preview/art-preview';
-import {Router} from '@angular/router';
+import {ArtPreview, ArtPreviewItem} from '@components/art-preview/art-preview';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-homepage',
   imports: [
     Section,
     TranslocoPipe,
-    ArtPreview
+    ArtPreview,
+    RouterLink
   ],
   templateUrl: './homepage.html',
   styleUrl: './homepage.scss'
 })
 export class HomePage {
-  private platformId = inject(PLATFORM_ID);
-  private router = inject(Router);
-
-  redirectTo(route: string) {
-    this.router.navigate([route]);
-  }
+  ArtPreviews: ArtPreviewItem[] = [
+    {Title: "Test1", Alt: "Test1", Link: "/images/schildkröte.jpg", Label: "Test1"},
+    {Title: "Test1", Alt: "Test1", Link: "/images/ding-dong3.jpg", Label: "Test1"},
+    {Title: "Test1", Alt: "Test1", Link: "/images/windBlumeWinter.jpg", Label: "Test1"}
+  ]
 }

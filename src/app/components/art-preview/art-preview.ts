@@ -2,6 +2,13 @@ import {Component, input, Input} from '@angular/core';
 import {Label} from '@components/label/label';
 import {NgOptimizedImage} from '@angular/common';
 
+export type ArtPreviewItem = {
+  Title: string,
+  Alt: string,
+  Link: string,
+  Label: string
+}
+
 @Component({
   selector: 'ArtPreview',
   imports: [
@@ -12,8 +19,5 @@ import {NgOptimizedImage} from '@angular/common';
   styleUrl: './art-preview.scss'
 })
 export class ArtPreview {
-  pictureTitle = input.required<string>()
-  pictureAlt = input.required<string>()
-  pictureLink = input.required<string>()
-  pictureLabel = input.required<string>()
+  artPreview = input.required<ArtPreviewItem>()
 }

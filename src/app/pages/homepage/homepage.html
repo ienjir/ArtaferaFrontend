@@ -2,28 +2,23 @@
   <div class="page__section">
     <Section [centered]="true" titleKey="featuredProducts">
       <div class="homepage__grid">
-        <div>
-          <ArtPreview pictureTitle="This is a title" pictureAlt="This is a alt" pictureLink="/images/ding-dong3.jpg" pictureLabel="Ding-Dong"></ArtPreview>
-        </div>
-        <div>
-          <ArtPreview pictureTitle="This is a title" pictureAlt="This is a alt" pictureLink="/images/ding-dong3.jpg" pictureLabel="Ding-Dong"></ArtPreview>
-        </div>
-        <div>
-          <ArtPreview pictureTitle="This is a title" pictureAlt="This is a alt" pictureLink="/images/ding-dong3.jpg" pictureLabel="Ding-Dong"></ArtPreview>
-        </div>
+        @for (ArtPreview of ArtPreviews; track $index) {
+          <div>
+            <ArtPreview [artPreview]="ArtPreview"></ArtPreview>
+          </div>
+        }
       </div>
-      <button (click)="redirectTo('/art')">{{ 'showMore' | transloco }}</button>
+      <button routerLink="/kunst">{{ 'showMore' | transloco }}</button>
     </Section>
 
     <Section [centered]="true" titleKey="aboutMe">
-      <p class="homepage__text">Ich bin Heiko Mach, Projektleiter im Bereich Sanitär- und Heizungstechnik und lebe seit 2001 in der Schweiz. Neben meiner beruflichen Tätigkeit schlägt mein Herz für die Kunst: In meiner Freizeit kreiere ich leidenschaftlich einzigartige Eisenkunstwerke unter dem Namen ArtaFera,
-        angetrieben von Experimentierfreude und Kreativität.</p>
-      <button (click)="redirectTo('/uebermich')">{{ 'readMore' | transloco }}</button>
+      <p class="homepage__text">{{ 'aboutMeText' | transloco }}</p>
+      <button routerLink="/uebermich">{{ 'readMore' | transloco }}</button>
     </Section>
 
     <Section [centered]="true" titleKey="Contact">
-      <p class="homepage__text">Ich freue uns darauf, mit Ihnen in Verbindung zu treten und Ihre Fragen zu beantworten. Kontaktieren Sie mich jederzeit für Anfragen, Kooperationen oder weitere Informationen über die einzigartigen Kunstwerke von ArtaFera.</p>
-      <button (click)="redirectTo('/kontakt')">{{ 'contactNow' | transloco }}</button>
+      <p class="homepage__text">{{ 'contactText' | transloco }}</p>
+      <button routerLink="kontakt">{{ 'contactNow' | transloco }}</button>
     </Section>
   </div>
 </div>
