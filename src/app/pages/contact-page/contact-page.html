@@ -10,7 +10,7 @@
       <h2>{{ 'contact' | transloco }}</h2>
       <form [formGroup]="contactForm" class="contact-container__contact__form">
         <InputWrapper [label]="'Email' | transloco" type="text" [errorMessage]="emailError">
-          <input #input id="email" type="text" formControlName="email">
+          <input #input id="email" type="text" formControlName="email" placeholder="Email">
         </InputWrapper>
         <div class="login__password-container">
           <InputWrapper [label]="'message' | transloco" type="password" [errorMessage]="passwordError" [resizable]="false">

@@ -1,106 +1,154 @@
-import {AfterViewInit, Component, ContentChild, ElementRef, input, Input, NgZone, Renderer2} from '@angular/core';
+// input-wrapper.component.ts
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  ContentChild,
+  ElementRef,
+  computed,
+  signal,
+  input
+} from '@angular/core';
 import {TranslocoPipe} from "@jsverse/transloco";
 import {NgOptimizedImage} from "@angular/common";
 
 @Component({
-  selector: 'app-input-wrapper',
-  imports: [
-    TranslocoPipe,
-    NgOptimizedImage
-  ],
+  selector: 'InputWrapper',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [TranslocoPipe, NgOptimizedImage],
   templateUrl: './input-wrapper.html',
-  styleUrl: './input-wrapper.scss'
+  styleUrl: './input-wrapper.scss',
+  host: {
+    '[class.text-input-wrapper--focused]': 'isFocused()',
+    '[class.text-input-wrapper--error]': 'errorMessage()',
+    '[class.text-input-wrapper--filled]': 'hasValue()'
+  }
 })
 export class InputWrapper implements AfterViewInit {
-  label = input.required<string>()
-  errorMessage = input<string>()
-  resizable = input<boolean>(true)
+  label = input.required<string>();
+  errorMessage = input<string>();
+  resizable = input<boolean>(true);
+  inputId = input<string>();
 
-  type: string = "text";
-  showPassword = false;
+  @ContentChild('input', {static: false}) inputElement?: ElementRef<HTMLInputElement>;
+  @ContentChild('textarea', {static: false}) textareaElement?: ElementRef<HTMLTextAreaElement>;
 
-  @ContentChild('input', {static: false}) inputElement!: ElementRef;
-  @ContentChild('textarea', {static: false}) textareaElement!: ElementRef;
+  readonly showPassword = signal(false);
+  readonly isFocused = signal(false);
+  readonly hasValue = signal(false);
+  readonly inputType = signal<string>('text');
 
-  isFocused = false;
-  hasValue = false;
+  private readonly activeElement = computed(() =>
+    this.inputElement || this.textareaElement || null
+  );
 
-  get activeElement(): ElementRef | null {
-    return this.inputElement || this.textareaElement || null;
-  }
+  private readonly isTextarea = computed(() => !!this.textareaElement);
 
-  get isTextarea(): boolean {
-    return !!this.textareaElement;
-  }
+  protected readonly isPasswordType = computed(() =>
+    this.inputType() === 'password'
+  );
 
-  constructor(private renderer: Renderer2, private zone: NgZone) {
-  }
+  protected readonly shouldShowFloatingLabel = computed(() => {
+    const type = this.inputType();
+    return type === 'text' || type === 'password' || type === 'textarea';
+  });
 
-  handleShowPassword(event: Event) {
-    event.preventDefault();
-    event.stopPropagation();
-    this.showPassword = !this.showPassword;
-    if (this.inputElement) {
-      if (this.showPassword) {
-        this.inputElement.nativeElement.type = "text";
-      } else {
-        this.inputElement.nativeElement.type = "password";
-      }
-    }
-  }
+  protected readonly shouldShowCheckboxLabel = computed(() => {
+    const type = this.inputType();
+    return type === 'checkbox' || type === 'radio';
+  });
+
+  protected readonly shouldFloatLabel = computed(() =>
+    this.isFocused() || this.hasValue()
+  );
+
+  protected readonly passwordIconSrc = computed(() =>
+    this.showPassword() ? '/svg/Eye__shut.svg' : '/svg/Eye__open.svg'
+  );
+
+  protected readonly passwordToggleLabel = computed(() =>
+    this.showPassword() ? 'HidePassword' : 'ShowPassword'
+  );
+
+  protected readonly errorId = computed(() =>
+    this.inputId() ? `${this.inputId()}-error` : undefined
+  );
 
   ngAfterViewInit(): void {
-    const activeEl = this.activeElement;
+    this.setupInputElement();
+  }
 
-    if (activeEl) {
-      const nativeElement = activeEl.nativeElement;
+  private setupInputElement(): void {
+    const activeEl = this.activeElement();
+    if (!activeEl) return;
 
-      // Set type only for input elements
-      if (!this.isTextarea) {
-        this.type = nativeElement.type;
-      } else {
-        this.type = "textarea";
-      }
+    const nativeElement = activeEl.nativeElement;
 
-      // Focus event listener
-      this.renderer.listen(nativeElement, 'focus', () => {
-        this.zone.run(() => {
-          this.isFocused = true;
-        });
-      });
+    this.setInputType(nativeElement);
+    this.configureElement(nativeElement);
+    this.setupEventListeners(nativeElement);
+    this.checkInitialValue(nativeElement);
+  }
 
-      // Blur event listener
-      this.renderer.listen(nativeElement, 'blur', () => {
-        this.zone.run(() => {
-          this.isFocused = false;
-          this.hasValue = !!nativeElement.value;
-          nativeElement.style.border = "";
-        });
-      });
-
-      // Keyboard event listeners
-      this.renderer.listen(nativeElement, 'keydown', (event: KeyboardEvent) => {
-        if (event.key === 'Tab') {
-          nativeElement.style.border = "3px solid var(--Focus)";
-        }
-      });
-
-      this.renderer.listen(nativeElement, 'mousedown', () => {
-        nativeElement.style.border = "3px solid var(--Main)";
-      });
-
-      // Apply resize styles for textarea
-      if (this.isTextarea) {
-        const resizeValue = this.resizable() ? 'vertical' : 'none';
-        this.renderer.setStyle(nativeElement, 'resize', resizeValue);
-      }
-      this.zone.runOutsideAngular(() => {
-        setTimeout(() => {
-          this.zone.run(() => {
-            this.hasValue = !!nativeElement.value;
-          });
-        });
-      });
+  private setInputType(element: HTMLInputElement | HTMLTextAreaElement): void {
+    if (element.tagName.toLowerCase() === 'textarea') {
+      this.inputType.set('textarea');
+    } else {
+      this.inputType.set((element as HTMLInputElement).type || 'text');
     }
   }
+
+  private configureElement(element: HTMLInputElement | HTMLTextAreaElement): void {
+    if (this.inputId()) {
+      element.id = this.inputId()!;
+    }
+
+    if (this.errorMessage()) {
+      element.setAttribute('aria-describedby', this.errorId()!);
+      element.setAttribute('aria-invalid', 'true');
+    }
+
+    if (this.isTextarea()) {
+      const resizeValue = this.resizable() ? 'vertical' : 'none';
+      (element as HTMLTextAreaElement).style.resize = resizeValue;
+    }
+  }
+
+  private setupEventListeners(element: HTMLInputElement | HTMLTextAreaElement): void {
+    element.addEventListener('focus', () => {
+      this.isFocused.set(true);
+    });
+
+    element.addEventListener('blur', () => {
+      this.isFocused.set(false);
+      this.updateValueState(element);
+    });
+
+    element.addEventListener('input', () => {
+      this.updateValueState(element);
+    });
+  }
+
+  private updateValueState(element: HTMLInputElement | HTMLTextAreaElement): void {
+    this.hasValue.set(!!element.value.trim());
+  }
+
+  private checkInitialValue(element: HTMLInputElement | HTMLTextAreaElement): void {
+    setTimeout(() => {
+      this.updateValueState(element);
+    });
+  }
+
+  togglePassword(): void {
+    this.showPassword.update(show => !show);
+
+    const inputEl = this.inputElement;
+    if (inputEl) {
+      const newType = this.showPassword() ? 'text' : 'password';
+      inputEl.nativeElement.type = newType;
+    }
+  }
+
+  protected readonly isFocused$ = this.isFocused.asReadonly();
+  protected readonly hasValue$ = this.hasValue.asReadonly();
 }
