@@ -292,8 +292,9 @@ input {
   outline: none;
 
   &:focus-visible {
-    border: 3px solid var(--Red)
+    border: 3px solid var(--Focus)
   }
+
 }
 
 input[type = "checkbox"] {
@@ -352,12 +353,8 @@ textarea {
   font-size: 1rem;
   outline: none;
 
-  &:focus {
-    border: 3px solid var(--bs-yellow)
-  }
-
   &:focus-visible {
-    border: 3px solid var(--Red)
+    border: 3px solid var(--Focus)
   }
 }
 
