@@ -29,8 +29,8 @@ export class NavigationBar {
 
   navigationItems: NavigationItems = [
     {NavigationItem: "navbar.home", NavigationLink: "/"},
+    {NavigationItem: "navbar.art", NavigationLink: "/kunst"},
     {NavigationItem: "navbar.aboutMe", NavigationLink: "/uebermich"},
-    {NavigationItem: "navbar.projects", NavigationLink: "/projekte"},
     {NavigationItem: "navbar.contact", NavigationLink: "/kontakt"},
   ]
 }

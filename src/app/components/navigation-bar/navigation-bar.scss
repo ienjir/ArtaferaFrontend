@@ -81,44 +81,10 @@ h2 {
   }
 }
 
-.close {
-  cursor: pointer;
-}
-
-.sideBar {
-  display: none;
+.offcanvas__items {
+  display: flex;
   flex-direction: column;
-  top: 0;
-  padding: 1.5rem;
-  transform: translateX(100vw);
-  z-index: 999;
-  background: var(--Background);
-  width: calc(100dvw - 3rem);
-  height: calc(100% - 3rem);
-  overflow-y: hidden;
-  position: fixed;
-  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out, visibility 0.3s;
-
-  &__button {
-    margin: 0;
-    padding: 0;
-  }
-}
-
-.sideBar.open {
-  display: flex;
-  visibility: visible;
-  transform: translateX(0);
-  right: 0;
-  left: 0;
-}
-
-.verticalLi {
-  display: flex;
-}
-
-.bottomAlignedDiv {
-  margin-top: auto;
+  gap: 1rem;
 }
 
 @include respond-from(md) {
@@ -128,10 +94,6 @@ h2 {
 
   .horizontalLi {
     display: flex;
-  }
-
-  .sideBar {
-    display: none;
   }
 }
 
