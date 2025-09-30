@@ -5,6 +5,7 @@ import {DefaultLayout} from '@layouts/default-layout/default-layout';
 import {NotFoundPage} from "@pages/not-found-page/not-found-page";
 import {AboutMePage} from "@pages/about-me-page/about-me-page";
 import {ContactPage} from "@pages/contact-page/contact-page";
+import {ArtPage} from "@app/art-page/art-page";
 
 
 export const routes: Routes = [
@@ -19,6 +20,7 @@ export const routes: Routes = [
     path: '',
     component: DefaultLayout,
     children: [
+      {path: "kunst", component: ArtPage},
       {path: "uebermich", component: AboutMePage},
       {path: "kontakt", component: ContactPage},
       {path: '**', component: NotFoundPage}
