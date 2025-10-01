@@ -33,12 +33,16 @@
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
-      z-index: 5;
+      gap: 0.5rem;
 
       &__title {
         margin: 0;
         font-size: 1.2rem;
+        max-width: 100%;
+        text-wrap: wrap;
+        word-wrap: break-word;
         display: block;
+        overflow-wrap: break-word;
       }
     }
   }

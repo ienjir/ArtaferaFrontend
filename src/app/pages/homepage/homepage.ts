@@ -17,7 +17,7 @@ import {RouterLink} from '@angular/router';
 })
 export class HomePage {
   ArtPreviews: ArtPreviewItem[] = [
-    {id: 1, Title: "Test1", Alt: "Test1", Link: "/images/schildkröte.jpg", Label: "Test1"},
+    {id: 1, Title: "Test1butverymuschlongerbecausetesttingkajlsföjkdfj", Alt: "Test1", Link: "/images/schildkröte.jpg", Label: "Test1"},
     {id: 2, Title: "Test1", Alt: "Test1", Link: "/images/ding-dong3.jpg", Label: "Test1"},
     {id: 3, Title: "Test1", Alt: "Test1", Link: "/images/windBlumeWinter.jpg", Label: "Test1"}
   ]
