@@ -274,7 +274,6 @@ a {
 }
 
 label {
-  font-family: Roboto sans-serif;
   color: var(--Text);
 }
 
@@ -286,7 +285,6 @@ input {
   background-color: transparent;
   border-radius: 0;
   width: 100%;
-  font-family: Roboto sans-serif;
   color: var(--Text);
   font-size: 1rem;
   outline: none;
@@ -348,7 +346,6 @@ textarea {
   background-color: transparent;
   border-radius: 0;
   width: 100%;
-  font-family: Roboto sans-serif;
   color: var(--Text);
   font-size: 1rem;
   outline: none;
@@ -392,7 +389,6 @@ button {
 Footer {
   width: 100%;
 }
-
 
 // Library components
 .carousel-inner {
