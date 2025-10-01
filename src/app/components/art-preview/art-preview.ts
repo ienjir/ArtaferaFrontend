@@ -1,8 +1,10 @@
-import {Component, input, Input} from '@angular/core';
+import {Component, input, Input, OnInit} from '@angular/core';
 import {Label} from '@components/label/label';
 import {NgOptimizedImage} from '@angular/common';
+import {RouterLink} from "@angular/router";
 
 export type ArtPreviewItem = {
+  id: number,
   Title: string,
   Alt: string,
   Link: string,
@@ -13,7 +15,8 @@ export type ArtPreviewItem = {
   selector: 'ArtPreview',
   imports: [
     Label,
-    NgOptimizedImage
+    NgOptimizedImage,
+    RouterLink
   ],
   templateUrl: './art-preview.html',
   styleUrl: './art-preview.scss'
