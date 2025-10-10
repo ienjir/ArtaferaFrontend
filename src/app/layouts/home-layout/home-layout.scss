@@ -67,12 +67,12 @@ button {
     bottom: 10%;
 
     &__button {
-      width: 60px;
       cursor: pointer;
       justify-content: center;
       transform: translateX(-50%);
       z-index: 1;
-      display: flex;
+      display: inline-flex;
+      width: auto;
       flex-direction: column;
       animation: jump 2s ease-in-out infinite;
       border: 0;
