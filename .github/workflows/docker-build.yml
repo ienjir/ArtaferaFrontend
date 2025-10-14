@@ -34,8 +34,8 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/${{ github.repository_owner }}/ArtaferaFrontend:latest
-            ghcr.io/${{ github.repository_owner }}/ArtaferaFrontend:${{ github.sha }}
+            ghcr.io/${{ github.repository_owner }}/artaferafrontend:latest
+            ghcr.io/${{ github.repository_owner }}/artaferafrontend:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
