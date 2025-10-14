@@ -1,21 +1,38 @@
+# Build stage
+FROM oven/bun:latest AS installer
+
+WORKDIR /app
+
+# Copy package files and lockfile
+COPY package.json bun.lock ./
+
+# Install dependencies with Bun
+RUN bun install --frozen-lockfile
+
+# Build stage with Node.js
 FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-COPY package*.json ./
+# Copy node_modules from installer stage
+COPY --from=installer /app/node_modules ./node_modules
+COPY --from=installer /app/package.json ./
 
-RUN npm ci
-
+# Copy source code
 COPY . .
 
-RUN npm run build -- --configuration production
+# Build Angular app with SSR (production mode)
+RUN npx ng build --configuration production
 
-FROM nginx:alpine
+# Runtime stage
+FROM node:20-alpine
 
-COPY nginx.conf /etc/nginx/nginx.conf
+WORKDIR /app
 
-COPY --from=builder /app/dist/your-app-name /usr/share/nginx/html
+# Copy node_modules and dist from builder
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/dist ./dist
 
-EXPOSE 80
+EXPOSE 4000
 
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["node", "dist/ArtaferaFrontendNew/server/server.mjs"]
