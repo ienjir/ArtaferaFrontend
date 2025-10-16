@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - NewAngular
 
 jobs:
   build-and-push:
@@ -38,5 +39,15 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      - name: Image digest
-        run: echo "Image pushed successfully"
+      - name: Deploy via Dokploy API
+        run: |
+          curl -X POST "${{ secrets.DOKPLOY_WEBHOOK_URL }}" \
+          -H "Content-Type: application/json" \
+          -H "User-Agent: GitHub-Hookshot/test" \
+          -H "X-GitHub-Event: push" \
+          -d '{
+            "ref": "refs/heads/main",
+            "repository": {
+              "full_name": "ienjir/artafera-backend"
+            }
+          }'
