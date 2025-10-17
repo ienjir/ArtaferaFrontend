@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {Section} from '@components/section/section'
 import {TranslocoPipe} from '@jsverse/transloco';
 import {ArtPreview, ArtPreviewItem} from '@components/art-preview/art-preview';
@@ -16,12 +16,7 @@ import {environment} from "@environments/environment";
   templateUrl: './homepage.html',
   styleUrl: './homepage.scss'
 })
-export class HomePage implements OnInit {
-
-  ngOnInit() {
-    console.log("test1");
-  }
-
+export class HomePage {
   ArtPreviews: ArtPreviewItem[] = [
     {id: 1, Title: "Test1", Alt: "Test1", Link: "/images/schildkröte.jpg", Label: "Test1"},
     {id: 2, Title: "Test1", Alt: "Test1", Link: "/images/ding-dong3.jpg", Label: "Test1"},
