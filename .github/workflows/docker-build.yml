@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - NewAngular
 
 jobs:
   build-and-push:

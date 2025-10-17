@@ -14,7 +14,7 @@
   <ul class="offcanvas__items">
     @for (navigationItem of navigationItems; track $index) {
       <li class="verticalLi">
-        <a [routerLink]="navigationItem.NavigationLink">
+        <a [routerLink]="navigationItem.NavigationLink" (click)="activeOffcanvas.dismiss('Cross Link')">
           <h2>{{ navigationItem.NavigationItem | transloco }}</h2>
         </a>
       </li>
