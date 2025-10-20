@@ -1,7 +1,7 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {environment} from "@environments/environment.development";
-import {catchError, Observable, throwError} from "rxjs";
+import {catchError, map, Observable, throwError} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -12,13 +12,15 @@ export abstract class Base {
   protected readonly baseUrl = environment.apiUrl
 
   protected get<T>(endpoint: string = ''): Observable<T> {
-    return this.http.get<T>(`${this.baseUrl}/${this.resourcePath}${endpoint}`).pipe(
+    return this.http.get<{ data: T }>(`${this.baseUrl}/${this.resourcePath}${endpoint}`).pipe(
+      map(response => response.data),
       catchError(this.handleError)
     );
   }
 
   protected post<T>(endpoint: string = '', body: any = {}): Observable<T> {
-    return this.http.post<T>(`${this.baseUrl}/${this.resourcePath}${endpoint}`, body).pipe(
+    return this.http.post<{ data: T }>(`${this.baseUrl}/${this.resourcePath}${endpoint}`, body).pipe(
+      map(response => response.data),
       catchError(this.handleError)
     );
   }

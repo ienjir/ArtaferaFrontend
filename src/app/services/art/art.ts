@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Base} from "@core/services/base";
-import {ArtModel} from "@core/interfaces/art";
+import {ArtListResult, ArtModel} from "@core/interfaces/art";
+import {map, Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,11 @@ import {ArtModel} from "@core/interfaces/art";
 export class Art extends Base {
   protected readonly resourcePath = 'art';
 
-  getAll() {
-    return this.post<ArtModel[]>("/list", {"Offset": 0});
+  getByID(ID: number): Observable<ArtModel> {
+    return this.get<ArtModel>(`/${ID}`)
+  }
+
+  getAll(Offset: number): Observable<ArtListResult> {
+    return this.post<ArtListResult>("/list", {"Offset": Offset});
   }
 }

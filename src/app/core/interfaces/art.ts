@@ -15,3 +15,8 @@ export interface ArtModel {
   // Order: Order
   Available: boolean
 }
+
+export interface ArtListResult {
+  arts: ArtModel[];
+  count: number;
+}
