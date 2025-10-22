@@ -1,7 +1,7 @@
-import {Model} from "@core/interfaces/base";
-
 export interface Currency {
-  Model: Model
-  CurrencyCode: string
-  CurrencyName: string
+  id: number
+  createdAt: string
+  updatedAt: string
+  currencyCode: string
+  currencyName: string
 }
