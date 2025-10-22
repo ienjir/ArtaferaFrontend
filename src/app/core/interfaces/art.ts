@@ -2,18 +2,17 @@ import {Model} from "@core/interfaces/base";
 import {Currency} from "@core/interfaces/currency";
 
 export interface ArtModel {
-  Model: Model
-  Price: number
-  CurrencyID: number
-  Currency: Currency
-  CreationYear: number
-  Width?: number
-  Height?: number
-  Depth?: number
-  // Pictures: Pictures
-  // Translation: Translation
-  // Order: Order
-  Available: boolean
+  id: number
+  price: number
+  currency_id: number
+  currency: Currency
+  creation_year: number
+  width?: number
+  height?: number
+  depth?: number
+  pictures?: ArtPicture[]
+  translations?: ArtTranslation[]
+  available: boolean
 }
 
 export interface ArtListResult {
