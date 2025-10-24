@@ -1,6 +1,6 @@
 <div class="page">
   <div class="artpage__grid">
-    @for (ArtPreview of ArtPreviews; track $index) {
+    @for (ArtPreview of ArtPreviews(); track $index) {
       <div>
         <ArtPreview [artPreview]="ArtPreview"></ArtPreview>
       </div>

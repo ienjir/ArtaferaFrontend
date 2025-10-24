@@ -3,7 +3,7 @@ import {NgOptimizedImage} from "@angular/common";
 import {Section} from "@components/section/section";
 import {TranslocoPipe} from "@jsverse/transloco";
 import {Art} from "@app/services/art/art";
-import {ArtListResult, ArtModel} from "@core/interfaces/art";
+import {ArtModel} from "@core/interfaces/art";
 import {Subscription} from "rxjs";
 
 @Component({
@@ -25,6 +25,7 @@ export class AboutMePage implements OnDestroy {
       this.ArtService.getByID(1).subscribe({
         next: (data: ArtModel) => {
           console.log(data)
+          console.log(data.id)
           // console.log(data.arts);
           // console.log(data.count);
         },

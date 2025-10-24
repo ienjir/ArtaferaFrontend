@@ -1,5 +1,6 @@
-import {Model} from "@core/interfaces/base";
 import {Currency} from "@core/interfaces/currency";
+import { ArtPicture } from "./art-picture";
+import {ArtTranslation} from "@interfaces/art-translation";
 
 export interface ArtModel {
   id: number

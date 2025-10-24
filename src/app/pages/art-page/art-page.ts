@@ -1,8 +1,9 @@
-import {Component, inject} from '@angular/core';
-import {ArtPreview, ArtPreviewItem} from "@components/art-preview/art-preview";
+import {Component, computed, inject, OnDestroy} from '@angular/core';
+import {ArtPreview} from "@components/art-preview/art-preview";
 import {Art} from "@app/services/art/art";
 import {Subscription} from "rxjs";
-import {ArtModel} from "@core/interfaces/art";
+import {ArtListResult, ArtModel} from "@core/interfaces/art";
+import {toSignal} from "@angular/core/rxjs-interop";
 
 @Component({
   selector: 'ArtPage',
@@ -13,29 +14,14 @@ import {ArtModel} from "@core/interfaces/art";
   styleUrl: './art-page.scss'
 })
 export class ArtPage {
-  private ArtService = inject(Art);
-  private subscriptions = new Subscription();
+  private artService = inject(Art);
 
-  fetch() {
-    this.subscriptions.add(
-      this.ArtService.getByID(1).subscribe({
-        next: (data: ArtModel) => {
-          console.log(data)
-          // console.log(data.arts);
-          // console.log(data.count);
-        },
-        error: (error) => console.error('Error:', error)
-      })
-    );
-  }
+  private artData$ = this.artService.getAll(1);
 
-  ngOnDestroy() {
-    this.subscriptions.unsubscribe();
-  }
-  ArtPreviews: ArtModel[] = [
-    {id: 1, Title: "Test1", Alt: "Test1", Link: "/images/schildkröte.jpg", Label: "Test1"},
-    {id: 2, Title: "Test1", Alt: "Test1", Link: "/images/ding-dong3.jpg", Label: "Test1"},
-    {id: 3, Title: "Test1", Alt: "Test1", Link: "/images/windBlumeWinter.jpg", Label: "Test1"},
-    {id: 4, Title: "Test1", Alt: "Test1", Link: "/images/windBlumeWinter.jpg", Label: "Test1"},
-  ]
+  artState = toSignal(this.artData$, {
+    initialValue: { arts: [], count: 0 } as ArtListResult
+  });
+
+  ArtPreviews = computed(() => this.artState()?.arts ?? []);
+  Count = computed(() => this.artState()?.count ?? 0);
 }

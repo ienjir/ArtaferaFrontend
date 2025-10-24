@@ -1,9 +1,11 @@
-import {Component} from '@angular/core';
+import {Component, computed, inject} from '@angular/core';
 import {Section} from '@components/section/section'
 import {TranslocoPipe} from '@jsverse/transloco';
-import {ArtPreview, ArtPreviewItem} from '@components/art-preview/art-preview';
+import {ArtPreview} from '@components/art-preview/art-preview';
 import {RouterLink} from '@angular/router';
-import {environment} from "@environments/environment";
+import {Art} from "@app/services/art/art";
+import {toSignal} from "@angular/core/rxjs-interop";
+import {ArtListResult} from "@interfaces/art";
 
 @Component({
   selector: 'app-homepage',
@@ -17,9 +19,14 @@ import {environment} from "@environments/environment";
   styleUrl: './homepage.scss'
 })
 export class HomePage {
-  ArtPreviews: ArtPreviewItem[] = [
-    {id: 1, Title: "Test1", Alt: "Test1", Link: "/images/schildkröte.jpg", Label: "Test1"},
-    {id: 2, Title: "Test1", Alt: "Test1", Link: "/images/ding-dong3.jpg", Label: "Test1"},
-    {id: 3, Title: "Test1", Alt: "Test1", Link: "/images/windBlumeWinter.jpg", Label: "Test1"}
-  ]
+  private artService = inject(Art);
+
+  private artData$ = this.artService.getAll(1);
+
+  artState = toSignal(this.artData$, {
+    initialValue: { arts: [], count: 0 } as ArtListResult
+  });
+
+  ArtPreviews = computed(() => this.artState()?.arts ?? []);
+  Count = computed(() => this.artState()?.count ?? 0);
 }

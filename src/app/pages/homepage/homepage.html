@@ -2,7 +2,7 @@
   <div class="page__section">
     <Section [centered]="true" titleKey="featuredProducts">
       <div class="homepage__grid">
-        @for (ArtPreview of ArtPreviews; track $index) {
+        @for (ArtPreview of ArtPreviews(); track $index) {
           <div>
             <ArtPreview [artPreview]="ArtPreview"></ArtPreview>
           </div>
