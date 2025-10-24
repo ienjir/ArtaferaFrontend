@@ -10,4 +10,5 @@ export interface ArtTranslation {
   title: string
   description: string
   text: string
+  label: string
 }
