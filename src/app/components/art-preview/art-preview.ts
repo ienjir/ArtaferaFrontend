@@ -3,6 +3,7 @@ import {Label} from '@components/label/label';
 import {NgOptimizedImage} from '@angular/common';
 import {RouterLink} from "@angular/router";
 import {ArtModel} from "@core/interfaces/art";
+import {environment} from "@environments/environment";
 
 @Component({
   selector: 'ArtPreview',
@@ -16,4 +17,5 @@ import {ArtModel} from "@core/interfaces/art";
 })
 export class ArtPreview {
   artPreview = input.required<ArtModel>()
+  protected readonly environment = environment;
 }
