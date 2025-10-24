@@ -11,7 +11,7 @@ export interface ArtModel {
   width?: number
   height?: number
   depth?: number
-  pictures?: ArtPicture[]
+  artPictures?: ArtPicture[]
   translations?: ArtTranslation[]
   available: boolean
 }
