@@ -1,9 +1,13 @@
-<div class="page">
-  <div class="artpage__grid">
-    @for (ArtPreview of ArtPreviews(); track $index) {
-      <div>
-        <ArtPreview [artPreview]="ArtPreview"></ArtPreview>
-      </div>
-    }
+@if (count() == 0) {
+  <h1>Skill Issue</h1>
+} @else {
+  <div class="page">
+    <div class="artpage__grid">
+      @for (artPreview of artPreviews(); track artPreview.id) {
+        <div>
+          <ArtPreview [artPreview]="artPreview"></ArtPreview>
+        </div>
+      }
+    </div>
   </div>
-</div>
+}
