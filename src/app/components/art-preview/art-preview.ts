@@ -25,7 +25,7 @@ export class ArtPreview {
     const pic = this.picture();
     if (!pic?.picture) return '';
     const {name, id, type} = pic.picture;
-    return `${environment.pictureUrl}/${name}__${id}/${type}`;
+    return `${environment.pictureUrl}/${name}.${type}`;
   });
 
   constructor() {
