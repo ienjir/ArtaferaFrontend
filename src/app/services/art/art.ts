@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Base} from "@core/services/base";
-import {ArtListResult, ArtModel} from "@core/interfaces/art";
+import {ArtListResult, ArtModel, PublicListResult} from "@core/interfaces/art";
 import {Observable} from "rxjs";
 
 @Injectable({
@@ -15,5 +15,9 @@ export class Art extends Base {
 
   getAll(Offset: number): Observable<ArtListResult> {
     return this.post<ArtListResult>("/list", {"Offset": Offset});
+  }
+
+  getPublicList(Offset: Number, Lang: string): Observable<PublicListResult> {
+    return this.get<PublicListResult>(`/publiclist?lang=${Lang}&offset=${Offset}`);
   }
 }

@@ -20,3 +20,10 @@ export interface ArtListResult {
   arts: ArtModel[];
   count: number;
 }
+
+export interface PublicListResult {
+  arts: ArtModel[];
+  limit: number;
+  offset: number;
+  count: number;
+}
