@@ -1,7 +1,7 @@
-import {Component, computed, inject, OnDestroy, signal} from '@angular/core';
+import {Component, computed, inject, OnDestroy, Signal, signal} from '@angular/core';
 import {ArtPreview} from "@components/art-preview/art-preview";
 import {Art} from "@app/services/art/art";
-import {ArtListResult, ArtModel} from "@interfaces/art";
+import {ArtListResult, ArtModel, PublicListResult} from "@interfaces/art";
 import {toSignal} from "@angular/core/rxjs-interop";
 
 @Component({
@@ -15,12 +15,13 @@ import {toSignal} from "@angular/core/rxjs-interop";
 export class ArtPage {
   private artService = inject(Art);
 
-  private artData$ = this.artService.getAll(0);
+  artData = toSignal(
+    this.artService.getPublicList(0, 'en'),
+    {initialValue: {arts: [], count: 0, offset: 0, limit: 0} satisfies PublicListResult}
+  );
 
-  artState = toSignal(this.artData$, {
-    initialValue: {arts: [], count: 0} as ArtListResult
-  });
-
-  artPreviews = computed(() => this.artState()?.arts ?? []);
-  count = computed(() => this.artState()?.count ?? 0);
+  arts: Signal<ArtModel[]> = computed(() => this.artData().arts);
+  count = computed(() => this.artData().count);
+  offset = computed(() => this.artData().offset);
+  limit = computed(() => this.artData().limit);
 }

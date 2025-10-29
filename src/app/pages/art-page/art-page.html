@@ -3,7 +3,7 @@
 } @else {
   <div class="page">
     <div class="artpage__grid">
-      @for (artPreview of artPreviews(); track artPreview.id) {
+      @for (artPreview of arts(); track artPreview.id) {
         <div>
           <ArtPreview [artPreview]="artPreview"></ArtPreview>
         </div>
