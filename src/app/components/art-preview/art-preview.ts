@@ -19,14 +19,16 @@ export class ArtPreview {
   artPreview = input.required<ArtModel>();
   protected readonly environment = environment;
 
+  func() {
+    console.log(this.picture())
+    console.log(this.pictureUrl())
+  }
+
   artPicture = computed(() => this.artPreview()?.artPictures?.[0] ?? null);
   picture = computed(() => this.artPicture()?.picture ?? null)
 
-
-
-  constructor() {
-    effect(() => {
-      console.log(this.pictureUrl())
-    });
-  }
+  pictureUrl = computed(() => {
+    const pic = this.picture();
+    return pic ? `${environment.pictureUrl}/${pic.name}${pic.type}` : '';
+  });
 }
