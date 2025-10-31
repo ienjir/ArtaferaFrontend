@@ -1,27 +1,40 @@
-import {Component, computed, inject, OnDestroy, Signal, signal} from '@angular/core';
+import {Component, computed, inject, Signal} from '@angular/core';
 import {ArtPreview} from "@components/art-preview/art-preview";
 import {Art} from "@app/services/art/art";
-import {ArtListResult, ArtModel, PublicListResult} from "@interfaces/art";
+import {ArtModel, PublicListResult} from "@interfaces/art";
 import {toSignal} from "@angular/core/rxjs-interop";
+import {catchError, of, map} from 'rxjs';
+import {NgxSkeletonLoaderComponent} from "ngx-skeleton-loader";
+
+type LoadingState = { status: 'loading' };
+type SuccessState = { status: 'success', data: PublicListResult };
+type ErrorState = { status: 'error', error: any };
+type ArtState = LoadingState | SuccessState | ErrorState;
 
 @Component({
   selector: 'ArtPage',
-  imports: [
-    ArtPreview
-  ],
+  imports: [ArtPreview, NgxSkeletonLoaderComponent],
   templateUrl: './art-page.html',
   styleUrl: './art-page.scss'
 })
 export class ArtPage {
   private artService = inject(Art);
 
-  artData = toSignal(
-    this.artService.getPublicList(0, 'en'),
-    {initialValue: {arts: [], count: 0, offset: 0, limit: 0} satisfies PublicListResult}
+  artState = toSignal(
+    this.artService.getPublicList(0, 'en').pipe(
+      map((data): ArtState => ({status: 'success', data})),
+      catchError((error) => of({status: 'error', error} as ArtState))
+    ),
+    {initialValue: {status: 'loading'} as ArtState}
   );
 
-  arts: Signal<ArtModel[]> = computed(() => this.artData().arts);
-  count = computed(() => this.artData().count);
-  offset = computed(() => this.artData().offset);
-  limit = computed(() => this.artData().limit);
+  arts: Signal<ArtModel[]> = computed(() => {
+    const state = this.artState();
+    return state.status === 'success' ? state.data.arts : [];
+  });
+
+  count = computed(() => {
+    const state = this.artState();
+    return state.status === 'success' ? state.data.count : 0;
+  });
 }

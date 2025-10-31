@@ -6,9 +6,16 @@ import { provideClientHydration, withEventReplay } from '@angular/platform-brows
 import {provideHttpClient, withFetch} from '@angular/common/http';
 import { TranslocoHttpLoader } from './transloco-loader';
 import { provideTransloco } from '@jsverse/transloco';
+import {provideNgxSkeletonLoader} from "ngx-skeleton-loader";
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideNgxSkeletonLoader({
+      theme: {
+        extendsFromRoot: true,
+        height: '1.5rem',
+      },
+    }),
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
     provideRouter(

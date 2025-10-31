@@ -1,7 +1,7 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {environment} from "@environments/environment.development";
-import {catchError, map, Observable, throwError} from "rxjs";
+import {catchError, delay, map, Observable, throwError} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +13,7 @@ export abstract class Base {
 
   protected get<T>(endpoint: string = ''): Observable<T> {
     return this.http.get<{ data: T }>(`${this.baseUrl}/${this.resourcePath}${endpoint}`).pipe(
+      delay(1000),
       map(response => response.data),
       catchError(this.handleError)
     );
@@ -27,6 +28,10 @@ export abstract class Base {
 
   protected handleError(error: any): Observable<never> {
     console.error('API Error:', error);
-    return throwError(() => error);
+    const userError = {
+      message: error.status === 0 ? 'Network error' : 'Server error',
+      originalError: error
+    };
+    return throwError(() => userError);
   }
 }

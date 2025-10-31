@@ -1,13 +1,29 @@
-@if (count() == 0) {
-  <h1>Skill Issue</h1>
-} @else {
-  <div class="page">
-    <div class="artpage__grid">
-      @for (artPreview of arts(); track artPreview.id) {
-        <div>
-          <ArtPreview [artPreview]="artPreview"></ArtPreview>
-        </div>
-      }
+@switch (artState().status) {
+  @case ('loading') {
+    <div class="loading-state">
+      <ngx-skeleton-loader count="1" appearance="circle"/>
     </div>
-  </div>
+  }
+  @case ('error') {
+    <div class="error-state">
+      <h2>Unable to Load Artworks</h2>
+      <p>Sorry, we couldn't fetch the artworks. Please try again later.</p>
+    </div>
+  }
+  @case ('success') {
+    @if (count() === 0) {
+      <div class="empty-state">
+        <h2>No Artworks Found</h2>
+        <p>There are currently no artworks available.</p>
+      </div>
+    } @else {
+      <div class="page">
+        <div class="artpage__grid">
+          @for (artPreview of arts(); track artPreview.id) {
+            <ArtPreview [artPreview]="artPreview"></ArtPreview>
+          }
+        </div>
+      </div>
+    }
+  }
 }
