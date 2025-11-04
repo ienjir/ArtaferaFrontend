@@ -13,7 +13,6 @@ export abstract class Base {
 
   protected get<T>(endpoint: string = ''): Observable<T> {
     return this.http.get<{ data: T }>(`${this.baseUrl}/${this.resourcePath}${endpoint}`).pipe(
-      delay(1000),
       map(response => response.data),
       catchError(this.handleError)
     );

@@ -1,5 +1,17 @@
 @use 'styles' as *;
 
+.art-preview--skeleton {
+  pointer-events: none;
+
+  .art-preview__card {
+    background: var(--Background);
+    padding: 0.5rem 0.5rem 0;
+    gap: 0;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
 .artpage {
   &__grid {
     display: grid;

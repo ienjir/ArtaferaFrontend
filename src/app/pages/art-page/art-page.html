@@ -1,7 +1,14 @@
 @switch (artState().status) {
   @case ('loading') {
-    <div class="loading-state">
-      <ngx-skeleton-loader count="1" appearance="circle"/>
+    <div class="artpage__grid">
+      @for (i of Array(6); track $index) {
+        <div class="art-preview art-preview--skeleton">
+          <article class="art-preview__card">
+            <ngx-skeleton-loader count="1" [theme]="{ 'margin-bottom': '0', 'padding': '0', 'width': '100%', 'min-height': '300px', 'aspect-ratio': '4 / 3', 'background-color': 'var(--SkeletonBackground)', 'border-radius': '4px', 'opacity': '0.1' }"></ngx-skeleton-loader>
+            <ngx-skeleton-loader count="1" [theme]="{ 'width': '100%', 'height': '1.75rem', 'border-radius': '0', 'background-color': 'var(--SkeletonBackground)', 'opacity': '0.1', 'margin-bottom': '0', 'padding': '0' }"></ngx-skeleton-loader>
+          </article>
+        </div>
+      }
     </div>
   }
   @case ('error') {

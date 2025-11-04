@@ -37,4 +37,5 @@ export class ArtPage {
     const state = this.artState();
     return state.status === 'success' ? state.data.count : 0;
   });
+  protected readonly Array = Array;
 }
