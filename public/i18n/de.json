@@ -36,5 +36,6 @@
   "contactText": "Ich freue uns darauf, mit Ihnen in Verbindung zu treten und Ihre Fragen zu beantworten. Kontaktieren Sie mich jederzeit für Anfragen, Kooperationen oder weitere Informationen über die einzigartigen Kunstwerke von ArtaFera.",
   "inProgress": "Diese Seite ist mometan im Aufbau und wird zu einem späteren Zeitpunkt fertig gestellt",
   "unableToLoadArtworks": "Feheler beim laden der Kunstwerke",
-  "sorryWeCouldntFetch": "Tut mir Leid, das wir die Kunstwerke nicht laden konnten. Bitte versuchen Sie es später wieder oder kontaktieren Sie mich"
+  "sorryWeCouldntFetch": "Tut mir Leid, das wir die Kunstwerke nicht laden konnten. Bitte versuchen Sie es später wieder oder kontaktieren Sie mich",
+  "artsNotFound": "Keine Kunstwerke gefunden"
 }

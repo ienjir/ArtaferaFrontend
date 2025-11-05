@@ -13,23 +13,20 @@
   }
   @case ('error') {
     <div class="error-state">
-      <h2>{{ 'unableToLoadArtworks' | transloco}}</h2>
+      <h2>{{ 'unableToLoadArtworks' | transloco }}</h2>
       <p>{{ 'sorryWeCouldntFetch' | transloco }}</p>
     </div>
   }
   @case ('success') {
     @if (count() === 0) {
       <div class="empty-state">
-        <h2>No Artworks Found</h2>
-        <p>There are currently no artworks available.</p>
+        <h2>{{ 'artsNotFound' | transloco }}</h2>
       </div>
     } @else {
-      <div class="page">
-        <div class="artpage__grid">
-          @for (artPreview of arts(); track artPreview.id) {
-            <ArtPreview [artPreview]="artPreview"></ArtPreview>
-          }
-        </div>
+      <div class="artpage__grid">
+        @for (artPreview of arts(); track artPreview.id) {
+          <ArtPreview [artPreview]="artPreview"></ArtPreview>
+        }
       </div>
     }
   }
