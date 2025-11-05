@@ -13,8 +13,8 @@
   }
   @case ('error') {
     <div class="error-state">
-      <h2>Unable to Load Artworks</h2>
-      <p>Sorry, we couldn't fetch the artworks. Please try again later.</p>
+      <h2>{{ 'unableToLoadArtworks' | transloco}}</h2>
+      <p>{{ 'sorryWeCouldntFetch' | transloco }}</p>
     </div>
   }
   @case ('success') {

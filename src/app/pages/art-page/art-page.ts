@@ -5,6 +5,7 @@ import {ArtModel, PublicListResult} from "@interfaces/art";
 import {toSignal} from "@angular/core/rxjs-interop";
 import {catchError, of, map} from 'rxjs';
 import {NgxSkeletonLoaderComponent} from "ngx-skeleton-loader";
+import {TranslocoPipe} from "@jsverse/transloco";
 
 type LoadingState = { status: 'loading' };
 type SuccessState = { status: 'success', data: PublicListResult };
@@ -13,7 +14,7 @@ type ArtState = LoadingState | SuccessState | ErrorState;
 
 @Component({
   selector: 'ArtPage',
-  imports: [ArtPreview, NgxSkeletonLoaderComponent],
+  imports: [ArtPreview, NgxSkeletonLoaderComponent, TranslocoPipe],
   templateUrl: './art-page.html',
   styleUrl: './art-page.scss'
 })
