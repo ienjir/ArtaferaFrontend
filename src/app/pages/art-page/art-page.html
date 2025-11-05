@@ -6,7 +6,7 @@
     </div>
   </div>
 } @else {
-  @if (count() === 0 && error() === null) {
+  @if (count() === 0 && error() === null && isLoading() === false) {
     <div class="page page--h-centered page--v-centered">
       <h2>{{ 'artsNotFound' | transloco }}</h2>
     </div>

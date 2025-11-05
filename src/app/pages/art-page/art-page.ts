@@ -41,7 +41,6 @@ export class ArtPage {
     this.artService.getPublicList(this.offset(), 'en').subscribe({
       next: (result) => {
         this.allArts.update(current => [...current, ...result.arts]);
-        console.log(result.arts)
         this.count.set(result.count);
         this.offset.update(value => value + 1);
         this.isLoading.set(false);
