@@ -1,9 +1,7 @@
-import {Component, computed, inject, Signal} from '@angular/core';
+import {Component, computed, inject, signal, Signal} from '@angular/core';
 import {ArtPreview} from "@components/art-preview/art-preview";
 import {Art} from "@app/services/art/art";
 import {ArtModel, PublicListResult} from "@interfaces/art";
-import {toSignal} from "@angular/core/rxjs-interop";
-import {catchError, of, map} from 'rxjs';
 import {NgxSkeletonLoaderComponent} from "ngx-skeleton-loader";
 import {TranslocoPipe} from "@jsverse/transloco";
 
@@ -20,23 +18,42 @@ type ArtState = LoadingState | SuccessState | ErrorState;
 })
 export class ArtPage {
   private artService = inject(Art);
-
-  artState = toSignal(
-    this.artService.getPublicList(0, 'en').pipe(
-      map((data): ArtState => ({status: 'success', data})),
-      catchError((error) => of({status: 'error', error} as ArtState))
-    ),
-    {initialValue: {status: 'loading'} as ArtState}
-  );
-
-  arts: Signal<ArtModel[]> = computed(() => {
-    const state = this.artState();
-    return state.status === 'success' ? state.data.arts : [];
-  });
-
-  count = computed(() => {
-    const state = this.artState();
-    return state.status === 'success' ? state.data.count : 0;
-  });
   protected readonly Array = Array;
+
+  offset = signal(0)
+  allArts = signal<ArtModel[]>([])
+  isLoading = signal<Boolean>(false)
+  count = signal<number>(0)
+  error = signal<any>(null)
+  hasMore = computed(() => this.allArts().length < this.count());
+
+  constructor() {
+    this.loadArt()
+  }
+
+
+  loadArt() {
+    if (this.isLoading()) return;
+
+    this.isLoading.set(true);
+    this.error.set(null);
+
+    this.artService.getPublicList(this.offset(), 'en').subscribe({
+      next: (result) => {
+        this.allArts.update(current => [...current, ...result.arts]);
+        console.log(result.arts)
+        this.count.set(result.count);
+        this.offset.update(value => value + 1);
+        this.isLoading.set(false);
+      },
+      error: (err) => {
+        this.error.set(err);
+        this.isLoading.set(false);
+      }
+    });
+  }
+
+  loadMore() {
+    this.loadArt()
+  }
 }

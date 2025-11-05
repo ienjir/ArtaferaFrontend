@@ -1,5 +1,29 @@
-@switch (artState().status) {
-  @case ('loading') {
+@if (error()) {
+  <div class="page page--h-centered page--v-centered">
+    <div>
+      <h2>{{ 'unableToLoadArtworks' | transloco }}</h2>
+      <p>{{ 'sorryWeCouldntFetch' | transloco }}</p>
+    </div>
+  </div>
+} @else {
+  @if (count() === 0 && error() === null) {
+    <div class="page page--h-centered page--v-centered">
+      <h2>{{ 'artsNotFound' | transloco }}</h2>
+    </div>
+  } @else {
+    <div class="artpage__grid">
+      @for (artPreview of allArts(); track artPreview.id) {
+        <ArtPreview [artPreview]="artPreview"></ArtPreview>
+      }
+    </div>
+    @if ((this.offset() + 1) * 20 < this.count()) {
+      <div class="artpage__loadmore">
+        <button class="artpage__loadmore__button" (click)="loadMore()">{{ 'loadMore' | transloco }}</button>
+      </div>
+    }
+  }
+
+  @if (isLoading()) {
     <div class="artpage__grid">
       @for (i of Array(6); track $index) {
         <div class="art-preview art-preview--skeleton">
@@ -11,23 +35,10 @@
       }
     </div>
   }
-  @case ('error') {
-    <div class="error-state">
-      <h2>{{ 'unableToLoadArtworks' | transloco }}</h2>
-      <p>{{ 'sorryWeCouldntFetch' | transloco }}</p>
+
+  @if (!isLoading() && hasMore()) {
+    <div class="artpage__loadmore">
+      <button (click)="loadMore()" class="artpage__loadmore__button">Load More</button>
     </div>
-  }
-  @case ('success') {
-    @if (count() === 0) {
-      <div class="empty-state">
-        <h2>{{ 'artsNotFound' | transloco }}</h2>
-      </div>
-    } @else {
-      <div class="artpage__grid">
-        @for (artPreview of arts(); track artPreview.id) {
-          <ArtPreview [artPreview]="artPreview"></ArtPreview>
-        }
-      </div>
-    }
   }
 }

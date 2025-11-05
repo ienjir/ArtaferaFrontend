@@ -18,12 +18,7 @@
           (click)="togglePassword()"
           class="text-input__show-password-btn"
           [attr.aria-label]="passwordToggleLabel() | transloco">
-          <img
-            [ngSrc]="passwordIconSrc()"
-            [alt]="passwordToggleLabel() | transloco"
-            height="20"
-            width="20"
-            class="text-input__password-icon">
+          <img [ngSrc]="passwordIconSrc()" [alt]="passwordToggleLabel() | transloco" height="20" width="20" class="text-input__password-icon">
         </button>
       </div>
     }
