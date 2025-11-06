@@ -1,4 +1,4 @@
-import {ApplicationConfig, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection, isDevMode} from '@angular/core';
+import {ApplicationConfig, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection, isDevMode, ErrorHandler} from '@angular/core';
 import {provideRouter, withInMemoryScrolling} from '@angular/router';
 
 import {routes} from './app.routes';
@@ -7,6 +7,7 @@ import {provideHttpClient, withFetch} from '@angular/common/http';
 import {TranslocoHttpLoader} from './transloco-loader';
 import {provideTransloco} from '@jsverse/transloco';
 import {provideNgxSkeletonLoader} from "ngx-skeleton-loader";
+import {GlobalErrorHandler} from "@core/services/global-error-handler/global-error-handler";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -27,6 +28,7 @@ export const appConfig: ApplicationConfig = {
         anchorScrolling: 'enabled'
       }),
     ),
+    {provide: ErrorHandler, useClass: GlobalErrorHandler},
     provideTransloco({
       config: {
         availableLangs: ['de', 'en'],
