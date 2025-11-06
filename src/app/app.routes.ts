@@ -16,14 +16,8 @@ export const routes: Routes = [
       {path: '', component: HomePage}
     ]
   },
-  {
-    path: '',
-    component: DefaultLayout,
-    children: [
-      {path: "kunst", component: ArtPage},
-      {path: "uebermich", component: AboutMePage},
-      {path: "kontakt", component: ContactPage},
-      {path: '**', component: NotFoundPage}
-    ]
-  },
+  {path: "kunst", component: DefaultLayout, children: [{path: '', component: ArtPage}]},
+  {path: "uebermich", component: DefaultLayout, children: [{path: '', component: AboutMePage}]},
+  {path: "kontakt", component: DefaultLayout, children: [{path: '', component: ContactPage}]},
+  {path: '**', component: NotFoundPage}
 ];

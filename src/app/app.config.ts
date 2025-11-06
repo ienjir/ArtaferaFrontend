@@ -1,11 +1,11 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection, isDevMode } from '@angular/core';
+import {ApplicationConfig, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection, isDevMode} from '@angular/core';
 import {provideRouter, withInMemoryScrolling} from '@angular/router';
 
-import { routes } from './app.routes';
-import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
+import {routes} from './app.routes';
+import {provideClientHydration, withEventReplay} from '@angular/platform-browser';
 import {provideHttpClient, withFetch} from '@angular/common/http';
-import { TranslocoHttpLoader } from './transloco-loader';
-import { provideTransloco } from '@jsverse/transloco';
+import {TranslocoHttpLoader} from './transloco-loader';
+import {provideTransloco} from '@jsverse/transloco';
 import {provideNgxSkeletonLoader} from "ngx-skeleton-loader";
 
 export const appConfig: ApplicationConfig = {
@@ -18,23 +18,23 @@ export const appConfig: ApplicationConfig = {
     }),
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
+    provideClientHydration(withEventReplay()),
+    provideHttpClient(withFetch()),
     provideRouter(
       routes,
       withInMemoryScrolling({
-        scrollPositionRestoration: 'top',
-        anchorScrolling: 'enabled',
+        scrollPositionRestoration: "top",
+        anchorScrolling: 'enabled'
       }),
     ),
-    provideClientHydration(withEventReplay()),
-    provideHttpClient(withFetch()),
     provideTransloco({
-        config: {
-          availableLangs: ['de', 'en'],
-          defaultLang: 'de',
-          reRenderOnLangChange: true,
-          prodMode: !isDevMode(),
-        },
-        loader: TranslocoHttpLoader
-      })
+      config: {
+        availableLangs: ['de', 'en'],
+        defaultLang: 'de',
+        reRenderOnLangChange: true,
+        prodMode: !isDevMode(),
+      },
+      loader: TranslocoHttpLoader
+    })
   ]
 };

@@ -1,5 +1,7 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import {isPlatformBrowser} from '@angular/common';
+import {Component, inject, PLATFORM_ID, signal} from '@angular/core';
+import {NavigationEnd, Router, RouterOutlet, Scroll} from '@angular/router';
+import {filter} from "rxjs";
 
 @Component({
   selector: 'app-root',

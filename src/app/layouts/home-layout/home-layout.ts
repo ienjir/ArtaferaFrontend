@@ -31,7 +31,7 @@ export class HomeLayout {
     }
   }
 
-  images: {Link: string, Alt: string, CaptionTitle: string, CaptionSubtitle: string}[] =  [
+  images: { Link: string, Alt: string, CaptionTitle: string, CaptionSubtitle: string }[] = [
     {Link: "/images/ding-dong3.jpg", Alt: "Ding Dong", CaptionTitle: "", CaptionSubtitle: ""},
     {Link: "/images/schildkröte.jpg", Alt: "Schidkröte", CaptionTitle: "", CaptionSubtitle: ""},
     {Link: "/images/windBlumeWinter.jpg", Alt: "Windblume", CaptionTitle: "", CaptionSubtitle: ""}
