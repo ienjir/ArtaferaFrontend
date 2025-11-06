@@ -9,13 +9,7 @@ import {ArtPage} from "@pages/art-page/art-page";
 
 
 export const routes: Routes = [
-  {
-    path: '',
-    component: HomeLayout,
-    children: [
-      {path: '', component: HomePage}
-    ]
-  },
+  {path: '', component: HomeLayout, children: [{path: '', component: HomePage}]},
   {path: "kunst", component: DefaultLayout, children: [{path: '', component: ArtPage}]},
   {path: "uebermich", component: DefaultLayout, children: [{path: '', component: AboutMePage}]},
   {path: "kontakt", component: DefaultLayout, children: [{path: '', component: ContactPage}]},

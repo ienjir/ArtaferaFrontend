@@ -43,7 +43,6 @@ $breakpoints: (
 
 // Layout
 .layout-container {
-  margin: -2 auto;
   padding: 0.5rem;
   gap: 1rem;
   display: flex;
@@ -210,8 +209,6 @@ body, html {
   background-color: var(--PageBackground);
   margin: 0;
   padding: 0;
-  height: 100%;
-  overflow-x: hidden;
   font-family: Raleway sans-serif;
 }
 
