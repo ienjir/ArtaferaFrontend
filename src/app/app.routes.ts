@@ -6,6 +6,7 @@ import {NotFoundPage} from "@pages/not-found-page/not-found-page";
 import {AboutMePage} from "@pages/about-me-page/about-me-page";
 import {ContactPage} from "@pages/contact-page/contact-page";
 import {ArtPage} from "@pages/art-page/art-page";
+import {ArtDetailPage} from "@pages/art-detail-page/art-detail-page";
 
 
 export const routes: Routes = [
@@ -13,5 +14,6 @@ export const routes: Routes = [
   {path: "kunst", component: DefaultLayout, children: [{path: '', component: ArtPage}]},
   {path: "uebermich", component: DefaultLayout, children: [{path: '', component: AboutMePage}]},
   {path: "kontakt", component: DefaultLayout, children: [{path: '', component: ContactPage}]},
+  {path: "kunst/:id", component: DefaultLayout, children: [{path: '', component: ArtDetailPage}]},
   {path: '**', component: NotFoundPage}
 ];
