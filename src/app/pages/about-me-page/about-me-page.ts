@@ -3,7 +3,7 @@ import {NgOptimizedImage} from "@angular/common";
 import {Section} from "@components/section/section";
 import {TranslocoPipe} from "@jsverse/transloco";
 import {Art} from "@app/services/art/art";
-import {ArtModel} from "@core/interfaces/art";
+import {ArtModel} from "@interfaces/art.model";
 import {Subscription} from "rxjs";
 
 @Component({

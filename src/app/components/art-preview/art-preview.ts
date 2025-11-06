@@ -2,7 +2,7 @@ import {Component, computed, effect, input, Input, OnInit} from '@angular/core';
 import {Label} from '@components/label/label';
 import {NgOptimizedImage} from '@angular/common';
 import {RouterLink} from "@angular/router";
-import {ArtModel} from "@core/interfaces/art";
+import {ArtModel} from "@interfaces/art.model";
 import {environment} from "@environments/environment";
 
 @Component({

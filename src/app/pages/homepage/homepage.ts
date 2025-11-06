@@ -5,7 +5,7 @@ import {ArtPreview} from '@components/art-preview/art-preview';
 import {RouterLink} from '@angular/router';
 import {Art} from "@app/services/art/art";
 import {toSignal} from "@angular/core/rxjs-interop";
-import {ArtListResult, ArtModel, PublicListResult} from "@interfaces/art";
+import {ArtListResult, ArtModel, PublicListResult} from "@interfaces/art.model";
 import {catchError, map, of} from "rxjs";
 
 type LoadingState = { status: 'loading' };
