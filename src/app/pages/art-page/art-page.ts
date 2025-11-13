@@ -1,9 +1,9 @@
 import {Component, computed, inject, signal, Signal} from '@angular/core';
 import {ArtPreview} from "@components/art-preview/art-preview";
-import {Art} from "@app/services/art/art";
 import {ArtModel, PublicListResult} from "@interfaces/art.model";
 import {NgxSkeletonLoaderComponent} from "ngx-skeleton-loader";
 import {TranslocoPipe} from "@jsverse/transloco";
+import {Art} from "@services/art/art";
 
 type LoadingState = { status: 'loading' };
 type SuccessState = { status: 'success', data: PublicListResult };

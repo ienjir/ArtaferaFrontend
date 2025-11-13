@@ -3,10 +3,10 @@ import {Section} from '@components/section/section'
 import {TranslocoPipe} from '@jsverse/transloco';
 import {ArtPreview} from '@components/art-preview/art-preview';
 import {RouterLink} from '@angular/router';
-import {Art} from "@app/services/art/art";
 import {toSignal} from "@angular/core/rxjs-interop";
 import {ArtListResult, ArtModel, PublicListResult} from "@interfaces/art.model";
 import {catchError, map, of} from "rxjs";
+import {Art} from "@services/art/art";
 
 type LoadingState = { status: 'loading' };
 type SuccessState = { status: 'success', data: PublicListResult };

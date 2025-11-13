@@ -24,6 +24,8 @@
       "@pages/*": ["app/pages/*"],
       "@layouts/*": ["app/layouts/*"],
       "@interfaces/*": ["app/core/interfaces/*"],
+      "@interceptors/*": ["app/core/interceptors/*"],
+      "@services/*": ["app/core/services/*"]
     }
   },
   "angularCompilerOptions": {

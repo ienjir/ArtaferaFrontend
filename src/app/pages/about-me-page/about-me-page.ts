@@ -2,9 +2,9 @@ import {Component, inject, OnDestroy} from '@angular/core';
 import {NgOptimizedImage} from "@angular/common";
 import {Section} from "@components/section/section";
 import {TranslocoPipe} from "@jsverse/transloco";
-import {Art} from "@app/services/art/art";
 import {ArtModel} from "@interfaces/art.model";
 import {Subscription} from "rxjs";
+import {Art} from "@services/art/art";
 
 @Component({
   selector: 'AboutMePage',

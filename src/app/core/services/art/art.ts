@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
-import {Base} from "@core/services/base";
 import {ArtListResult, ArtModel, PublicListResult} from "@interfaces/art.model";
 import {Observable} from "rxjs";
+import {Base} from "@services/base/base";
 
 @Injectable({
   providedIn: 'root'

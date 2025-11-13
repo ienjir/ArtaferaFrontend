@@ -1,6 +1,27 @@
 @use "sass:map";
-@use 'bootstrap/scss/bootstrap';
+@use 'bootstrap/scss/bootstrap' with (
+  $primary: #A5BCD5,
+  $secondary: #1F93B4,
+  $success: #0EC949,
+  $info: #186AB5,
+  $warning: #CC7803,
+  $danger: #ad0000,
+);
 @import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
+// Define your SCSS variables
+$main: #A5BCD5;
+$text: rgb(234, 234, 234);
+$focus: #4585d3;
+$page-background: #1A1A1A;
+$background: #2a2a2a;
+$accent1: #1F93B4;
+$accent2: #DC58E7;
+$accent3: #1F93B4;
+$red: #ad0000;
+$green: #0EC949;
+$orange: #CC7803;
+$blue: #186AB5;
 
 $breakpoints: (
   xs: 480px,
@@ -11,24 +32,27 @@ $breakpoints: (
   xxl: 1920px,
 );
 
+// CSS custom properties
 :root {
-  --Main: #A5BCD5;
-  --Text: rgb(234, 234, 234);
+  --Main: #{$main};
+  --Text: #{$text};
   --Text80: rgba(234, 234, 234, 60);
-  --Focus: #4585d3;
-  --PageBackground: #1A1A1A;
-  --Background: #2a2a2a;
-  --Accent1: #1F93B4;
-  --Accent2: #DC58E7;
-  --Accent3: #1F93B4;
-  --Red: #ad0000;
+  --Focus: #{$focus};
+  --PageBackground: #{$page-background};
+  --Background: #{$background};
+  --Accent1: #{$accent1};
+  --Accent2: #{$accent2};
+  --Accent3: #{$accent3};
+  --Red: #{$red};
+  --Green: #{$green};
+  --Orange: #{$orange};
+  --Blue: #{$blue};
   --SkeletonBackground: #444444;
   --bs-carousel-indicator-width: 1rem;
   --bs-carousel-indicator-height: 1rem !important;
   --bs-carousel-indicator-spacer: 0.5rem;
   --bs-carousel-indicator-active-bg: var(--Text);
 }
-
 
 @mixin respond-from($breakpoint) {
   @if map.has-key($breakpoints, $breakpoint) {
@@ -203,6 +227,7 @@ $breakpoints: (
     }
   }
 }
+
 
 // HTML Elements
 body, html {
