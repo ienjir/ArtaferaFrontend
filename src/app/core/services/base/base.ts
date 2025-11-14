@@ -14,23 +14,12 @@ export abstract class Base {
   protected get<T>(endpoint: string = ''): Observable<T> {
     return this.http.get<{ data: T }>(`${this.baseUrl}/${this.resourcePath}${endpoint}`).pipe(
       map(response => response.data),
-      catchError(this.handleError)
     );
   }
 
   protected post<T>(endpoint: string = '', body: any = {}): Observable<T> {
     return this.http.post<{ data: T }>(`${this.baseUrl}/${this.resourcePath}${endpoint}`, body).pipe(
       map(response => response.data),
-      catchError(this.handleError)
     );
-  }
-
-  protected handleError(error: any): Observable<never> {
-    console.error('API Error:', error);
-    const userError = {
-      message: error.status === 0 ? 'Network error' : 'Server error',
-      originalError: error
-    };
-    return throwError(() => userError);
   }
 }

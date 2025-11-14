@@ -1,10 +1,13 @@
-import {ErrorHandler, Injectable} from '@angular/core';
+import {ErrorHandler, inject, Injectable} from '@angular/core';
+import {ErrorService} from "@services/error-service/error-service";
 
 @Injectable({
   providedIn: 'root',
 })
 export class GlobalErrorHandler implements ErrorHandler {
+  private errorService = inject(ErrorService)
+
   handleError(error: any): void {
-    console.error('Global Error Handler: ' + error)
+    this.errorService.handleGlobalError(error)
   }
 }
