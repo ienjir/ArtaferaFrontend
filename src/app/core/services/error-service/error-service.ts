@@ -12,6 +12,8 @@ export class ErrorService {
 
   private getHttpMessage(error: HttpErrorResponse): string {
     switch (error.status) {
+      case 0:
+        return "TL_Server-Error"
       case 400:
         return 'TL_Bad-request'
       case 401:
@@ -28,8 +30,8 @@ export class ErrorService {
   }
 
   handleHttpError(error: HttpErrorResponse) {
-    const msg = this.translocoService.translate(this.getHttpMessage(error))
-    const title = this.translocoService.translate("TL_Something-Went-Wrong")
+    const title = this.translocoService.translate(this.getHttpMessage(error))
+    const msg = this.translocoService.translate("TL_Something-Went-Wrong")
     this.toastService.error(msg, title)
     this.processError(error)
   }
