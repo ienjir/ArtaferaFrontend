@@ -31,7 +31,6 @@ export class ArtPage {
     this.loadArt()
   }
 
-
   loadArt() {
     if (this.isLoading()) return;
 

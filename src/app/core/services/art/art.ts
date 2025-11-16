@@ -10,14 +10,14 @@ export class Art extends Base {
   protected readonly resourcePath = 'art';
 
   getByID(ID: number): Observable<ArtModel> {
-    return this.get<ArtModel>(`/${ID}`);
+    return this.get<ArtModel>(`/${ID}`, true);
   }
 
   getAll(Offset: number): Observable<ArtListResult> {
-    return this.post<ArtListResult>("/list", {"Offset": Offset});
+    return this.post<ArtListResult>("/list", {"Offset": Offset}, true);
   }
 
   getPublicList(Offset: Number, Lang: string): Observable<PublicListResult> {
-    return this.get<PublicListResult>(`/publiclist?lang=${Lang}&offset=${Offset}`);
+    return this.get<PublicListResult>(`/publiclist?lang=${Lang}&offset=${Offset}`, true);
   }
 }
