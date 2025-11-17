@@ -13,19 +13,19 @@ export class ErrorService {
   private getHttpMessage(error: HttpErrorResponse): string {
     switch (error.status) {
       case 0:
-        return "TL_Server-Error"
+        return "TL-ERR_Server-Error"
       case 400:
-        return 'TL_Bad-request'
+        return 'TL-ERR_Bad-Request'
       case 401:
-        return 'TL_Unauthorized'
+        return 'TL-ERR_Unauthorized'
       case 403:
-        return 'TL_Forbidden'
+        return 'TL-ERR_Forbidden'
       case 404:
-        return 'TL_Not-Found'
+        return 'TL-ERR_Not-Found'
       case 500:
-        return 'TL_Internal-Server-Error'
+        return 'TL-ERR_Internal-Server-Error'
       default:
-        return 'TL_Unexpected-Error'
+        return 'TL-ERR_Unexpected-Error'
     }
   }
 

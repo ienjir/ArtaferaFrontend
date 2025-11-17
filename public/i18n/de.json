@@ -1,13 +1,18 @@
 {
-  "TL_Bad-request": "400: Schlechte Anfrage",
-  "TL_Unauthorized": "401: Nicht berechtigt",
-  "TL_Forbidden": "403: Verboten",
-  "TL_Not-Found": "404: Ressource nicht gefunden",
-  "TL_Internal-Server-Error": "500: Interner Server Error",
-  "TL_Unexpected-Error": "Unvorhergesehener Error",
-  "TL_Server-Error": "Server nicht erreichbar",
+  "TL-ERR_Server-Error": "Server nicht erreichbar",
+  "TL-ERR_Bad-Request": "400: Schlechte Anfrage",
+  "TL-ERR_Unauthorized": "401: Nicht berechtigt",
+  "TL-ERR_Forbidden": "403: Verboten",
+  "TL-ERR_Not-Found": "404: Ressource nicht gefunden",
+  "TL-ERR_Internal-Server-Error": "500: Interner Server Error",
+  "TL-ERR_Unexpected-Error": "Unvorhergesehener Error",
 
-  "TL_Something-Went-Wrong": "Etwas ist schief gelaufen. Bitte versuchen Sie es später wieder oder Kontaktieren Sie mich",
+  "TL-ERR_Something-Went-Wrong": "Etwas ist schief gelaufen. Bitte versuchen Sie es später wieder oder Kontaktieren Sie mich",
+
+  "TL-ART_Load-More": "Mehr laden",
+  "TL-ART_Error-While-Fetching": "Fehler beim laden der Kunstwerke",
+  "TL-ART_Unable-To-Load-Art": "Tut mir Leid, das wir die Kunstwerke nicht laden konnten. Bitte versuchen Sie es später wieder oder kontaktieren Sie mich",
+  "TL-ART_Art-Not-Found": "Keine Kunst gefunden",
 
   "navbar.home": "Home",
   "navbar.aboutMe": "Über mich",
@@ -44,9 +49,5 @@
   "send": "Senden",
   "aboutMeText": "Ich bin Heiko Mach, Projektleiter im Bereich Sanitär- und Heizungstechnik und lebe seit 2001 in der Schweiz. Neben meiner beruflichen Tätigkeit schlägt mein Herz für die Kunst: In meiner Freizeit kreiere ich leidenschaftlich einzigartige Eisenkunstwerke unter dem Namen ArtaFera,\n        angetrieben von Experimentierfreude und Kreativität.",
   "contactText": "Ich freue uns darauf, mit Ihnen in Verbindung zu treten und Ihre Fragen zu beantworten. Kontaktieren Sie mich jederzeit für Anfragen, Kooperationen oder weitere Informationen über die einzigartigen Kunstwerke von ArtaFera.",
-  "inProgress": "Diese Seite ist mometan im Aufbau und wird zu einem späteren Zeitpunkt fertig gestellt",
-  "unableToLoadArtworks": "Fehle beim laden der Kunstwerke",
-  "sorryWeCouldntFetch": "Tut mir Leid, das wir die Kunstwerke nicht laden konnten. Bitte versuchen Sie es später wieder oder kontaktieren Sie mich",
-  "artsNotFound": "Keine Kunstwerke gefunden",
-  "loadMore": "Mehr laden"
+  "inProgress": "Diese Seite ist mometan im Aufbau und wird zu einem späteren Zeitpunkt fertig gestellt"
 }
