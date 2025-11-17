@@ -2,7 +2,7 @@
   "TL_Bad-request": "400: Schlechte Anfrage",
   "TL_Unauthorized": "401: Nicht berechtigt",
   "TL_Forbidden": "403: Verboten",
-  "TL_Not-Found": "404: Nicht gefunden",
+  "TL_Not-Found": "404: Ressource nicht gefunden",
   "TL_Internal-Server-Error": "500: Interner Server Error",
   "TL_Unexpected-Error": "Unvorhergesehener Error",
   "TL_Server-Error": "Server nicht erreichbar",

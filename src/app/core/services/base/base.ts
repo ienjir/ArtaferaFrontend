@@ -27,6 +27,7 @@ export abstract class Base {
   }
 
   protected handleError(error: any): Observable<never> {
-    return
+    console.error(error)
+    return throwError(() => error)
   }
 }
