@@ -1,15 +1,15 @@
-@if (images()) {
-  <ngb-carousel class="carousel" [showNavigationArrows]="showNavigation()" [showNavigationIndicators]="showIndicators()" [pauseOnFocus]="pauseOnFocus()" [pauseOnHover]="pauseOnHover()" [interval]="interval()" [wrap]="wrap()" >
-    @for (slide of images(); track $index) {
+@if (pictures()) {
+  <ngb-carousel class="carousel" [showNavigationArrows]="showNavigation()" [showNavigationIndicators]="showIndicators()" [pauseOnFocus]="pauseOnFocus()" [pauseOnHover]="pauseOnHover()" [interval]="interval()" [wrap]="wrap()">
+    @for (slide of pictures(); track $index) {
       <ng-template ngbSlide class="carousel-template">
         <div class="picsum-img-wrapper carousel-image">
-          <img [ngSrc]="slide.Link" [class.darkened]="darkened()" fill [alt]="slide.Alt" priority/>
-        </div>
-        <div class="carousel-caption">
-          <h3>{{ slide.CaptionTitle }}</h3>
-          <p>{{ slide.CaptionSubtitle }}</p>
+          <img [ngSrc]="pictureUrl(slide)" [class.darkened]="darkened()" fill [alt]="slide.name" priority/>
         </div>
       </ng-template>
     }
   </ngb-carousel>
+} @else {
+  <div>
+    <h1>Pleae implement</h1>
+  </div>
 }

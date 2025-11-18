@@ -1,11 +1,11 @@
 <div class="image-carousel">
-  <ImageCarousel [images]="images" [darkened]="true" [showNavigation]="false" [showIndicators]="false"></ImageCarousel>
+  <AF-Image-Carousel [pictures]="pictures" basePictureURL="/pictures" [darkened]="true" [showNavigation]="false" [showIndicators]="false"></AF-Image-Carousel>
   <div class="image-carousel__welcome">
     <h1 class="image-carousel__welcome__title">
       {{ 'welcomeTo' | transloco }}
     </h1>
     <div class="image-carousel__welcome__divider"></div>
-    <img class="image-carousel__welcome__logo" priority ngSrc="/images/logos/Logo_Light_Big.png" alt="HomepageLogo" height="687" width="2150">
+    <img class="image-carousel__welcome__logo" priority ngSrc="/pictures/logos/Logo_Light_Big.png" alt="HomepageLogo" height="687" width="2150">
   </div>
   <div class="image-carousel__scroll-down">
     <button class="image-carousel__scroll-down__button" (click)="scrollToNavbar()">

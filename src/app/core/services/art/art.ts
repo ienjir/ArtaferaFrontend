@@ -9,8 +9,8 @@ import {Base} from "@services/base/base";
 export class Art extends Base {
   protected readonly resourcePath = 'art';
 
-  getByID(ID: number): Observable<ArtModel> {
-    return this.get<ArtModel>(`/${ID}`, true);
+  getByID(ID: number): Observable<Art> {
+    return this.get<Art>(`/${ID}`, true);
   }
 
   getAll(Offset: number): Observable<ArtListResult> {

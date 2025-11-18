@@ -3,8 +3,8 @@ import {z} from "zod";
 
 export const ArtPictureSchema = z.object({
   id: z.number(),
-  createdAt: z.string(),
-  updatedAt: z.string(),
+  created_at: z.string(),
+  updated_at: z.string(),
   artId: z.number(),
   pictureId: z.number(),
   picture: PictureSchema.optional(),

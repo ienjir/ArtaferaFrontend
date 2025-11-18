@@ -5,6 +5,7 @@ import {TranslocoPipe} from '@jsverse/transloco';
 import {isPlatformBrowser, NgOptimizedImage} from '@angular/common';
 import {NavigationBar} from '@components//navigation-bar/navigation-bar';
 import {ImageCarousel} from '@components/image-carousel/image-carousel';
+import {ArtPicture} from "@interfaces/art-picture.model";
 
 @Component({
   selector: 'app-home-layout',
@@ -31,9 +32,9 @@ export class HomeLayout {
     }
   }
 
-  images: { Link: string, Alt: string, CaptionTitle: string, CaptionSubtitle: string }[] = [
-    {Link: "/images/ding-dong3.jpg", Alt: "Ding Dong", CaptionTitle: "", CaptionSubtitle: ""},
-    {Link: "/images/schildkröte.jpg", Alt: "Schidkröte", CaptionTitle: "", CaptionSubtitle: ""},
-    {Link: "/images/windBlumeWinter.jpg", Alt: "Windblume", CaptionTitle: "", CaptionSubtitle: ""}
+  pictures: ArtPicture[] = [
+    {id: 0, name: "DingDong", priority: 1, picture: {id: 0, type: ".jpg", is_public: true, name: "DingDong", created_at: Date(), updated_at: Date()}, artId: 0, created_at: Date(), updated_at: Date(), pictureId: 0,},
+    {id: 0, name: "Sonnenblume", priority: 2, picture: {id: 0, type: ".jpg", is_public: true, name: "Sonnenblume", created_at: Date(), updated_at: Date()}, artId: 0, created_at: Date(), updated_at: Date(), pictureId: 0,},
+    {id: 0, name: "Schildkröte", priority: 3, picture: {id: 0, type: ".jpg", is_public: true, name: "Schildkröte", created_at: Date(), updated_at: Date()}, artId: 0, created_at: Date(), updated_at: Date(), pictureId: 0,},
   ]
 }

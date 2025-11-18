@@ -2,7 +2,6 @@ import {Component, inject, OnDestroy} from '@angular/core';
 import {NgOptimizedImage} from "@angular/common";
 import {Section} from "@components/section/section";
 import {TranslocoPipe} from "@jsverse/transloco";
-import {ArtModel} from "@interfaces/art.model";
 import {Subscription} from "rxjs";
 import {Art} from "@services/art/art";
 
@@ -23,11 +22,8 @@ export class AboutMePage implements OnDestroy {
   fetch() {
     this.subscriptions.add(
       this.ArtService.getByID(1).subscribe({
-        next: (data: ArtModel) => {
+        next: (data: Art) => {
           console.log(data)
-          console.log(data.id)
-          // console.log(data.arts);
-          // console.log(data.count);
         },
         error: (error) => console.error('Error:', error)
       })
