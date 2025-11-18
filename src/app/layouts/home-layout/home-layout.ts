@@ -4,7 +4,7 @@ import {Footer} from '@components/footer/footer';
 import {TranslocoPipe} from '@jsverse/transloco';
 import {isPlatformBrowser, NgOptimizedImage} from '@angular/common';
 import {NavigationBar} from '@components//navigation-bar/navigation-bar';
-import {ImageCarousel} from '@components/image-carousel/image-carousel';
+import {PictureCarousel} from '@components/picture-carousel/picture-carousel';
 import {ArtPicture} from "@interfaces/art-picture.model";
 
 @Component({
@@ -14,7 +14,7 @@ import {ArtPicture} from "@interfaces/art-picture.model";
     Footer,
     TranslocoPipe,
     NavigationBar,
-    ImageCarousel,
+    PictureCarousel,
     NgOptimizedImage
   ],
   templateUrl: './home-layout.html',

@@ -5,15 +5,15 @@ import {environment} from "@environments/environment";
 import {ArtPicture} from "@interfaces/art-picture.model";
 
 @Component({
-  selector: 'AF-Image-Carousel',
+  selector: 'AF-Picture-Carousel',
   imports: [
     NgbCarouselModule,
     NgOptimizedImage,
   ],
-  templateUrl: './image-carousel.html',
-  styleUrl: './image-carousel.scss'
+  templateUrl: './picture-carousel.html',
+  styleUrl: './picture-carousel.scss'
 })
-export class ImageCarousel {
+export class PictureCarousel {
   showNavigation = input<boolean>(true)
   showIndicators = input<boolean>(true)
   pauseOnFocus = input<boolean>(true)

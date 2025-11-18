@@ -2,12 +2,12 @@ import {Component, computed, inject, signal} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {Art} from "@interfaces/art.model";
 import {ArtService} from "@services/art/art";
-import {ImageCarousel} from "@components/image-carousel/image-carousel";
+import {PictureCarousel} from "@components/picture-carousel/picture-carousel";
 
 @Component({
   selector: 'app-art-detail-page',
   imports: [
-    ImageCarousel
+    PictureCarousel
   ],
   templateUrl: './art-detail-page.html',
   styleUrl: './art-detail-page.scss',
