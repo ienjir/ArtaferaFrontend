@@ -3,7 +3,7 @@ import {ArtPreview} from "@components/art-preview/art-preview";
 import {ArtModel, PublicListResult} from "@interfaces/art.model";
 import {NgxSkeletonLoaderComponent} from "ngx-skeleton-loader";
 import {TranslocoPipe} from "@jsverse/transloco";
-import {Art} from "@services/art/art";
+import {ArtService} from "@services/art/art";
 
 type LoadingState = { status: 'loading' };
 type SuccessState = { status: 'success', data: PublicListResult };
@@ -17,7 +17,7 @@ type ArtState = LoadingState | SuccessState | ErrorState;
   styleUrl: './art-page.scss'
 })
 export class ArtPage {
-  private artService = inject(Art);
+  private artService = inject(ArtService);
   protected readonly Array = Array;
 
   offset = signal(0)

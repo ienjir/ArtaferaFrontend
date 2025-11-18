@@ -1,7 +1,6 @@
-import {Component, computed, input} from '@angular/core';
-import {NgbCarousel, NgbCarouselModule} from '@ng-bootstrap/ng-bootstrap';
-import {NgClass, NgOptimizedImage} from '@angular/common';
-import {Picture} from "@interfaces/picture.model";
+import {Component, input} from '@angular/core';
+import {NgbCarouselModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgOptimizedImage} from '@angular/common';
 import {environment} from "@environments/environment";
 import {ArtPicture} from "@interfaces/art-picture.model";
 
@@ -22,11 +21,11 @@ export class ImageCarousel {
   interval = input<number>(4000)
   wrap = input<boolean>(true)
   darkened = input<boolean>(false)
-  pictures = input.required<ArtPicture[]>()
+  pictures = input<ArtPicture[]>()
   basePictureURL = input(environment.pictureUrl)
 
-  pictureUrl(picture: ArtPicture)  {
-    const pic = picture.picture;
+  pictureUrl(picture: ArtPicture | undefined) {
+    const pic = picture?.picture;
     return pic ? `${this.basePictureURL()}/${pic.name}${pic.type}` : '';
   }
 }

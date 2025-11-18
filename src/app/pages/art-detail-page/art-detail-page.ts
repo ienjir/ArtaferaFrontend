@@ -1,59 +1,40 @@
-import {Component, inject, signal} from '@angular/core';
+import {Component, computed, inject, signal} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import {Art} from "@services/art/art";
+import {Art} from "@interfaces/art.model";
+import {ArtService} from "@services/art/art";
+import {ImageCarousel} from "@components/image-carousel/image-carousel";
 
 @Component({
   selector: 'app-art-detail-page',
   imports: [
+    ImageCarousel
   ],
   templateUrl: './art-detail-page.html',
   styleUrl: './art-detail-page.scss',
 })
 export class ArtDetailPage {
-  private artService = inject(Art);
+  private activatedRoute = inject(ActivatedRoute);
+  private artService = inject(ArtService);
 
-  isLoading = signal<boolean>(false)
-  artID = signal<number | undefined>(0);
+  isLoading = signal(false);
+  error = signal<string | null>(null);
+  artID = signal('')
   art = signal<Art | undefined>(undefined)
-  error = signal<any>(null)
-  private activatedRoute = inject(ActivatedRoute)
+  pictures = computed(() => this.art()?.artPictures)
 
   constructor() {
     this.activatedRoute.params.subscribe((params) => {
-
-      const id = params['id'];
-
-      if (!id) {
-        this.error.set('Art not defined');
-        return;
-      }
-
-      this.artID.set(id);
-      this.loadArt();
+      this.artID.set(params['id']);
     });
+
+    this.fetch()
   }
 
-  loadArt() {
-    if (this.isLoading()) return;
-
-    const id = this.artID();
-    if (!id) {
-      this.error.set('Art not defined');
-      return;
-    }
-
-    this.isLoading.set(true);
-    this.error.set(null);
-
-    this.artService.getByID(id).subscribe({
-      next: (art) => {
-        this.art.set(art);
-        this.isLoading.set(false);
+  fetch() {
+    this.artService.getByID(Number(this.artID())).subscribe({
+      next: (result) => {
+        this.art.set(result)
       },
-      error: (err) => {
-        this.error.set('Could not load art');
-        this.isLoading.set(false);
-      }
-    });
+    })
   }
 }

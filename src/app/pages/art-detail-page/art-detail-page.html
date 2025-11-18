@@ -1,11 +1,3 @@
-@if (art() === undefined) {
-  <div>
-    <h1>Undefined</h1>
-  </div>
-} @else {
-  <div class="page">
-    <div>
-    </div>
-    <h1>{{ artID() }}</h1>
-  </div>
-}
+<div class="fuckme">
+  <AF-Image-Carousel style="height: 100%" [pictures]="art()?.artPictures ?? []"></AF-Image-Carousel>
+</div>

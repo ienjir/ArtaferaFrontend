@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
-import {ArtListResult, ArtModel, PublicListResult} from "@interfaces/art.model";
+import {Art, ArtListResult, ArtModel, PublicListResult} from "@interfaces/art.model";
 import {Observable} from "rxjs";
 import {Base} from "@services/base/base";
 
 @Injectable({
   providedIn: 'root'
 })
-export class Art extends Base {
+export class ArtService extends Base {
   protected readonly resourcePath = 'art';
 
   getByID(ID: number): Observable<Art> {

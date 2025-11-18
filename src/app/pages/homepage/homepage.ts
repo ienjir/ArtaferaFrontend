@@ -6,7 +6,7 @@ import {RouterLink} from '@angular/router';
 import {toSignal} from "@angular/core/rxjs-interop";
 import {ArtListResult, ArtModel, PublicListResult} from "@interfaces/art.model";
 import {catchError, map, of} from "rxjs";
-import {Art} from "@services/art/art";
+import {ArtService} from "@services/art/art";
 
 type LoadingState = { status: 'loading' };
 type SuccessState = { status: 'success', data: PublicListResult };
@@ -25,7 +25,7 @@ type ArtState = LoadingState | SuccessState | ErrorState;
   styleUrl: './homepage.scss'
 })
 export class HomePage {
-  private artService = inject(Art);
+  private artService = inject(ArtService);
 
   artState = toSignal(
     this.artService.getPublicList(0, 'en').pipe(
