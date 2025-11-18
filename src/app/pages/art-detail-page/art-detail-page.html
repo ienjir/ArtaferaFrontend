@@ -1,1 +1,11 @@
-<h1>{{ artID() }}</h1>
+@if (art() === undefined) {
+  <div>
+    <h1>Undefined</h1>
+  </div>
+} @else {
+  <div class="page">
+    <div>
+    </div>
+    <h1>{{ artID() }}</h1>
+  </div>
+}

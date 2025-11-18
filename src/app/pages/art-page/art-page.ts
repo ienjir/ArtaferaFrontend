@@ -22,7 +22,7 @@ export class ArtPage {
 
   offset = signal(0)
   allArts = signal<ArtModel[]>([])
-  isLoading = signal<Boolean>(false)
+  isLoading = signal<boolean>(false)
   count = signal<number>(0)
   error = signal<any>(null)
   hasMore = computed(() => this.allArts().length < this.count());
