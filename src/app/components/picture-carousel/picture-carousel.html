@@ -1,4 +1,8 @@
-@if (pictures()) {
+@if (isLoading()) {
+  <div class="carousel">
+    <ngx-skeleton-loader count="1" [theme]="{ 'margin-bottom': '0', 'padding': '0', 'width': '100%', 'height': '100%', 'min-height': '300px', 'aspect-ratio': '4 / 3', 'background-color': 'var(--SkeletonBackground)', 'border-radius': '4px', 'opacity': '0.1' }"></ngx-skeleton-loader>
+  </div>
+} @else if (hasPictures()) {
   <ngb-carousel class="carousel" [showNavigationArrows]="showNavigation()" [showNavigationIndicators]="showIndicators()" [pauseOnFocus]="pauseOnFocus()" [pauseOnHover]="pauseOnHover()" [interval]="interval()" [wrap]="wrap()">
     @for (slide of pictures(); track $index) {
       <ng-template ngbSlide class="carousel-template">
@@ -9,7 +13,7 @@
     }
   </ngb-carousel>
 } @else {
-  <div>
-    <h1>Image carousel: Please implement</h1>
+  <div class="carousel">
+    <h1>{{ "TL-ATD_Error-While-Fetching-Pictures" | transloco }}</h1>
   </div>
 }

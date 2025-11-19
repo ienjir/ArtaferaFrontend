@@ -9,10 +9,12 @@
 
   "TL-ERR_Something-Went-Wrong": "Etwas ist schief gelaufen. Bitte versuchen Sie es später wieder oder Kontaktieren Sie mich",
 
-  "TL-ART_Load-More": "Mehr laden",
-  "TL-ART_Error-While-Fetching": "Fehler beim laden der Kunstwerke",
-  "TL-ART_Unable-To-Load-Art": "Tut mir Leid, das wir die Kunstwerke nicht laden konnten. Bitte versuchen Sie es später wieder oder kontaktieren Sie mich",
-  "TL-ART_Art-Not-Found": "Keine Kunst gefunden",
+  "TL-ATO_Load-More": "Mehr laden",
+  "TL-ATO_Error-While-Fetching": "Fehler beim laden der Kunstwerke",
+  "TL-ATO_Unable-To-Load-Art": "Tut mir Leid, das wir die Kunstwerke nicht laden konnten. Bitte versuchen Sie es später wieder oder kontaktieren Sie mich",
+  "TL-ATO_Art-Not-Found": "Keine Kunst gefunden",
+
+  "TL-ATD_Error-While-Fetching-Pictures": "Fehler beim laden der Bilder",
 
   "navbar.home": "Home",
   "navbar.aboutMe": "Über mich",

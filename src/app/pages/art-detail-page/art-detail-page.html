@@ -1,3 +1,5 @@
-<div class="fuckme">
-  <AF-Picture-Carousel [pictures]="art()?.artPictures ?? []"></AF-Picture-Carousel>
+<div class="page">
+  <div class="art-detail-page">
+    <AF-Picture-Carousel [pictures]="art()?.artPictures ?? []" [isLoading]="isLoading()"></AF-Picture-Carousel>
+  </div>
 </div>
