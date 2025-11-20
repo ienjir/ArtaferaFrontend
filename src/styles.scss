@@ -228,6 +228,24 @@ $breakpoints: (
   }
 }
 
+.sm-hidden {
+  @include respond-from("sm") {
+    display: none !important;
+  }
+}
+
+.sm-shown {
+  display: none !important;
+
+  @include respond-from("sm") {
+    display: flex !important;
+  }
+}
+
+.text-blue {
+  color: var(--Main)
+}
+
 
 // HTML Elements
 body, html {
@@ -443,6 +461,6 @@ Footer {
   border-radius: 0 !important;
 
   @include respond-from(xs) {
-      width: 75vw !important;
+    width: 75vw !important;
   }
 }

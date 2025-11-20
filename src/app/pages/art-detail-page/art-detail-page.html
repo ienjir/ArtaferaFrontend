@@ -1,5 +1,36 @@
-<div class="page">
-  <div class="art-detail-page">
-    <AF-Picture-Carousel [pictures]="art()?.artPictures ?? []" [isLoading]="isLoading()"></AF-Picture-Carousel>
+<div class="art-detail-page__carousel">
+  <AF-Picture-Carousel [pictures]="art()?.artPictures ?? []" [isLoading]="isLoading()"></AF-Picture-Carousel>
+</div>
+<div class="page art-detail-page">
+  <div class="art-detail-page__content page__section ">
+    <div class="art-detail-page__content__title ">
+      <h1>{{ translation()?.title }}</h1>
+      <h2>{{ translation()?.description }}</h2>
+    </div>
+    <div ngbAccordion class="sm-hidden">
+      <div ngbAccordionItem>
+        <h2 ngbAccordionHeader>
+          <button ngbAccordionButton>
+            <p class="text-blue">Information</p>
+          </button>
+        </h2>
+        <div ngbAccordionCollapse>
+          <div ngbAccordionBody>
+            <ng-template>
+              <p>Info 1</p>
+              <p>Info 2</p>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="art-detail-page__content__text">
+      <p>{{ translation()?.text }}</p>
+    </div>
+  </div>
+  <div class="sm-shown art-detail-page__information">
+    <h2>Information</h2>
+    <p>Info 1</p>
+    <p>Info 2</p>
   </div>
 </div>

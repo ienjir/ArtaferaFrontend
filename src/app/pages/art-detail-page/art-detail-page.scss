@@ -1,5 +1,42 @@
-.art-detail-page ´{
-    height: 100vh;
+@use "styles" as *;
+
+.art-detail-page {
+  @include respond-from("sm") {
+    flex-direction: row;
+  }
+
+  &__carousel {
+    height: 70dvh;
+    position: relative;
     width: 100%;
-    min-height: 30dvh;
+  }
+
+  &__content {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 1rem;
+    flex: 0;
+
+    &__title {
+      background: orange;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      word-wrap: break-word;
+    }
+
+    &__text {
+      background: blueviolet;
+    }
+
+    @include respond-from("sm") {
+      flex: 1 0;
+    }
+  }
+
+  &__information {
+    display: inline-flex;
+    background: green;
+    flex-direction: column;
+    padding: 1rem;
+  }
 }

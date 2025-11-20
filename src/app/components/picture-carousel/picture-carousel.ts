@@ -15,7 +15,8 @@ import {NgxSkeletonLoaderComponent} from "ngx-skeleton-loader";
     NgxSkeletonLoaderComponent,
   ],
   templateUrl: './picture-carousel.html',
-  styleUrl: './picture-carousel.scss'
+  styleUrl: './picture-carousel.scss',
+  standalone: true
 })
 export class PictureCarousel {
   showNavigation = input<boolean>(true)
