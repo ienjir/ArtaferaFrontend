@@ -30,17 +30,12 @@ export class ArtDetailPage {
   pictures = computed(() => this.art()?.artPictures)
   language = "de";
   translation = computed(() => {
-    console.log(this.art()?.translations)
     const list = this.art()?.translations ?? []
     if (list.length === 0) {
       return
     }
 
     const match = list.find(t => t.language?.language_code === this.language)
-    console.log("")
-    console.log("")
-    console.log("")
-    console.log(match ?? list[0])
     return match ?? list[0]
   })
 
