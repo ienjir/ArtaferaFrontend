@@ -35,10 +35,4 @@ export class PictureCarousel {
     const pic = picture?.picture;
     return pic ? `${this.basePictureURL()}/${pic.name}${pic.type}` : '';
   }
-
-  test() {
-    console.log(this.pictures())
-    console.log(this.hasPictures())
-    console.log(this.pictures()?.length)
-  }
 }
