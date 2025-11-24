@@ -13,7 +13,9 @@
   "TL-ATO_Unable-To-Load-Art": "Tut mir Leid, das wir die Kunstwerke nicht laden konnten. Bitte versuchen Sie es später wieder oder kontaktieren Sie mich",
   "TL-ATO_Art-Not-Found": "Keine Kunst gefunden",
 
-  "TL-ATD_Error-While-Fetching-Pictures": "Fehler beim laden der Bilder",
+  "TL-ATD-Information": "Informationen",
+
+  "TL-IMC_Error-While-Fetching-Pictures": "Fehler beim laden der Bilder",
 
   "TL-MDR_Error-While-Parsing": "Fehler beim verarbeiten des Kunstwerktext",
 
