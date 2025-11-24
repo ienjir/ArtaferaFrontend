@@ -6,7 +6,6 @@
   "TL-ERR_Not-Found": "404: Ressource nicht gefunden",
   "TL-ERR_Internal-Server-Error": "500: Interner Server Error",
   "TL-ERR_Unexpected-Error": "Unvorhergesehener Error",
-
   "TL-ERR_Something-Went-Wrong": "Etwas ist schief gelaufen. Bitte versuchen Sie es später wieder oder Kontaktieren Sie mich",
 
   "TL-ATO_Load-More": "Mehr laden",
@@ -15,6 +14,8 @@
   "TL-ATO_Art-Not-Found": "Keine Kunst gefunden",
 
   "TL-ATD_Error-While-Fetching-Pictures": "Fehler beim laden der Bilder",
+
+  "TL-MDR_Error-While-Parsing": "Fehler beim verarbeiten des Kunstwerktext",
 
   "navbar.home": "Home",
   "navbar.aboutMe": "Über mich",

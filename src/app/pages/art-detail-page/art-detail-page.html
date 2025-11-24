@@ -25,7 +25,7 @@
       </div>
     </div>
     <div class="art-detail-page__content__text">
-      <p>{{ translation()?.text }}</p>
+      <AF-Markdown-Renderer [mdText]="text()"></AF-Markdown-Renderer>
     </div>
   </div>
   <div class="sm-shown art-detail-page__information">

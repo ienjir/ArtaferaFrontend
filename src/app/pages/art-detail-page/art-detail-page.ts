@@ -4,6 +4,7 @@ import {Art} from "@interfaces/art.model";
 import {ArtService} from "@services/art/art";
 import {PictureCarousel} from "@components/picture-carousel/picture-carousel";
 import {NgbAccordionBody, NgbAccordionButton, NgbAccordionCollapse, NgbAccordionDirective, NgbAccordionHeader, NgbAccordionItem} from "@ng-bootstrap/ng-bootstrap";
+import {MarkdownRenderer} from "@components/markdown-renderer/markdown-renderer";
 
 @Component({
   selector: 'app-art-detail-page',
@@ -14,7 +15,8 @@ import {NgbAccordionBody, NgbAccordionButton, NgbAccordionCollapse, NgbAccordion
     NgbAccordionHeader,
     NgbAccordionButton,
     NgbAccordionCollapse,
-    NgbAccordionBody
+    NgbAccordionBody,
+    MarkdownRenderer
   ],
   templateUrl: './art-detail-page.html',
   styleUrl: './art-detail-page.scss',
@@ -38,6 +40,7 @@ export class ArtDetailPage {
     const match = list.find(t => t.language?.language_code === this.language)
     return match ?? list[0]
   })
+  text = computed(() => this.translation()?.text??  "")
 
   constructor() {
     this.activatedRoute.params.subscribe((params) => {
