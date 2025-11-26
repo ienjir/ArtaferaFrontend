@@ -3,7 +3,7 @@
 } @else {
   @if (!sanitizedHTML || sanitizedHTML() === "") {
     <h3>{{ "TL-MDR_Error-While-Parsing" | transloco }}</h3>
-    <h4>{{ "TL-ERR_Something-Went-Wrong"}}</h4>
+    <h4>{{ "TL-ERR_Something-Went-Wrong" | transloco }}</h4>
   } @else {
     <div [innerHTML]="sanitizedHTML()"></div>
   }

@@ -1,6 +1,9 @@
 @use "styles" as *;
 
 .art-detail-page {
+  padding: 1rem 0;
+  gap: 2rem;
+
   @include respond-from("sm") {
     flex-direction: row;
   }
@@ -18,14 +21,12 @@
     flex: 0;
 
     &__title {
-      background: orange;
       overflow: hidden;
       text-overflow: ellipsis;
       word-wrap: break-word;
     }
 
     &__text {
-      background: blueviolet;
     }
 
     @include respond-from("sm") {
@@ -35,7 +36,7 @@
 
   &__information {
     display: inline-flex;
-    background: green;
+    background-color: var(--Background);
     flex-direction: column;
     padding: 1rem;
   }
