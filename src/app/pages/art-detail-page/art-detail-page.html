@@ -3,7 +3,7 @@
 </div>
 <div class="page art-detail-page">
   <div class="art-detail-page__content page__section ">
-    <div class="art-detail-page__content__title ">
+    <div class="art-detail-page__content__title">
       <h1>{{ translation()?.title }}</h1>
       <h2>{{ translation()?.description }}</h2>
     </div>
@@ -26,7 +26,7 @@
     </div>
     <div class="art-detail-page__content__text">
       <!--<AF-Markdown-Renderer [mdText]="text()"></AF-Markdown-Renderer>-->
-    <AF-Picture [artPicture]='art()?.artPictures[0]'></AF-Picture>
+      <AF-Picture [artPicture]="art()?.artPictures?.[0]" style="height: 100%; width: 100%"></AF-Picture>
     </div>
   </div>
   <div class="sm-shown">
