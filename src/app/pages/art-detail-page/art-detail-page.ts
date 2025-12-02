@@ -6,6 +6,7 @@ import {PictureCarousel} from "@components/picture-carousel/picture-carousel";
 import {NgbAccordionBody, NgbAccordionButton, NgbAccordionCollapse, NgbAccordionDirective, NgbAccordionHeader, NgbAccordionItem} from "@ng-bootstrap/ng-bootstrap";
 import {MarkdownRenderer} from "@components/markdown-renderer/markdown-renderer";
 import {TranslocoPipe} from "@jsverse/transloco";
+import { Picture } from '@/app/components/picture/picture';
 
 @Component({
   selector: 'app-art-detail-page',
@@ -18,6 +19,7 @@ import {TranslocoPipe} from "@jsverse/transloco";
     NgbAccordionCollapse,
     NgbAccordionBody,
     MarkdownRenderer,
+    Picture,
     TranslocoPipe
   ],
   templateUrl: './art-detail-page.html',

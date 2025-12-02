@@ -25,7 +25,8 @@
       </div>
     </div>
     <div class="art-detail-page__content__text">
-      <AF-Markdown-Renderer [mdText]="text()"></AF-Markdown-Renderer>
+      <!--<AF-Markdown-Renderer [mdText]="text()"></AF-Markdown-Renderer>-->
+    <AF-Picture [artPicture]='art()?.artPictures[0]'></AF-Picture>
     </div>
   </div>
   <div class="sm-shown">
