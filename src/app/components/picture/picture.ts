@@ -1,25 +1,40 @@
-import { Component, computed, input } from '@angular/core';
-import { provideImgixLoader } from '@angular/common';
+import { Component, computed, input, inject, WritableSignal, signal, TemplateRef } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgOptimizedImage } from '@angular/common'
 import { environment } from '@/environments/environment';
 import { ArtPicture } from '@/app/core/interfaces/art-picture.model';
 
 @Component({
   selector: 'AF-Picture',
-  imports: [],
+  imports: [
+    NgOptimizedImage,
+  ],
   templateUrl: './picture.html',
   styleUrl: './picture.scss',
-  providers: [
-    provideImgixLoader(environment.pictureUrl),
-  ]
+  providers: []
 })
 export class Picture {
-  artPicture = input.required<ArtPicture | undefined>()
+	private modalService = inject(NgbModal);
+
+	closeResult: WritableSignal<string> = signal('');
+  artPicture = input<ArtPicture | undefined>(undefined)
   picture = computed(() => this.artPicture()?.picture)
   darkened = input<boolean>(false)
   isLoading = input<boolean>(false)
   relativeURL = computed(() => {
     const p = this.picture()
     if (!p) return undefined
-    return '${p.name}${p.type}'
+      return p.name + p.type
   })
+  fullURL = computed(() => environment.pictureUrl + "/" + this.relativeURL())
+
+
+  open(content: TemplateRef<any>) {
+	  this.modalService.open(content, {
+      centered: true,
+      fullscreen: true,
+      size: 'xl',
+      windowClass: 'af-picture__modal'
+    });
+  }
 }
