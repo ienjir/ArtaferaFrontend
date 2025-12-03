@@ -5,12 +5,14 @@ import {environment} from "@environments/environment";
 import {ArtPicture} from "@interfaces/art-picture.model";
 import {TranslocoPipe} from "@jsverse/transloco";
 import {NgxSkeletonLoaderComponent} from "ngx-skeleton-loader";
+import { Picture } from '@components/picture/picture';
 
 @Component({
   selector: 'AF-Picture-Carousel',
   imports: [
     NgbCarouselModule,
     NgOptimizedImage,
+    Picture,
     TranslocoPipe,
     NgxSkeletonLoaderComponent,
   ],

@@ -8,6 +8,7 @@
       <ng-template ngbSlide class="carousel-template">
         <div class="picsum-img-wrapper carousel-image">
           <img [ngSrc]="pictureUrl(slide)" [class.darkened]="darkened()" fill [alt]="slide.name" priority/>
+          <AF-Picture [artPicture]="slide"></AF-Picture>
         </div>
       </ng-template>
     }
