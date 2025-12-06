@@ -29,10 +29,25 @@
     </div>
   </div>
   <div class="sm-shown">
-    <div class="art-detail-page__information">
-      <h2>{{ "TL-ATD-Information" | transloco }}</h2>
-      <p>Info 1</p>
-      <p>Info 2</p>
+    <div>
+      <div class="art-detail-page__information">
+        <h2>{{ "TL-ATD_Information" | transloco }}</h2>
+        <Label [label]="available()" [color]="labelColor()">{{ "TL-ATD_Depth" | transloco }}</Label>
+        <h3 class="art-detail-page__information--title">{{ "TL-ATD_Price" | transloco }}</h3>
+        <p class="art-detail-page__information--entry">{{ art()?.price }}</p>
+        @if (art()?.height) {
+          <h3 class="art-detail-page__information--title">{{ "TL-ATD_Height" | transloco }}</h3>
+          <p class="art-detail-page__information--entry">{{ art()?.height }}</p>
+        }
+        @if (art()?.width) {
+          <h3 class="art-detail-page__information--title">{{ "TL-ATD_Width" | transloco }}</h3>
+          <p class="art-detail-page__information--entry">{{ art()?.width }}</p>
+        }
+        @if (art()?.depth) {
+          <h3 class="art-detail-page__information--title">{{ "TL-ATD_Depth" | transloco }}</h3>
+          <p class="art-detail-page__information--entry">{{ art()?.depth }}</p>
+        }
+      </div>
     </div>
   </div>
 </div>

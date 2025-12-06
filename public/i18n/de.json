@@ -13,7 +13,15 @@
   "TL-ATO_Unable-To-Load-Art": "Tut mir Leid, das wir die Kunstwerke nicht laden konnten. Bitte versuchen Sie es später wieder oder kontaktieren Sie mich",
   "TL-ATO_Art-Not-Found": "Keine Kunst gefunden",
 
-  "TL-ATD-Information": "Informationen",
+  "TL-ATD_Information": "Informationen",
+  "TL-ATD_Price": "Preis",
+  "TL-ATD_Height": "Höhe",
+  "TL-ATD_Width": "Länge",
+  "TL-ATD_Depth": "Tiefe",
+  "TL-ATD_Available": "Erhältlich",
+  "TL-ATD_Not-Available": "Erhältlich",
+
+
 
   "TL-IMC_Error-While-Fetching-Pictures": "Fehler beim laden der Bilder",
 

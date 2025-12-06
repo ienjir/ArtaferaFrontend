@@ -38,9 +38,21 @@
   }
 
   &__information {
-    display: inline-flex;
+    display: inline-block;
+    height: auto;
     background-color: var(--Background);
     flex-direction: column;
     padding: 1rem;
+
+    &--title {
+      font-size: 1.5rem;
+      padding-bottom: 0.2rem;
+      margin-bottom: 0;
+    }
+
+    &--entry {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
   }
 }
