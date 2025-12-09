@@ -8,6 +8,7 @@ import {ContactPage} from "@pages/contact-page/contact-page";
 import {ArtPage} from "@pages/art-page/art-page";
 import {ArtDetailPage} from "@pages/art-detail-page/art-detail-page";
 import { ImprintPage } from './pages/imprint-page/imprint-page';
+import { DsgPage } from './dsg-page/dsg-page';
 
 
 export const routes: Routes = [
@@ -17,5 +18,6 @@ export const routes: Routes = [
   {path: "kontakt", component: DefaultLayout, children: [{path: '', component: ContactPage}]},
   {path: "kunst/:id", component: DefaultLayout, children: [{path: '', component: ArtDetailPage}]},
   {path: "impressum", component: DefaultLayout, children: [{path: '', component: ImprintPage}]},
+  {path: "datenschutz", component: DefaultLayout, children: [{path: '', component: DsgPage}]},
   {path: '**', component: NotFoundPage}
 ];
