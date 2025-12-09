@@ -7,6 +7,7 @@ import {AboutMePage} from "@pages/about-me-page/about-me-page";
 import {ContactPage} from "@pages/contact-page/contact-page";
 import {ArtPage} from "@pages/art-page/art-page";
 import {ArtDetailPage} from "@pages/art-detail-page/art-detail-page";
+import { ImprintPage } from './pages/imprint-page/imprint-page';
 
 
 export const routes: Routes = [
@@ -15,5 +16,6 @@ export const routes: Routes = [
   {path: "uebermich", component: DefaultLayout, children: [{path: '', component: AboutMePage}]},
   {path: "kontakt", component: DefaultLayout, children: [{path: '', component: ContactPage}]},
   {path: "kunst/:id", component: DefaultLayout, children: [{path: '', component: ArtDetailPage}]},
+  {path: "impressum", component: DefaultLayout, children: [{path: '', component: ImprintPage}]},
   {path: '**', component: NotFoundPage}
 ];

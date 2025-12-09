@@ -21,7 +21,25 @@
   "TL-ATD_Available": "Erhältlich",
   "TL-ATD_Not-Available": "Erhältlich",
 
-
+  "TL-IMP_Imprint": "Impressum",
+  "AF-IMP__Imprint": "Impressum",
+  "AF-IMP__ContactInfo": "Kontaktinformationen",
+  "AF-IMP__Name": "Name",
+  "AF-IMP__Address": "Adresse",
+  "AF-IMP__Switzerland": "Schweiz",
+  "AF-IMP__Email": "E-Mail",
+  "AF-IMP__Phone": "Telefon",
+  "AF-IMP__VATNumber": "Mehrwertsteuernummer",
+  "AF-IMP__VATInfo": "UID",
+  "AF-IMP__Disclaimer": "Haftungsausschluss",
+  "AF-IMP__ContentLiability": "Haftung für Inhalte",
+  "AF-IMP__ContentLiabilityText": "Die Inhalte unserer Seiten wurden mit grösster Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen. Als Diensteanbieter sind wir gemäss allgemeiner Gesetze für eigene Inhalte auf diesen Seiten verantwortlich. Wir sind jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.",
+  "AF-IMP__LinkLiability": "Haftung für Links",
+  "AF-IMP__LinkLiabilityText": "Unser Angebot enthält Links zu externen Webseiten Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich.",
+  "AF-IMP__Copyright": "Urheberrecht",
+  "AF-IMP__CopyrightText": "Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem schweizerischen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung ausserhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.",
+  "AF-IMP__DisputeResolution": "Streitbeilegung",
+  "AF-IMP__DisputeResolutionText": "Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit. Als Schweizer Unternehmen sind wir jedoch nicht verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen, sind aber grundsätzlich dazu bereit.",
 
   "TL-IMC_Error-While-Fetching-Pictures": "Fehler beim laden der Bilder",
 
