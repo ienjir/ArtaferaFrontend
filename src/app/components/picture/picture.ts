@@ -17,6 +17,7 @@ export class Picture {
 	private modalService = inject(NgbModal);
 
 	closeResult: WritableSignal<string> = signal('');
+  customPictureURL = input<string>()
   artPicture = input<ArtPicture | undefined>(undefined)
   picture = computed(() => this.artPicture()?.picture)
   darkened = input<boolean>(false)
@@ -26,11 +27,14 @@ export class Picture {
     if (!p) return undefined
       return p.name + p.type
   })
-  fullURL = computed(() => environment.pictureUrl + "/" + this.relativeURL())
+
+  fullURL = computed(() =>
+    (this.customPictureURL() || environment.pictureUrl) + "/" + this.relativeURL()
+  )
 
 
   open(content: TemplateRef<any>) {
-	  this.modalService.open(content, {
+    this.modalService.open(content, {
       centered: true,
       fullscreen: true,
       size: 'xl',
