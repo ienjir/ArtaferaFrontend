@@ -1,0 +1,5 @@
+<footer class="footer">
+  @for (navigationItem of navigationItems ; track $index) {
+    <a [routerLink]="navigationItem.NavigationLink">{{ navigationItem.NavigationItem | transloco }}</a>
+  }
+</footer>

@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://artafera.ch'
+  apiUrl: 'https://api.artafera.ch',
+  pictureUrl: 'https://pictures.artafera.ch'
 };

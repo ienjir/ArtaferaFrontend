@@ -1,0 +1,23 @@
+<div class="image-carousel">
+  <AF-Picture-Carousel [pictures]="pictures" basePictureURL="/pictures" [darkened]="true" [showNavigation]="false" [showIndicators]="false"></AF-Picture-Carousel>
+  <div class="image-carousel__welcome">
+    <h1 class="image-carousel__welcome__title">
+      {{ 'welcomeTo' | transloco }}
+    </h1>
+    <div class="image-carousel__welcome__divider"></div>
+    <img class="image-carousel__welcome__logo" priority ngSrc="/pictures/logos/Logo_Light_Big.png" alt="HomepageLogo" height="687" width="2150">
+  </div>
+  <div class="image-carousel__scroll-down">
+    <button class="image-carousel__scroll-down__button" (click)="scrollToNavbar()">
+      <img class="image-carousel__scroll-down__button__chevron" ngSrc="/svg/Chevron.svg" [alt]="'scrollDownChevron' | transloco" height="35" width="68">
+      <img class="image-carousel__scroll-down__button__chevron" ngSrc="/svg/Chevron.svg" [alt]="'scrollDownChevron' | transloco" height="35" width="68">
+    </button>
+  </div>
+</div>
+<div class="layout-container">
+  <NavigationBar id="NavigationBar" class="layout-navigation"></NavigationBar>
+  <div class="layout-content">
+    <router-outlet></router-outlet>
+  </div>
+  <FooterBar></FooterBar>
+</div>

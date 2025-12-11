@@ -1,0 +1,9 @@
+<a class="art-preview" [routerLink]="['/kunst', artPreview().id]">
+  <article class="art-preview__card">
+    <img class="art-preview__card__picture" [alt]="artPicture()?.name" [ngSrc]="pictureUrl()" width="400" height="300" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw">
+    <div class="art-preview__card__information">
+      <h3 class="art-preview__card__information__title">{{ artPreview().translations?.[0]?.title }}</h3>
+      <Label label="testlabel" color="var(--Accent1)">{{ artPreview().translations?.[0]?.label }}</Label>
+    </div>
+  </article>
+</a>

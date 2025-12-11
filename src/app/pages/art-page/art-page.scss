@@ -1,0 +1,59 @@
+@use 'styles' as *;
+
+.art-preview--skeleton {
+  pointer-events: none;
+
+  .art-preview__card {
+    background: var(--Background);
+    padding: 0.5rem 0.5rem 0;
+    gap: 0;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.artpage {
+  &__loadmore {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem;
+
+    &__button {
+      width: 100%;
+      max-width: 400px;
+    }
+  }
+
+  &__grid {
+    display: grid;
+    gap: clamp(1rem, 2vw, 1.5rem);
+    width: 100%;
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+
+    @include respond-from(xs) {
+      grid-template-columns: repeat(1, 1fr);
+    }
+
+    @include respond-from(sm) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include respond-from(md) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @include respond-from(lg) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    @include respond-from(xxl) {
+      grid-template-columns: repeat(5, 1fr);
+    }
+
+    > * {
+      width: 100%;
+      min-width: 0;
+    }
+  }
+}

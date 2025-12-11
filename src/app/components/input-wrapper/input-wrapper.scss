@@ -1,0 +1,90 @@
+.text-input {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  &__field-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  &__label {
+    &--text {
+      position: absolute;
+      top: 1.5rem;
+      left: calc(1rem - 3px);
+      transform: translateY(-59%);
+      transition: all 0.3s ease;
+      pointer-events: none;
+      background: transparent;
+      padding: 3px;
+      color: var(--Text);
+      z-index: 1;
+
+      &--floating {
+        top: 0;
+        background: var(--Background);
+        color: var(--Text);
+        font-size: 0.8rem;
+        transform: translateY(-50%);
+      }
+    }
+
+    &--checkbox {
+      padding-left: 0.5rem;
+      color: var(--Text);
+      cursor: pointer;
+    }
+  }
+
+  &__show-password {
+    position: absolute;
+    right: 3px;
+    top: 50%;
+    transform: translateY(-50%);
+    height: calc(100% - 6px);
+    display: flex;
+    align-items: center;
+    z-index: 2;
+
+    &-btn {
+      border: none;
+      background: var(--Background);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3px;
+      min-height: 0;
+      height: 100%;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background-color 0.2s ease;
+
+      &:focus-visible {
+        outline: 2px solid var(--Focus);
+        outline-offset: 2px;
+      }
+    }
+  }
+
+  &__password-icon {
+    display: block;
+    padding: 0.2rem 0;
+  }
+
+  &__error {
+    position: absolute;
+    bottom: -0.8rem;
+    left: calc(1rem - 3px);
+    transition: all 0.3s ease;
+    pointer-events: none;
+    background: var(--Background);
+    padding: 3px;
+    color: var(--Red);
+    font-size: 0.85rem;
+    z-index: 1;
+  }
+}

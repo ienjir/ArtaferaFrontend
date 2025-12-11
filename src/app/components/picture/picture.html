@@ -1,0 +1,14 @@
+<div class="af-picture">
+  <img [ngSrc]="fullURL()" (click)="open(imgModal)" class="af-picture__picture" [class.darkened]="darkened()" fill [alt]="" priority/>
+</div>
+
+<ng-template #imgModal let-modal>
+  <div class="image-viewer__backdrop">
+    <div class="image-viewer__content">
+      <button type="button" class="image-viewer__close" (click)="modal.dismiss()" aria-label="Close">×</button>
+      <img [src]="fullURL()" alt="" class="image-viewer__img" />
+    </div>
+  </div>
+</ng-template>
+
+<pre>{{ closeResult() }}</pre>

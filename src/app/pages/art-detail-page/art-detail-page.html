@@ -1,0 +1,53 @@
+<div class="art-detail-page__carousel">
+  <AF-Picture-Carousel [pictures]="art()?.artPictures ?? []" [isLoading]="isLoading()"></AF-Picture-Carousel>
+</div>
+<div class="page art-detail-page">
+  <div class="art-detail-page__content page__section ">
+    <div class="art-detail-page__content__title">
+      <h1>{{ translation()?.title }}</h1>
+      <h2>{{ translation()?.description }}</h2>
+    </div>
+    <div ngbAccordion class="sm-hidden">
+      <div ngbAccordionItem>
+        <h2 ngbAccordionHeader>
+          <button ngbAccordionButton>
+            <p class="text-blue">Information</p>
+          </button>
+        </h2>
+        <div ngbAccordionCollapse>
+          <div ngbAccordionBody>
+            <ng-template>
+              <p>Info 1</p>
+              <p>Info 2</p>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="art-detail-page__content__text">
+      <AF-Markdown-Renderer [mdText]="text()"></AF-Markdown-Renderer>
+    </div>
+  </div>
+  <div class="sm-shown">
+    <div>
+      <div class="art-detail-page__information">
+        <h2>{{ "TL-ATD_Information" | transloco }}</h2>
+        <Label class="art-detail-page__information--entry" [label]="available()" [color]="labelColor()">{{ "TL-ATD_Depth" | transloco }}</Label>
+        <h3 class="art-detail-page__information--title">{{ "TL-ATD_Price" | transloco }}</h3>
+        <p class="art-detail-page__information--entry">{{ art()?.price }}</p>
+        @if (art()?.height) {
+          <h3 class="art-detail-page__information--title">{{ "TL-ATD_Height" | transloco }}</h3>
+          <p class="art-detail-page__information--entry">{{ art()?.height }}</p>
+        }
+        @if (art()?.width) {
+          <h3 class="art-detail-page__information--title">{{ "TL-ATD_Width" | transloco }}</h3>
+          <p class="art-detail-page__information--entry">{{ art()?.width }}</p>
+        }
+        @if (art()?.depth) {
+          <h3 class="art-detail-page__information--title">{{ "TL-ATD_Depth" | transloco }}</h3>
+          <p class="art-detail-page__information--entry">{{ art()?.depth }}</p>
+        }
+      </div>
+    </div>
+  </div>
+</div>

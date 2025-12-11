@@ -1,25 +1,20 @@
 # ArtaferaFrontend
 
-### The frontent for the <a href="www.Artafera.ch">Artafera Website</a>
+### The frontent for the <a href="https://www.Artafera.ch">Artafera Website</a>
 
 ## Development
 
 To start the Artafera frontend you the following things:
 
-- Angular 18.3 or higher 
-- NPM
+- Angular 20.3 or higher 
+- Bun 
 - Node
 
-Run `npm install` to install all dependency's and afterward run `ng serve` to start the webserver.
+Run `bun install` to install all dependency's and afterward run `ng serve` to start the webserver (Non SSR). To Test with SSR run `bun run build` and then `bun run serve:ssr`
 
 ## Production
 
-There is a GitHub CI/CD file that is kinda janky but works. The problem I have is that I dont know how I can build a Docker image for an Angular SSR app. I will change that in the future but as it is not that important I dont think it will happen soon. <br>
-Currently it runs like this:
-- The repo is manually cloned on the backend (just for the first time obviously)
-- Whenever a Commit on Main is made, the CI/CD pipeline will execute a script on the server
-- The script goes into the cloned frontend repo and pulls the newest changes
-- Then it builds the application
-- Then it runs it
+For production you additionally need:
+- Docker engine or Docker desktop (idk which version, I have 28.5)
 
-I know its shit and I want to change it but my focus currently only lies on getting the website up and running.
+For prod either build the docker image locally or pull it from the repo.

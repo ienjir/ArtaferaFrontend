@@ -1,30 +1,23 @@
 import {Routes} from '@angular/router';
-import {Homepage} from "./Pages/homepage/homepage.component";
-import {LoginPage} from "./Pages/loginpage/loginpage.component";
-import {AuthGuard} from "./Services/auth/auth-guard.service";
-import {NotFoundPageComponent} from "./Pages/notfoundpage/notfoundpage.component";
-import {ContactPageComponent} from "./Pages/contactpage/contactpage.component";
-import {DefaultLayoutComponent} from "./layouts/defaultLayout/defaultlayout.component";
-import {AboutMePageComponent} from "./Pages/aboutmepage/aboutmepage.component";
-import {HomelayoutComponent} from "./layouts/homelayout/homelayout.component";
+import {HomePage} from '@pages/homepage/homepage';
+import {HomeLayout} from '@layouts/home-layout/home-layout';
+import {DefaultLayout} from '@layouts/default-layout/default-layout';
+import {NotFoundPage} from "@pages/not-found-page/not-found-page";
+import {AboutMePage} from "@pages/about-me-page/about-me-page";
+import {ContactPage} from "@pages/contact-page/contact-page";
+import {ArtPage} from "@pages/art-page/art-page";
+import {ArtDetailPage} from "@pages/art-detail-page/art-detail-page";
+import { ImprintPage } from './pages/imprint-page/imprint-page';
+import { DsgPage } from './dsg-page/dsg-page';
+
 
 export const routes: Routes = [
-    {
-      path: '',
-      component: HomelayoutComponent,
-      children:  [
-        {path: '', component: Homepage}
-      ]
-    },
-    {
-      path: '',
-      component: DefaultLayoutComponent,
-      children: [
-        {path: 'login', component: LoginPage},
-        {path: 'kontakt', component: ContactPageComponent},
-        {path: 'uebermich', component: AboutMePageComponent},
-        {path: '**', component: NotFoundPageComponent},
-      ]
-    },
-  ]
-;
+  {path: '', component: HomeLayout, children: [{path: '', component: HomePage}]},
+  {path: "kunst", component: DefaultLayout, children: [{path: '', component: ArtPage}]},
+  {path: "uebermich", component: DefaultLayout, children: [{path: '', component: AboutMePage}]},
+  {path: "kontakt", component: DefaultLayout, children: [{path: '', component: ContactPage}]},
+  {path: "kunst/:id", component: DefaultLayout, children: [{path: '', component: ArtDetailPage}]},
+  {path: "impressum", component: DefaultLayout, children: [{path: '', component: ImprintPage}]},
+  {path: "datenschutz", component: DefaultLayout, children: [{path: '', component: DsgPage}]},
+  {path: '**', component: NotFoundPage}
+];

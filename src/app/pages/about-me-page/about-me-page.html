@@ -1,0 +1,11 @@
+<div class="page">
+  <div class="page__section page__section--v-centered page__section--m-hidden">
+    <img class="rounded-image__image" ngSrc="/pictures/DingDong.jpg" width="3872" height="2592" alt="Rounded Image" priority>
+  </div>
+  <div class="page__section page--h-centered page--v-centered">
+    <Section [centered]="true" titleKey="aboutMe">
+      <p class="homepage__text text-center">{{ 'inProgress' | transloco }}</p>
+      <button (click)="fetch()">Klick mich</button>
+    </Section>
+  </div>
+</div>

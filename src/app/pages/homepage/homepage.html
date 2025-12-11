@@ -1,0 +1,22 @@
+<div class="page">
+  <div class="page__section">
+    <Section [centered]="true" titleKey="featuredProducts">
+      <div class="homepage__grid">
+        @for (artPreview of arts(); track artPreview.id) {
+          <ArtPreview [artPreview]="artPreview"></ArtPreview>
+        }
+      </div>
+      <button routerLink="/kunst">{{ 'showMore' | transloco }}</button>
+    </Section>
+
+    <Section [centered]="true" titleKey="aboutMe">
+      <p class="homepage__text">{{ 'aboutMeText' | transloco }}</p>
+      <button routerLink="/uebermich">{{ 'readMore' | transloco }}</button>
+    </Section>
+
+    <Section [centered]="true" titleKey="contact">
+      <p class="homepage__text">{{ 'contactText' | transloco }}</p>
+      <button routerLink="kontakt">{{ 'contactNow' | transloco }}</button>
+    </Section>
+  </div>
+</div>

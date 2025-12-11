@@ -1,0 +1,58 @@
+@use "styles" as *;
+
+.art-detail-page {
+  padding: 1rem 0;
+  gap: 2rem;
+
+  @include respond-from("sm") {
+    flex-direction: row;
+  }
+
+  &__carousel {
+    height: 70dvh;
+    position: relative;
+    width: 100%;
+  }
+
+  &__content {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 1rem;
+    flex: 0;
+
+    &__title {
+      display: flex;
+      flex-direction: column;
+      text-overflow: ellipsis;
+      word-wrap: break-word;
+    }
+
+    &__text {
+      display: flex;
+      flex: 1;
+    }
+
+    @include respond-from("sm") {
+      flex: 1 0;
+    }
+  }
+
+  &__information {
+    display: inline-block;
+    height: auto;
+    background-color: var(--Background);
+    flex-direction: column;
+    padding: 1rem;
+
+    &--title {
+      font-size: 1.5rem;
+      padding-bottom: 0.2rem;
+      margin-bottom: 0;
+    }
+
+    &--entry {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+  }
+}

@@ -1,0 +1,21 @@
+<nav>
+  <ul class="horizontalNavigation">
+    <li class="logoListItem">
+      <a class="logoDiv" routerLink="/">
+          <img class="logoImg" priority ngSrc="/pictures/logos/Logo_Light_Big.png" alt="HomepageLogo" height="687" width="2150">
+      </a>
+    </li>
+    @for (navigationItem of navigationItems; track $index) {
+      <li class="horizontalLi" [class.rightAlignedDiv]="$last">
+        <a [routerLink]="navigationItem.NavigationLink">
+          <h2>{{ navigationItem.NavigationItem | transloco }}</h2>
+        </a>
+      </li>
+    }
+    <li class="BurgerMenuHorizontal rightAlignedDiv">
+      <button (click)="openSidebar()">
+        <img ngSrc="/svg/Burger.svg" alt="Open Sidebar" height="35" width="40">
+      </button>
+    </li>
+  </ul>
+</nav>
