@@ -40,13 +40,13 @@ export class ContactPage {
     const messageControl = this.contactForm.controls.message;
 
     if (emailControl.hasError('required')) {
-      this.emailError = 'contact.emailRequired';
+      this.emailError = 'TL-CON_Email-Required';
     } else if (emailControl.hasError('email')) {
-      this.emailError = 'contact.emailInvalid';
+      this.emailError = 'TL-CON_Email-Invalid';
     }
 
     if (messageControl.hasError('required')) {
-      this.messageError = 'contact.messageRequired';
+      this.messageError = 'TL-CON_Message-Required';
     }
 
     if (this.contactForm.invalid) {
@@ -62,10 +62,10 @@ export class ContactPage {
     ).subscribe({
       next: () => {
         this.contactForm.reset();
-        this.toastService.success('contact.messageSent');
+        this.toastService.success('TL-CON_Message-Sent');
       },
       error: () => {
-        this.toastService.error('contact.messageSendFailed');
+        this.toastService.error('TL-CON_Message-Send-Failed');
       }
     });
   }

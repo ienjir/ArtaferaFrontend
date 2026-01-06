@@ -18,7 +18,7 @@ export class ToastService {
     this._toasts.set([]);
   }
 
-  success(message: string, title: string = 'TL-Success') {
+  success(message: string, title: string = 'TL-TOA_Success') {
     this.show({
       message,
       title,
@@ -29,7 +29,7 @@ export class ToastService {
     })
   }
 
-  error(message: string, title: string = 'Error') {
+  error(message: string, title: string = 'TL-TOA_Error') {
     this.show({
       message,
       title,
@@ -40,7 +40,7 @@ export class ToastService {
     });
   }
 
-  warning(message: string, title: string = 'Warning') {
+  warning(message: string, title: string = 'TL-TOA_Warning') {
     this.show({
       message,
       title,
@@ -51,7 +51,7 @@ export class ToastService {
     });
   }
 
-  info(message: string, title: string = 'Info') {
+  info(message: string, title: string = 'TL-TOA_Info') {
     this.show({
       message,
       title,
