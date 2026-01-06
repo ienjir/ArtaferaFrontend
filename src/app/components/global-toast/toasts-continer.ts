@@ -1,11 +1,12 @@
 import {Component, inject, PLATFORM_ID} from '@angular/core';
 import {isPlatformBrowser} from '@angular/common';
 import {NgbToastModule} from '@ng-bootstrap/ng-bootstrap';
+import {TranslocoModule} from '@jsverse/transloco';
 import {ToastService} from "@core/services/toast-service/toast-service";
 
 @Component({
   selector: 'app-toasts',
-  imports: [NgbToastModule],
+  imports: [NgbToastModule, TranslocoModule],
   template: `
     @if (isBrowser) {
       @for (toast of toastService.toasts(); track toast) {
@@ -17,7 +18,7 @@ import {ToastService} from "@core/services/toast-service/toast-service";
         >
           <div class="d-flex justify-content-between align-items-center mb-2">
             @if (toast.title) {
-              <strong>{{ toast.title }}</strong>
+              <strong>{{ toast.title | transloco }}</strong>
             }
             <button
               type="button"
@@ -27,7 +28,7 @@ import {ToastService} from "@core/services/toast-service/toast-service";
               (click)="toastService.remove(toast)"
             ></button>
           </div>
-          <div>{{ toast.message }}</div>
+          <div>{{ toast.message | transloco }}</div>
         </ngb-toast>
       }
     }

@@ -1,58 +1,146 @@
 @use "styles" as *;
 
 .art-detail-page {
-  padding: 1rem 0;
-  gap: 2rem;
+  padding: 1rem 0 2.5rem;
+  gap: 2.5rem;
+  flex-direction: column;
 
-  @include respond-from("sm") {
-    flex-direction: row;
+  @include respond-from("md") {
+    flex-direction: column;
+  }
+
+  &__header,
+  &__body {
+    flex: 0 0 auto;
+    width: 100%;
   }
 
   &__carousel {
     height: 70dvh;
     position: relative;
     width: 100%;
+    border-bottom: 2px solid rgba(234, 234, 234, 0.08);
   }
 
-  &__content {
-    display: inline-flex;
+  &__header {
+    display: flex;
     flex-direction: column;
-    gap: 1rem;
-    flex: 0;
-
-    &__title {
-      display: flex;
-      flex-direction: column;
-      text-overflow: ellipsis;
-      word-wrap: break-word;
-    }
-
-    &__text {
-      display: flex;
-      flex: 1;
-    }
+    gap: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(234, 234, 234, 0.16);
 
     @include respond-from("sm") {
-      flex: 1 0;
+      flex-direction: row;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+  }
+
+  &__title-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-width: 0;
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 3vw, 3.5rem);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+  }
+
+  &__subtitle {
+    margin: 0;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--Text);
+  }
+
+  &__status {
+    display: flex;
+    align-items: center;
+  }
+
+  &__body {
+    display: grid;
+    gap: 2rem;
+
+    @include respond-from("md") {
+      grid-template-columns: minmax(0, 1fr) 320px;
+      align-items: start;
+    }
+  }
+
+  &__main {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    min-width: 0;
+
+    @include respond-from("md") {
+      padding-right: 2rem;
+      border-right: 1px solid rgba(234, 234, 234, 0.08);
     }
   }
 
   &__information {
-    display: inline-block;
-    height: auto;
-    background-color: var(--Background);
+    display: flex;
     flex-direction: column;
-    padding: 1rem;
+    gap: 1rem;
+    background-color: var(--Background);
+    border: 2px solid rgba(234, 234, 234, 0.08);
+    padding: 1.5rem;
+  }
 
-    &--title {
-      font-size: 1.5rem;
-      padding-bottom: 0.2rem;
-      margin-bottom: 0;
+  &__information-title {
+    margin: 0;
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  &__information-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  &__information-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    border-bottom: 1px solid rgba(234, 234, 234, 0.08);
+    padding-bottom: 0.75rem;
+
+    &:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
     }
+  }
 
-    &--entry {
-      font-size: 1.2rem;
-      margin-bottom: 0.5rem;
+  &__information-label {
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.85rem;
+    color: var(--Text);
+  }
+
+  &__information-value {
+    margin: 0;
+    font-size: 1.05rem;
+    text-align: right;
+  }
+
+  &__aside {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    @include respond-from("md") {
+      position: sticky;
+      top: 6rem;
     }
   }
 }

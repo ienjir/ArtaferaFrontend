@@ -31,13 +31,13 @@ export class ErrorService {
 
   handleHttpError(error: HttpErrorResponse) {
     const title = this.translocoService.translate(this.getHttpMessage(error))
-    const msg = this.translocoService.translate("TL_Something-Went-Wrong")
+    const msg = this.translocoService.translate("TL-ERR_Something-Went-Wrong")
     this.toastService.error(msg, title)
     this.processError(error)
   }
 
   handleGlobalError(error: any): void {
-    const title = this.translocoService.translate("TL_Something-Went-Wrong")
+    const title = this.translocoService.translate("TL-ERR_Something-Went-Wrong")
     this.toastService.error(error, title)
     this.processError(error)
   }

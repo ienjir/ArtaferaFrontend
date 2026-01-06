@@ -69,6 +69,21 @@
   "TL-DSG__SECTION9_TITLE": "9. Kontakt und Anfragen",
   "TL-DSG__SECTION9_CONTENT": "Für Fragen zum Datenschutz, Anfragen zu Ihren Rechten oder um Daten einzusehen, kontaktieren Sie uns über das Kontaktformular auf dieser Website.",
 
+  "TL-CON_Title": "Kontakt",
+  "TL-CON_Email": "E-Mail",
+  "TL-CON_Message": "Nachricht",
+  "TL-CON_Send": "Senden",
+  "TL-CON_Email-Required": "E-Mail ist ein Pflichtfeld",
+  "TL-CON_Email-Invalid": "Ungueltiges E-Mail-Format",
+  "TL-CON_Message-Required": "Nachricht ist ein Pflichtfeld",
+  "TL-CON_Message-Sent": "Nachricht wurde gesendet",
+  "TL-CON_Message-Send-Failed": "Nachricht konnte nicht gesendet werden",
+
+  "TL-TOA_Success": "Erfolg",
+  "TL-TOA_Error": "Fehler",
+  "TL-TOA_Warning": "Warnung",
+  "TL-TOA_Info": "Info",
+
   "TL-IMC_Error-While-Fetching-Pictures": "Fehler beim laden der Bilder",
 
   "TL-MDR_Error-While-Parsing": "Fehler beim verarbeiten des Kunstwerktext",

@@ -28,7 +28,7 @@ export class HomePage {
   private artService = inject(ArtService);
 
   artState = toSignal(
-    this.artService.getPublicList(0, 'en').pipe(
+    this.artService.getFeaturedList(6, 'en').pipe(
       map((data): ArtState => ({status: 'success', data})),
       catchError((error) => of({status: 'error', error} as ArtState))
     ),

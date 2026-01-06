@@ -20,4 +20,8 @@ export class ArtService extends Base {
   getPublicList(Offset: Number, Lang: string): Observable<PublicListResult> {
     return this.get<PublicListResult>(`/publiclist?lang=${Lang}&offset=${Offset}`, true);
   }
+
+  getFeaturedList(Limit: number, Lang: string): Observable<PublicListResult> {
+    return this.get<PublicListResult>(`/featured?lang=${Lang}&limit=${Limit}`, true);
+  }
 }

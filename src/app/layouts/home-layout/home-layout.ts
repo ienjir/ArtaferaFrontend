@@ -34,7 +34,7 @@ export class HomeLayout {
 
   pictures: ArtPicture[] = [
     {id: 0, name: "DingDong", priority: 1, picture: {id: 0, type: ".jpg", is_public: true, name: "DingDong", created_at: Date(), updated_at: Date()}, artId: 0, created_at: Date(), updated_at: Date(), pictureId: 0,},
-    {id: 0, name: "Sonnenblume", priority: 2, picture: {id: 0, type: ".jpg", is_public: true, name: "Sonnenblume", created_at: Date(), updated_at: Date()}, artId: 0, created_at: Date(), updated_at: Date(), pictureId: 0,},
+    {id: 0, name: "Sonnenblume", priority: 2, picture: {id: 0, type: ".jpg", is_public: true, name: "Windblume", created_at: Date(), updated_at: Date()}, artId: 0, created_at: Date(), updated_at: Date(), pictureId: 0,},
     {id: 0, name: "Schildkröte", priority: 3, picture: {id: 0, type: ".jpg", is_public: true, name: "Schildkröte", created_at: Date(), updated_at: Date()}, artId: 0, created_at: Date(), updated_at: Date(), pictureId: 0,},
   ]
 }
