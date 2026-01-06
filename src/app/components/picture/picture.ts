@@ -28,9 +28,12 @@ export class Picture {
       return p.name + p.type
   })
 
-  fullURL = computed(() =>
-    (this.customPictureURL() || environment.pictureUrl) + "/" + this.relativeURL()
-  )
+  fullURL = computed(() => {
+    const rel = this.relativeURL()
+    if (!rel) return ''
+    const base = this.customPictureURL() || environment.pictureUrl
+    return `${base}/${rel}`
+  })
 
 
   open(content: TemplateRef<any>) {

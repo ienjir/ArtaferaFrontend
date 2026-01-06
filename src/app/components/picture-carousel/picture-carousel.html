@@ -7,7 +7,7 @@
     @for (slide of pictures(); track $index) {
       <ng-template ngbSlide class="carousel-template">
         <div class="picsum-img-wrapper carousel-image">
-          <AF-Picture [artPicture]="slide" customPictureURL="/pictures"></AF-Picture>
+          <AF-Picture [artPicture]="slide" [customPictureURL]="basePictureURL()" [darkened]="darkened()"></AF-Picture>
         </div>
       </ng-template>
     }
