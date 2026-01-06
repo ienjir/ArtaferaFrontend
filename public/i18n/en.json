@@ -1,1 +1,11 @@
-{}
+{
+  "adminDashboardTitle": "Admin dashboard",
+  "adminDashboardDescription": "This space is reserved for admin tools and reports.",
+  "email": "Email",
+  "password": "Password",
+  "logIn": "Log in",
+  "emailRequired": "Email is required",
+  "emailFormat": "Invalid email format",
+  "passwordRequired": "Password is required",
+  "unknownError": "An unknown error occurred. Please check your login details and try again."
+}

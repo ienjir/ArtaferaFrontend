@@ -9,6 +9,7 @@ import {provideTransloco} from '@jsverse/transloco';
 import {provideNgxSkeletonLoader} from "ngx-skeleton-loader";
 import {GlobalErrorHandler} from "@core/services/global-error-handler/global-error-handler";
 import {ErrorInterceptor} from "@interceptors/error-interceptor";
+import {AuthInterceptor} from "@interceptors/auth-interceptor";
 
 export const appConfig: ApplicationConfig = {
     providers: [
@@ -23,7 +24,7 @@ export const appConfig: ApplicationConfig = {
       provideClientHydration(withEventReplay()),
       provideHttpClient(
         withFetch(),
-        withInterceptors([ErrorInterceptor])
+        withInterceptors([AuthInterceptor, ErrorInterceptor])
       ),
       provideRouter(
         routes,

@@ -9,6 +9,9 @@ import {ArtPage} from "@pages/art-page/art-page";
 import {ArtDetailPage} from "@pages/art-detail-page/art-detail-page";
 import { ImprintPage } from './pages/imprint-page/imprint-page';
 import { DsgPage } from './dsg-page/dsg-page';
+import {AdminDashboardPage} from "@pages/admin-dashboard-page/admin-dashboard-page";
+import {adminGuard} from "@core/guards/admin.guard";
+import {LoginPage} from "@pages/login-page/login-page";
 
 
 export const routes: Routes = [
@@ -19,5 +22,7 @@ export const routes: Routes = [
   {path: "kunst/:id", component: DefaultLayout, children: [{path: '', component: ArtDetailPage}]},
   {path: "impressum", component: DefaultLayout, children: [{path: '', component: ImprintPage}]},
   {path: "datenschutz", component: DefaultLayout, children: [{path: '', component: DsgPage}]},
+  {path: "admin", component: DefaultLayout, canMatch: [adminGuard], children: [{path: '', component: AdminDashboardPage}]},
+  {path: "login", component: DefaultLayout, children: [{path: '', component: LoginPage}]},
   {path: '**', component: NotFoundPage}
 ];
