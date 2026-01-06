@@ -2,52 +2,48 @@
   <AF-Picture-Carousel [pictures]="art()?.artPictures ?? []" [isLoading]="isLoading()"></AF-Picture-Carousel>
 </div>
 <div class="page art-detail-page">
-  <div class="art-detail-page__content page__section ">
-    <div class="art-detail-page__content__title">
+  <div class="art-detail-page__header page__section">
+    <div class="art-detail-page__title-group">
       <h1>{{ translation()?.title }}</h1>
-      <h2>{{ translation()?.description }}</h2>
+      <p class="art-detail-page__subtitle">{{ translation()?.description }}</p>
     </div>
-    <div ngbAccordion class="sm-hidden">
-      <div ngbAccordionItem>
-        <h2 ngbAccordionHeader>
-          <button ngbAccordionButton>
-            <p class="text-blue">Information</p>
-          </button>
-        </h2>
-        <div ngbAccordionCollapse>
-          <div ngbAccordionBody>
-            <ng-template>
-              <p>Info 1</p>
-              <p>Info 2</p>
-            </ng-template>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="art-detail-page__content__text">
-      <AF-Markdown-Renderer [mdText]="text()"></AF-Markdown-Renderer>
+    <div class="art-detail-page__status">
+      <Label [label]="available() | transloco" [color]="labelColor()"></Label>
     </div>
   </div>
-  <div class="sm-shown">
-    <div>
-      <div class="art-detail-page__information">
-        <h2>{{ "TL-ATD_Information" | transloco }}</h2>
-        <Label class="art-detail-page__information--entry" [label]="available()" [color]="labelColor()">{{ "TL-ATD_Depth" | transloco }}</Label>
-        <h3 class="art-detail-page__information--title">{{ "TL-ATD_Price" | transloco }}</h3>
-        <p class="art-detail-page__information--entry">{{ art()?.price }}</p>
-        @if (art()?.height) {
-          <h3 class="art-detail-page__information--title">{{ "TL-ATD_Height" | transloco }}</h3>
-          <p class="art-detail-page__information--entry">{{ art()?.height }}</p>
-        }
-        @if (art()?.width) {
-          <h3 class="art-detail-page__information--title">{{ "TL-ATD_Width" | transloco }}</h3>
-          <p class="art-detail-page__information--entry">{{ art()?.width }}</p>
-        }
-        @if (art()?.depth) {
-          <h3 class="art-detail-page__information--title">{{ "TL-ATD_Depth" | transloco }}</h3>
-          <p class="art-detail-page__information--entry">{{ art()?.depth }}</p>
-        }
-      </div>
+
+  <div class="art-detail-page__body page__section">
+    <div class="art-detail-page__main">
+      <AF-Markdown-Renderer [mdText]="text()"></AF-Markdown-Renderer>
     </div>
+    <aside class="art-detail-page__aside">
+      <div class="art-detail-page__information">
+        <h2 class="art-detail-page__information-title">{{ "TL-ATD_Information" | transloco }}</h2>
+        <div class="art-detail-page__information-list">
+          <div class="art-detail-page__information-row">
+            <p class="art-detail-page__information-label">{{ "TL-ATD_Price" | transloco }}</p>
+            <p class="art-detail-page__information-value">{{ art()?.price }}</p>
+          </div>
+          @if (art()?.height) {
+            <div class="art-detail-page__information-row">
+              <p class="art-detail-page__information-label">{{ "TL-ATD_Height" | transloco }}</p>
+              <p class="art-detail-page__information-value">{{ art()?.height }}</p>
+            </div>
+          }
+          @if (art()?.width) {
+            <div class="art-detail-page__information-row">
+              <p class="art-detail-page__information-label">{{ "TL-ATD_Width" | transloco }}</p>
+              <p class="art-detail-page__information-value">{{ art()?.width }}</p>
+            </div>
+          }
+          @if (art()?.depth) {
+            <div class="art-detail-page__information-row">
+              <p class="art-detail-page__information-label">{{ "TL-ATD_Depth" | transloco }}</p>
+              <p class="art-detail-page__information-value">{{ art()?.depth }}</p>
+            </div>
+          }
+        </div>
+      </div>
+    </aside>
   </div>
 </div>

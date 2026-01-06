@@ -3,22 +3,15 @@ import {ActivatedRoute} from "@angular/router";
 import {Art} from "@interfaces/art.model";
 import {ArtService} from "@services/art/art";
 import {PictureCarousel} from "@components/picture-carousel/picture-carousel";
-import {NgbAccordionBody, NgbAccordionButton, NgbAccordionCollapse, NgbAccordionDirective, NgbAccordionHeader, NgbAccordionItem} from "@ng-bootstrap/ng-bootstrap";
 import {MarkdownRenderer} from "@components/markdown-renderer/markdown-renderer";
 import {TranslocoPipe, TranslocoService} from "@jsverse/transloco";
-import { Label } from '@/app/components/label/label';
+import {Label} from '@/app/components/label/label';
 
 @Component({
   selector: 'app-art-detail-page',
   imports: [
     Label,
     PictureCarousel,
-    NgbAccordionDirective,
-    NgbAccordionItem,
-    NgbAccordionHeader,
-    NgbAccordionButton,
-    NgbAccordionCollapse,
-    NgbAccordionBody,
     MarkdownRenderer,
     TranslocoPipe
   ],
@@ -37,9 +30,9 @@ export class ArtDetailPage {
   pictures = computed(() => this.art()?.artPictures)
   available = computed(() => {
     if (this.art()?.available) {
-      return this.translocoService.translate("TL-ATD_Available")
+      return "TL-ATD_Available"
     } else {
-      return this.translocoService.translate("TL-ATD_Not-Available")
+      return "TL-ATD_Not-Available"
     }
   })
   labelColor = computed(() => {
