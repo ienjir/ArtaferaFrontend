@@ -15,6 +15,7 @@ export const ArtSchema = z.object({
   artPictures: z.array(ArtPictureSchema).optional(),
   translations: z.array(ArtTranslationSchema).optional(),
   available: z.boolean(),
+  featured: z.boolean().optional(),
 })
 
 export type Art = z.infer<typeof ArtSchema>
@@ -31,6 +32,7 @@ export interface ArtModel {
   artPictures?: ArtPictureModel[]
   translations?: ArtTranslationModel[]
   available: boolean
+  featured?: boolean
 }
 
 export interface ArtListResult {
