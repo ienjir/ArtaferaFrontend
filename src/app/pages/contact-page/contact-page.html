@@ -6,17 +6,15 @@
     <div class="page__section page--h-centered page--v-centered">
         <div class="artafera-card">
             <h2>{{ 'contact' | transloco }}</h2>
-            <form [formGroup]="contactForm" class="contact-container__contact__form">
+            <form [formGroup]="contactForm" class="contact-container__contact__form" (ngSubmit)="submitContact()">
                 <InputWrapper [label]="'email' | transloco" type="text" [errorMessage]="emailError">
                     <input #input id="email" type="text" formControlName="email">
                 </InputWrapper>
-                <div class="login__password-container">
-                    <InputWrapper [label]="'message' | transloco" type="password" [errorMessage]="passwordError" [resizable]="true">
-                        <textarea #textarea id="textarea"></textarea>
-                    </InputWrapper>
-                </div>
+                <InputWrapper [label]="'message' | transloco" type="text" [errorMessage]="messageError" [resizable]="true">
+                    <textarea #textarea id="message" formControlName="message"></textarea>
+                </InputWrapper>
                 <div class="contact-container__contact__button-container">
-                    <button type="button" class="login__login-button" (click)="submitLogin()">{{ 'send' | transloco }}</button>
+                    <button type="submit" [disabled]="contactForm.invalid || isSubmitting()">{{ 'send' | transloco }}</button>
                 </div>
             </form>
         </div>

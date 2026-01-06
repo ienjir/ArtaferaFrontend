@@ -66,7 +66,7 @@ export class InputWrapper implements AfterViewInit {
   );
 
   protected readonly passwordToggleLabel = computed(() =>
-    this.showPassword() ? 'HidePassword' : 'ShowPassword'
+    this.showPassword() ? 'hidePassword' : 'showPassword'
   );
 
   protected readonly errorId = computed(() =>
