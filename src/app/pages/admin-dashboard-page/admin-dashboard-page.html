@@ -1,9 +1,387 @@
 <div class="page admin-dashboard">
-  <div class="page__section page__section--v-centered">
-    <Section [centered]="true" titleKey="adminDashboardTitle">
-      <p class="admin-dashboard__text">
-        {{ 'adminDashboardDescription' | transloco }}
-      </p>
-    </Section>
+  <div class="admin-dashboard__hero">
+    <div class="admin-dashboard__hero-text">
+      <span class="admin-dashboard__eyebrow">{{ 'adminDashboardEyebrow' | transloco }}</span>
+      <h1>{{ 'adminDashboardTitle' | transloco }}</h1>
+      <p>{{ 'adminDashboardDescription' | transloco }}</p>
+      <div class="admin-dashboard__hero-actions">
+        <button type="button" (click)="refreshList()" [disabled]="isLoading()">
+          {{ 'adminDashboardRefresh' | transloco }}
+        </button>
+        <button type="button" (click)="openCreateModal()">
+          {{ 'adminDashboardOpenCreate' | transloco }}
+        </button>
+      </div>
+    </div>
+    <div class="admin-dashboard__stats">
+      <div class="admin-dashboard__stat">
+        <span class="admin-dashboard__stat-label">{{ 'adminDashboardStatsTotal' | transloco }}</span>
+        <span class="admin-dashboard__stat-value">{{ totalCount() }}</span>
+      </div>
+      <div class="admin-dashboard__stat">
+        <span class="admin-dashboard__stat-label">{{ 'adminDashboardStatsFeatured' | transloco }}</span>
+        <span class="admin-dashboard__stat-value">{{ featuredCount() }}</span>
+      </div>
+      <div class="admin-dashboard__stat">
+        <span class="admin-dashboard__stat-label">{{ 'adminDashboardStatsAvailable' | transloco }}</span>
+        <span class="admin-dashboard__stat-value">{{ availableCount() }}</span>
+      </div>
+      <div class="admin-dashboard__stat">
+        <span class="admin-dashboard__stat-label">{{ 'adminDashboardStatsLoaded' | transloco }}</span>
+        <span class="admin-dashboard__stat-value">{{ loadedCount() }}</span>
+      </div>
+    </div>
   </div>
+
+  <div class="admin-dashboard__content">
+    <section class="admin-dashboard__panel admin-dashboard__panel--list">
+      <div class="admin-dashboard__panel-header admin-dashboard__panel-header--list">
+        <div>
+          <h2>{{ 'adminDashboardLibraryTitle' | transloco }}</h2>
+          <p>{{ 'adminDashboardLibraryHint' | transloco }}</p>
+        </div>
+        <div class="admin-dashboard__filters">
+          <div class="admin-dashboard__search">
+            <input
+              type="text"
+              [value]="searchQuery()"
+              (input)="updateSearch($any($event.target).value)"
+              [placeholder]="'adminDashboardSearch' | transloco">
+          </div>
+          <button
+            type="button"
+            class="admin-dashboard__filter"
+            [class.admin-dashboard__filter--active]="filterFeatured()"
+            (click)="toggleFeatured()">
+            {{ 'adminDashboardFilterFeatured' | transloco }}
+          </button>
+          <button
+            type="button"
+            class="admin-dashboard__filter"
+            [class.admin-dashboard__filter--active]="filterAvailable()"
+            (click)="toggleAvailableFilter()">
+            {{ 'adminDashboardFilterAvailable' | transloco }}
+          </button>
+        </div>
+      </div>
+
+      <div class="admin-dashboard__table">
+        <div class="admin-dashboard__table-header">
+          <span>{{ 'adminDashboardTableId' | transloco }}</span>
+          <span>{{ 'adminDashboardTableDetails' | transloco }}</span>
+          <span>{{ 'adminDashboardTableFlags' | transloco }}</span>
+          <span>{{ 'adminDashboardTableActions' | transloco }}</span>
+        </div>
+
+        @if (isLoading()) {
+          <div class="admin-dashboard__loading">
+            {{ 'adminDashboardLoading' | transloco }}
+          </div>
+        }
+
+        @if (filteredArts().length === 0 && !isLoading()) {
+          <div class="admin-dashboard__empty">
+            <p>{{ 'adminDashboardEmpty' | transloco }}</p>
+          </div>
+        }
+
+        @for (art of filteredArts(); track art.id) {
+          <div class="admin-dashboard__row">
+            <div class="admin-dashboard__cell admin-dashboard__cell--id">
+              <span>#{{ art.id }}</span>
+              <span class="admin-dashboard__subtext">{{ art.creation_year }}</span>
+            </div>
+            <div class="admin-dashboard__cell admin-dashboard__cell--details">
+              <span class="admin-dashboard__title">{{ getArtTitle(art) }}</span>
+              @if (getArtLabel(art)) {
+                <span class="admin-dashboard__subtext">
+                  {{ 'adminDashboardLabel' | transloco }}: {{ getArtLabel(art) }}
+                </span>
+              }
+              <span class="admin-dashboard__price">
+                {{ art.price }} · {{ art.currency?.currencyCode ?? art.currency_id }}
+              </span>
+              <span class="admin-dashboard__subtext">
+                {{ 'adminDashboardSize' | transloco }}:
+                {{ art.width ?? '-' }} × {{ art.height ?? '-' }} × {{ art.depth ?? '-' }}
+              </span>
+              <div class="admin-dashboard__meta">
+                <span class="admin-dashboard__chip">
+                  {{ 'adminDashboardTranslations' | transloco }}: {{ art.translations?.length ?? 0 }}
+                </span>
+                <span class="admin-dashboard__chip">
+                  {{ 'adminDashboardImages' | transloco }}: {{ art.artPictures?.length ?? 0 }}
+                </span>
+              </div>
+            </div>
+            <div class="admin-dashboard__cell admin-dashboard__cell--flags">
+              <label class="admin-dashboard__flag">
+                <input
+                  type="checkbox"
+                  [checked]="art.available"
+                  (change)="toggleAvailableFlag(art)">
+                <span>{{ 'adminDashboardAvailable' | transloco }}</span>
+              </label>
+              <label class="admin-dashboard__flag">
+                <input
+                  type="checkbox"
+                  [checked]="art.featured"
+                  (change)="toggleFeaturedFlag(art)">
+                <span>{{ 'adminDashboardFeatured' | transloco }}</span>
+              </label>
+            </div>
+            <div class="admin-dashboard__cell admin-dashboard__cell--actions">
+              <button type="button" (click)="startEdit(art)">
+                {{ 'adminDashboardEdit' | transloco }}
+              </button>
+              <button type="button" class="admin-dashboard__danger" (click)="deleteArt(art)">
+                {{ 'adminDashboardDelete' | transloco }}
+              </button>
+            </div>
+          </div>
+        }
+      </div>
+
+      <div class="admin-dashboard__list-footer">
+        <button
+          type="button"
+          (click)="loadArts(false)"
+          [disabled]="!hasMore() || isLoading()">
+          {{ 'adminDashboardLoadMore' | transloco }}
+        </button>
+      </div>
+    </section>
+  </div>
+
+  <ng-template #artFormModal let-modal>
+    <div class="modal-header admin-dashboard__modal-header">
+      <div>
+        <h2>
+          @if (isEditing()) {
+            {{ 'adminDashboardEditTitle' | transloco }} #{{ editingArtId() }}
+          } @else {
+            {{ 'adminDashboardCreateTitle' | transloco }}
+          }
+        </h2>
+        <p>{{ 'adminDashboardFormHint' | transloco }}</p>
+      </div>
+      <button type="button" class="admin-dashboard__modal-close" (click)="modal.dismiss()">
+        {{ 'adminDashboardClose' | transloco }}
+      </button>
+    </div>
+    <div class="modal-body admin-dashboard__modal-body">
+      <form class="admin-dashboard__form admin-dashboard__form--modal" [formGroup]="form" (ngSubmit)="submitForm()">
+        <section class="admin-dashboard__modal-section">
+          <h3 class="admin-dashboard__modal-section-title">
+            {{ 'adminDashboardDetailsSection' | transloco }}
+          </h3>
+          <div class="admin-dashboard__form-grid">
+            <InputWrapper [label]="'adminDashboardPrice'">
+              <input #input id="price" type="number" formControlName="price" min="0">
+            </InputWrapper>
+            <InputWrapper [label]="'adminDashboardCurrencyId'">
+              <input #input id="currency" type="number" formControlName="currency_id" min="1">
+            </InputWrapper>
+            <InputWrapper [label]="'adminDashboardYear'">
+              <input #input id="year" type="number" formControlName="creation_year" min="1000" max="9999">
+            </InputWrapper>
+            <InputWrapper [label]="'adminDashboardLanguageCode'">
+              <input #input id="language" type="text" formControlName="language_code" maxlength="2">
+            </InputWrapper>
+            <InputWrapper [label]="'adminDashboardTitleField'">
+              <input #input id="title" type="text" formControlName="title">
+            </InputWrapper>
+            <InputWrapper [label]="'adminDashboardWidth'">
+              <input #input id="width" type="number" formControlName="width" step="0.01">
+            </InputWrapper>
+            <InputWrapper [label]="'adminDashboardHeight'">
+              <input #input id="height" type="number" formControlName="height" step="0.01">
+            </InputWrapper>
+            <InputWrapper [label]="'adminDashboardDepth'">
+              <input #input id="depth" type="number" formControlName="depth" step="0.01">
+            </InputWrapper>
+          </div>
+        </section>
+
+        <section class="admin-dashboard__modal-section">
+          <h3 class="admin-dashboard__modal-section-title">
+            {{ 'adminDashboardDescriptionSection' | transloco }}
+          </h3>
+          <div class="admin-dashboard__markdown">
+            <div class="admin-dashboard__markdown-header">
+              <h4>{{ 'adminDashboardDescriptionField' | transloco }}</h4>
+              <span>{{ 'adminDashboardDescriptionHint' | transloco }}</span>
+            </div>
+            <textarea formControlName="description"></textarea>
+          </div>
+
+          <div class="admin-dashboard__markdown">
+            <div class="admin-dashboard__markdown-header">
+              <h4>{{ 'adminDashboardTextField' | transloco }}</h4>
+              <span>{{ 'adminDashboardTextMarkdownHint' | transloco }}</span>
+            </div>
+            <markular formControlName="text"></markular>
+          </div>
+        </section>
+
+        <section class="admin-dashboard__modal-section">
+          <h3 class="admin-dashboard__modal-section-title">
+            {{ 'adminDashboardFlagsSection' | transloco }}
+          </h3>
+          <div class="admin-dashboard__toggles">
+            <label class="admin-dashboard__toggle">
+              <input type="checkbox" formControlName="available">
+              <span>{{ 'adminDashboardAvailable' | transloco }}</span>
+            </label>
+            <label class="admin-dashboard__toggle">
+              <input type="checkbox" formControlName="featured">
+              <span>{{ 'adminDashboardFeatured' | transloco }}</span>
+            </label>
+          </div>
+        </section>
+
+        <section class="admin-dashboard__modal-section">
+          <div class="admin-dashboard__images">
+            <div class="admin-dashboard__images-header">
+              <h3>{{ 'adminDashboardImagesTitle' | transloco }}</h3>
+              <p>{{ 'adminDashboardImagesHint' | transloco }}</p>
+            </div>
+            @if (!isEditing()) {
+              <div class="admin-dashboard__images-empty">
+                {{ 'adminDashboardImagesEditHint' | transloco }}
+              </div>
+            } @else {
+              <div class="admin-dashboard__images-actions">
+                <label class="admin-dashboard__upload">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    multiple
+                    [disabled]="isUploadingImage()"
+                    (change)="onImageSelected($event)">
+                  <span>
+                    @if (isUploadingImage()) {
+                      {{ 'adminDashboardUploading' | transloco }}
+                    } @else {
+                      {{ 'adminDashboardUploadImages' | transloco }}
+                    }
+                  </span>
+                </label>
+                <span class="admin-dashboard__hint">
+                  {{ 'adminDashboardImagesAutoSave' | transloco }}
+                </span>
+              </div>
+              @if (hasQueuedImages()) {
+                <div class="admin-dashboard__queue">
+                  <div class="admin-dashboard__queue-header">
+                    <h4>{{ 'adminDashboardQueueTitle' | transloco }}</h4>
+                    <span>{{ 'adminDashboardQueueHint' | transloco }}</span>
+                  </div>
+                  <div class="admin-dashboard__queue-list">
+                    @for (item of uploadQueue(); track item.id; let index = $index; let last = $last) {
+                      <div class="admin-dashboard__queue-item">
+                        <img [src]="item.previewUrl" [alt]="item.name" loading="lazy">
+                        <div class="admin-dashboard__queue-meta">
+                          <span>{{ item.name }}</span>
+                          @if (index === 0) {
+                            <span class="admin-dashboard__tag">
+                              {{ 'adminDashboardPreviewTag' | transloco }}
+                            </span>
+                          }
+                        </div>
+                        <div class="admin-dashboard__queue-actions">
+                          <button
+                            type="button"
+                            [attr.aria-label]="'adminDashboardMoveUp' | transloco"
+                            [attr.title]="'adminDashboardMoveUp' | transloco"
+                            (click)="moveQueuedImageUp(index)"
+                            [disabled]="index === 0">
+                            ↑
+                          </button>
+                          <button
+                            type="button"
+                            [attr.aria-label]="'adminDashboardMoveDown' | transloco"
+                            [attr.title]="'adminDashboardMoveDown' | transloco"
+                            (click)="moveQueuedImageDown(index)"
+                            [disabled]="last">
+                            ↓
+                          </button>
+                          <button
+                            type="button"
+                            (click)="setQueuedPreview(index)"
+                            [disabled]="index === 0">
+                            {{ 'adminDashboardSetPreview' | transloco }}
+                          </button>
+                          <button
+                            type="button"
+                            class="admin-dashboard__danger"
+                            (click)="removeQueuedImage(item.id)">
+                            {{ 'adminDashboardRemove' | transloco }}
+                          </button>
+                        </div>
+                      </div>
+                    }
+                  </div>
+                </div>
+              }
+              <div class="admin-dashboard__images-grid">
+                @if ((editingArt()?.artPictures?.length ?? 0) === 0) {
+                  <div class="admin-dashboard__images-empty">
+                    {{ 'adminDashboardImagesEmpty' | transloco }}
+                  </div>
+                }
+                @for (picture of editingArt()?.artPictures ?? []; track picture.id; let index = $index; let last = $last) {
+                  <figure class="admin-dashboard__image-card" [class.admin-dashboard__image-card--preview]="index === 0">
+                    <img [src]="getArtPictureUrl(picture)" [alt]="picture.name" loading="lazy">
+                    <figcaption>
+                      <span>{{ picture.name }}</span>
+                      <span class="admin-dashboard__subtext">#{{ picture.priority ?? '-' }}</span>
+                      @if (index === 0) {
+                        <span class="admin-dashboard__tag">
+                          {{ 'adminDashboardPreviewTag' | transloco }}
+                        </span>
+                      }
+                      <div class="admin-dashboard__image-actions">
+                        <button
+                          type="button"
+                          [attr.aria-label]="'adminDashboardMoveUp' | transloco"
+                          [attr.title]="'adminDashboardMoveUp' | transloco"
+                          (click)="movePictureUp(index)"
+                          [disabled]="index === 0">
+                          ↑
+                        </button>
+                        <button
+                          type="button"
+                          [attr.aria-label]="'adminDashboardMoveDown' | transloco"
+                          [attr.title]="'adminDashboardMoveDown' | transloco"
+                          (click)="movePictureDown(index)"
+                          [disabled]="last">
+                          ↓
+                        </button>
+                        <button
+                          type="button"
+                          (click)="setPreviewPicture(index)"
+                          [disabled]="index === 0">
+                          {{ 'adminDashboardSetPreview' | transloco }}
+                        </button>
+                      </div>
+                    </figcaption>
+                  </figure>
+                }
+              </div>
+            }
+          </div>
+        </section>
+
+        <div class="admin-dashboard__form-actions">
+          <button type="submit" [disabled]="form.invalid || isSaving()">
+            {{ 'adminDashboardSaveAll' | transloco }}
+          </button>
+          <button type="button" (click)="resetForm()">
+            {{ 'adminDashboardClear' | transloco }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </ng-template>
 </div>
