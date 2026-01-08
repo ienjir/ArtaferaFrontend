@@ -2,7 +2,7 @@ import {isPlatformBrowser} from '@angular/common';
 import {inject, Injectable, PLATFORM_ID} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from '@environments/environment.development';
-import {map, Observable, tap, throwError} from 'rxjs';
+import {catchError, map, Observable, of, tap, throwError} from 'rxjs';
 import {JwtPayload, LoginResponse, TokenPair} from '@interfaces/auth.model';
 
 @Injectable({providedIn: 'root'})
@@ -40,6 +40,28 @@ export class AuthService {
         map((response) => response.data),
         tap((tokenPair) => this.storeTokens(tokenPair))
       );
+  }
+
+  restoreSession(): Observable<boolean> {
+    if (!this.isBrowser) {
+      return of(false);
+    }
+
+    if (this.hasValidAccessToken()) {
+      return of(true);
+    }
+
+    if (!this.getRefreshToken()) {
+      return of(false);
+    }
+
+    return this.refresh().pipe(
+      map(() => true),
+      catchError(() => {
+        this.logout();
+        return of(false);
+      })
+    );
   }
 
   logout(): void {

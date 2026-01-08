@@ -6,6 +6,7 @@ import {TranslocoService} from '@jsverse/transloco';
 import {AdminDashboardPage} from './admin-dashboard-page';
 import {ArtService} from '@services/art/art';
 import {ArtTranslationService} from '@services/art-translation/art-translation';
+import {CurrencyService} from '@services/currency/currency';
 import {ToastService} from '@services/toast-service/toast-service';
 
 describe('AdminDashboardPage', () => {
@@ -22,6 +23,9 @@ describe('AdminDashboardPage', () => {
     const artTranslationServiceStub = {
       createTranslation: () => of({})
     };
+    const currencyServiceStub = {
+      list: () => of({currencies: [], count: 0})
+    };
     const toastServiceStub = {
       success: () => {},
       error: () => {}
@@ -35,6 +39,7 @@ describe('AdminDashboardPage', () => {
       providers: [
         {provide: ArtService, useValue: artServiceStub},
         {provide: ArtTranslationService, useValue: artTranslationServiceStub},
+        {provide: CurrencyService, useValue: currencyServiceStub},
         {provide: ToastService, useValue: toastServiceStub},
         {provide: TranslocoService, useValue: translocoStub},
         {provide: PLATFORM_ID, useValue: 'browser'}

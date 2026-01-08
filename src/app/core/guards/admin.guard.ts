@@ -2,6 +2,7 @@ import {isPlatformBrowser} from '@angular/common';
 import {inject, PLATFORM_ID} from '@angular/core';
 import {CanMatchFn, Router} from '@angular/router';
 import {AuthService} from '@services/auth-service/auth-service';
+import {map} from 'rxjs';
 
 export const adminGuard: CanMatchFn = (route, segments) => {
   const router = inject(Router);
@@ -14,7 +15,16 @@ export const adminGuard: CanMatchFn = (route, segments) => {
   }
 
   if (!authService.hasValidAccessToken()) {
-    return router.createUrlTree(['/login'], {queryParams: {returnUrl: requestedUrl}});
+    return authService.restoreSession().pipe(
+      map((restored) => {
+        if (!restored) {
+          return router.createUrlTree(['/login'], {queryParams: {returnUrl: requestedUrl}});
+        }
+
+        const role = authService.getRole();
+        return role === 'admin' ? true : router.parseUrl('/');
+      })
+    );
   }
 
   const role = authService.getRole();

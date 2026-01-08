@@ -1,4 +1,4 @@
-import {ApplicationConfig, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection, isDevMode, ErrorHandler} from '@angular/core';
+import {APP_INITIALIZER, ApplicationConfig, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection, isDevMode, ErrorHandler} from '@angular/core';
 import {provideRouter, withInMemoryScrolling} from '@angular/router';
 
 import {routes} from './app.routes';
@@ -10,6 +10,8 @@ import {provideNgxSkeletonLoader} from "ngx-skeleton-loader";
 import {GlobalErrorHandler} from "@core/services/global-error-handler/global-error-handler";
 import {ErrorInterceptor} from "@interceptors/error-interceptor";
 import {AuthInterceptor} from "@interceptors/auth-interceptor";
+import {AuthService} from "@services/auth-service/auth-service";
+import {firstValueFrom} from "rxjs";
 
 export const appConfig: ApplicationConfig = {
     providers: [
@@ -33,6 +35,12 @@ export const appConfig: ApplicationConfig = {
           anchorScrolling: 'enabled'
         }),
       ),
+      {
+        provide: APP_INITIALIZER,
+        multi: true,
+        useFactory: (authService: AuthService) => () => firstValueFrom(authService.restoreSession()),
+        deps: [AuthService]
+      },
       {provide: ErrorHandler, useClass: GlobalErrorHandler},
       provideTransloco({
         config: {

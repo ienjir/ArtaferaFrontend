@@ -99,7 +99,7 @@
                 </span>
               }
               <span class="admin-dashboard__price">
-                {{ art.price }} · {{ art.currency?.currencyCode ?? art.currency_id }}
+                {{ art.price }} · {{ art.currency?.currency_code ?? art.currency_id }}
               </span>
               <span class="admin-dashboard__subtext">
                 {{ 'adminDashboardSize' | transloco }}:
@@ -180,7 +180,14 @@
               <input #input id="price" type="number" formControlName="price" min="0">
             </InputWrapper>
             <InputWrapper [label]="'adminDashboardCurrencyId'">
-              <input #input id="currency" type="number" formControlName="currency_id" min="1">
+              <select #input id="currency" formControlName="currency_id">
+                <option [ngValue]="null">-</option>
+                @for (currency of currencies(); track currency.id) {
+                  <option [ngValue]="currency.id">
+                    {{ currency.currency_code }} · {{ currency.currency_name }}
+                  </option>
+                }
+              </select>
             </InputWrapper>
             <InputWrapper [label]="'adminDashboardYear'">
               <input #input id="year" type="number" formControlName="creation_year" min="1000" max="9999">

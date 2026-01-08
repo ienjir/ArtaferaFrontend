@@ -1,4 +1,4 @@
-import {Component, computed, effect, input, Input, OnInit} from '@angular/core';
+import {Component, computed, input} from '@angular/core';
 import {Label} from '@components/label/label';
 import {NgOptimizedImage} from '@angular/common';
 import {RouterLink} from "@angular/router";
@@ -19,16 +19,16 @@ export class ArtPreview {
   artPreview = input.required<ArtModel>();
   protected readonly environment = environment;
 
-  func() {
-    console.log(this.picture())
-    console.log(this.pictureUrl())
-  }
-
   artPicture = computed(() => this.artPreview()?.artPictures?.[0] ?? null);
   picture = computed(() => this.artPicture()?.picture ?? null)
 
   pictureUrl = computed(() => {
     const pic = this.picture();
     return pic ? `${environment.pictureUrl}/${pic.name}${pic.type}` : '';
+  });
+
+  currencyLabel = computed(() => {
+    const currency = this.artPreview()?.currency;
+    return currency?.currency_code ?? `${this.artPreview()?.currency_id ?? ''}`.trim();
   });
 }

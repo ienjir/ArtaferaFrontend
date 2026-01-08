@@ -6,7 +6,9 @@ import {concatMap, finalize, from, map, of, switchMap, toArray} from 'rxjs';
 import {ArtModel} from '@interfaces/art.model';
 import {ArtPictureModel} from '@interfaces/art-picture.model';
 import {ArtTranslationModel} from '@interfaces/art-translation.model';
+import {CurrencyModel} from '@interfaces/currency.model';
 import {ArtService, CreateArtPayload, UpdateArtPayload} from '@services/art/art';
+import {CurrencyService} from '@services/currency/currency';
 import {ToastService} from '@services/toast-service/toast-service';
 import {InputWrapper} from '@components/input-wrapper/input-wrapper';
 import {ArtTranslationService, CreateArtTranslationPayload} from '@services/art-translation/art-translation';
@@ -29,6 +31,7 @@ import {NgbModal, NgbModalModule} from '@ng-bootstrap/ng-bootstrap';
 export class AdminDashboardPage {
   private readonly artService = inject(ArtService);
   private readonly artTranslationService = inject(ArtTranslationService);
+  private readonly currencyService = inject(CurrencyService);
   private readonly toastService = inject(ToastService);
   private readonly transloco = inject(TranslocoService);
   private readonly platformId = inject(PLATFORM_ID);
@@ -37,6 +40,7 @@ export class AdminDashboardPage {
   @ViewChild('artFormModal') private artFormModal?: TemplateRef<unknown>;
 
   readonly arts = signal<ArtModel[]>([]);
+  readonly currencies = signal<CurrencyModel[]>([]);
   readonly totalCount = signal(0);
   readonly isLoading = signal(false);
   readonly isSaving = signal(false);
@@ -105,7 +109,7 @@ export class AdminDashboardPage {
         return true;
       }
 
-      const currency = art.currency?.currencyCode ?? `${art.currency_id}`;
+      const currency = art.currency?.currency_code ?? `${art.currency_id}`;
       const translationText = (art.translations ?? [])
         .map((translation) => `${translation.title} ${translation.label}`)
         .join(' ');
@@ -116,6 +120,7 @@ export class AdminDashboardPage {
   });
 
   constructor() {
+    this.loadCurrencies();
     this.loadArts(true);
   }
 
@@ -372,6 +377,17 @@ export class AdminDashboardPage {
       next: (art) => {
         this.editingArt.set(art);
         this.initialPictureOrder.set(art.artPictures?.map((picture) => picture.id) ?? []);
+      },
+      error: () => {
+        this.toastService.error('adminDashboardLoadFailed');
+      }
+    });
+  }
+
+  private loadCurrencies() {
+    this.currencyService.list().subscribe({
+      next: (result) => {
+        this.currencies.set(result.currencies);
       },
       error: () => {
         this.toastService.error('adminDashboardLoadFailed');
