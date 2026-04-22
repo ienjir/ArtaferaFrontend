@@ -5,5 +5,10 @@
       <h3 class="art-preview__card__information__title">{{ artPreview().translations?.[0]?.title }}</h3>
       <Label label="testlabel" color="var(--Accent1)">{{ artPreview().translations?.[0]?.label }}</Label>
     </div>
+    <div class="art-preview__card__meta">
+      <span class="art-preview__card__meta__price">
+        {{ artPreview().price }} {{ currencyLabel() }}
+      </span>
+    </div>
   </article>
 </a>

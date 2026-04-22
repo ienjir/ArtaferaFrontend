@@ -1,0 +1,604 @@
+@use 'styles' as *;
+
+.admin-dashboard {
+  --admin-accent: var(--Main);
+  --admin-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
+
+  position: relative;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1.5rem;
+  overflow: hidden;
+
+  > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  &__hero {
+    display: grid;
+    gap: 2rem;
+    align-items: center;
+    padding: 2rem;
+    background: var(--Background);
+    box-shadow: var(--admin-shadow);
+    animation: admin-rise 0.6s ease-out;
+
+    @include respond-from(md) {
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    }
+
+    h1 {
+      margin: 0 0 0.5rem;
+      font-size: clamp(2rem, 4vw, 3rem);
+    }
+
+    p {
+      margin: 0;
+      color: var(--Text);
+      opacity: 0.8;
+      max-width: 45ch;
+    }
+  }
+
+  &__eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+    font-size: 0.75rem;
+    color: var(--admin-accent);
+    margin-bottom: 0.75rem;
+    display: inline-block;
+  }
+
+  &__hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+
+  &__stats {
+    display: grid;
+    gap: 1rem;
+  }
+
+  &__stat {
+    padding: 1rem 1.25rem;
+    background: var(--Background);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__stat-label {
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    font-size: 0.7rem;
+    opacity: 0.65;
+  }
+
+  &__stat-value {
+    font-size: 1.5rem;
+  }
+
+  &__content {
+    display: grid;
+    gap: 2rem;
+  }
+
+  &__panel {
+    padding: 1.75rem;
+    background: var(--Background);
+    box-shadow: var(--admin-shadow);
+  }
+
+  &__panel-header {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+
+    h2 {
+      margin: 0 0 0.35rem;
+      font-size: 1.5rem;
+    }
+
+    p {
+      margin: 0;
+      opacity: 0.7;
+    }
+  }
+
+  &__panel-header--list {
+    flex-direction: column;
+    align-items: flex-start;
+
+    @include respond-from(sm) {
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+
+  &__pill {
+    padding: 0.4rem 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08rem;
+    font-size: 0.7rem;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    &--modal {
+      padding: 0;
+    }
+  }
+
+  &__form-grid {
+    display: grid;
+    gap: 1rem;
+
+    @include respond-from(sm) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  &__toggles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  &__toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    background: var(--Background);
+
+    input {
+      accent-color: var(--Main);
+    }
+  }
+
+  &__form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+
+    &--header {
+      margin-top: 1.5rem;
+    }
+  }
+
+  &__filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  &__search {
+    flex: 1 1 220px;
+
+    input {
+      width: 100%;
+    }
+  }
+
+  &__filter {
+    font-size: 0.85rem;
+
+    &--active {
+      background: var(--Main);
+      color: #0d0d0d;
+    }
+  }
+
+  &__table {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  &__table-header {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 100px minmax(0, 1.6fr) minmax(0, 1fr) minmax(0, 1.2fr);
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    font-size: 0.7rem;
+    opacity: 0.65;
+    padding-bottom: 0.5rem;
+  }
+
+  &__row {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 100px minmax(0, 1.6fr) minmax(0, 1fr) minmax(0, 1.2fr);
+    padding: 1rem;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: border-color 0.2s ease, transform 0.2s ease;
+
+    &:hover {
+      border-color: rgba(255, 255, 255, 0.18);
+      transform: translateY(-1px);
+    }
+  }
+
+  &__cell {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  &__cell--flags {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  &__cell--actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+
+    button {
+      min-height: 2.5rem;
+      padding: 0 0.75rem;
+      font-size: 0.8rem;
+    }
+  }
+
+  &__price {
+    font-size: 1rem;
+  }
+
+  &__title {
+    font-size: 1.05rem;
+    font-weight: 600;
+  }
+
+  &__subtext {
+    font-size: 0.8rem;
+    opacity: 0.7;
+  }
+
+  &__flag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.08rem;
+    text-transform: uppercase;
+  }
+
+  &__danger {
+    background: var(--Red);
+    color: var(--Text);
+  }
+
+  &__empty {
+    padding: 1.5rem 0;
+    text-align: center;
+    opacity: 0.7;
+  }
+
+  &__loading {
+    padding: 1rem 0;
+    font-size: 0.85rem;
+    letter-spacing: 0.08rem;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+
+  &__list-footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+  }
+
+  &__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  &__chip {
+    padding: 0.2rem 0.6rem;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08rem;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  &__markdown {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+
+    markular {
+      min-height: 180px;
+      background: var(--Background);
+    }
+  }
+
+  &__markdown-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+
+    h3,
+    h4 {
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    span {
+      font-size: 0.8rem;
+      opacity: 0.7;
+    }
+  }
+
+  &__images {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.25rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  &__images-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+
+    h3 {
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    p {
+      margin: 0;
+      font-size: 0.85rem;
+      opacity: 0.7;
+    }
+  }
+
+  &__images-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  &__action {
+    padding: 0.6rem 0.9rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.05);
+    font-size: 0.85rem;
+  }
+
+  &__upload {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 0.9rem;
+    border: 1px dashed rgba(255, 255, 255, 0.25);
+    cursor: pointer;
+    font-size: 0.85rem;
+
+    input {
+      display: none;
+    }
+  }
+
+  &__queue {
+    display: grid;
+    gap: 0.75rem;
+    border: 1px dashed rgba(255, 255, 255, 0.2);
+    padding: 0.75rem;
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  &__queue-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+
+    h4 {
+      margin: 0;
+      font-size: 0.95rem;
+    }
+
+    span {
+      font-size: 0.75rem;
+      opacity: 0.7;
+    }
+  }
+
+  &__queue-list {
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  &__queue-item {
+    display: grid;
+    grid-template-columns: 72px minmax(0, 1fr) auto;
+    gap: 0.75rem;
+    align-items: center;
+    padding: 0.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.02);
+
+    img {
+      width: 72px;
+      height: 72px;
+      object-fit: cover;
+      background: rgba(255, 255, 255, 0.08);
+    }
+  }
+
+  &__queue-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 0.8rem;
+  }
+
+  &__queue-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    justify-content: flex-end;
+  }
+
+  &__images-grid {
+    display: grid;
+    gap: 0.75rem;
+    grid-template-columns: 1fr;
+  }
+
+  &__image-card {
+    margin: 0;
+    display: grid;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.02);
+
+    &--preview {
+      border-color: rgba(255, 255, 255, 0.35);
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.15);
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+      max-height: 420px;
+      object-fit: cover;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    figcaption {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      font-size: 0.8rem;
+    }
+  }
+
+  &__image-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-top: 0.25rem;
+  }
+
+  &__tag {
+    align-self: flex-start;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.1rem 0.35rem;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+  }
+
+  &__images-empty {
+    font-size: 0.85rem;
+    opacity: 0.7;
+  }
+
+  &__modal-section {
+    display: grid;
+    gap: 1rem;
+    padding: 1.25rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  &__modal-section-title {
+    margin: 0;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08rem;
+    opacity: 0.7;
+  }
+
+  &__hint {
+    font-size: 0.75rem;
+    opacity: 0.65;
+  }
+
+  &__modal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.5rem 1.5rem 0;
+
+    h2 {
+      margin: 0;
+      font-size: 1.4rem;
+    }
+
+    p {
+      margin: 0.35rem 0 0;
+      font-size: 0.85rem;
+      opacity: 0.7;
+    }
+  }
+
+  &__modal-body {
+    padding: 1.5rem;
+  }
+
+  &__modal-close {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.8rem;
+  }
+
+}
+
+@keyframes admin-rise {
+  from {
+    transform: translateY(16px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@include respond-from(sm) {
+  .admin-dashboard {
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 960px) {
+  .admin-dashboard {
+    &__table-header {
+      display: none;
+    }
+
+    &__table-header,
+    &__row {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    &__cell--flags,
+    &__cell--actions {
+      grid-column: 1 / -1;
+      flex-direction: row;
+    }
+  }
+}

@@ -4,12 +4,15 @@ import {
   Component,
   ContentChild,
   ElementRef,
+  OnDestroy,
   computed,
   signal,
   input
 } from '@angular/core';
+import {NgControl} from '@angular/forms';
 import {TranslocoPipe} from "@jsverse/transloco";
 import {NgOptimizedImage} from "@angular/common";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'InputWrapper',
@@ -23,7 +26,7 @@ import {NgOptimizedImage} from "@angular/common";
     '[class.text-input-wrapper--filled]': 'hasValue()'
   }
 })
-export class InputWrapper implements AfterViewInit {
+export class InputWrapper implements AfterViewInit, OnDestroy {
   label = input.required<string>();
   errorMessage = input<string>();
   resizable = input<boolean>(true);
@@ -31,6 +34,7 @@ export class InputWrapper implements AfterViewInit {
 
   @ContentChild('input', {static: false}) inputElement?: ElementRef<HTMLInputElement>;
   @ContentChild('textarea', {static: false}) textareaElement?: ElementRef<HTMLTextAreaElement>;
+  @ContentChild(NgControl, {static: false}) ngControl?: NgControl;
 
   readonly showPassword = signal(false);
   readonly isFocused = signal(false);
@@ -49,7 +53,7 @@ export class InputWrapper implements AfterViewInit {
 
   protected readonly shouldShowFloatingLabel = computed(() => {
     const type = this.inputType();
-    return type === 'text' || type === 'password' || type === 'textarea';
+    return type !== 'checkbox' && type !== 'radio';
   });
 
   protected readonly shouldShowCheckboxLabel = computed(() => {
@@ -73,8 +77,15 @@ export class InputWrapper implements AfterViewInit {
     this.inputId() ? `${this.inputId()}-error` : undefined
   );
 
+  private valueSubscription?: Subscription;
+
   ngAfterViewInit(): void {
     this.setupInputElement();
+    this.subscribeToValueChanges();
+  }
+
+  ngOnDestroy(): void {
+    this.valueSubscription?.unsubscribe();
   }
 
   private setupInputElement(): void {
@@ -87,6 +98,19 @@ export class InputWrapper implements AfterViewInit {
     this.configureElement(nativeElement);
     this.setupEventListeners(nativeElement);
     this.checkInitialValue(nativeElement);
+  }
+
+  private subscribeToValueChanges(): void {
+    if (!this.ngControl?.valueChanges) {
+      return;
+    }
+
+    this.valueSubscription = this.ngControl.valueChanges.subscribe(() => {
+      const activeEl = this.activeElement();
+      if (activeEl) {
+        this.updateValueState(activeEl.nativeElement);
+      }
+    });
   }
 
   private setInputType(element: HTMLInputElement | HTMLTextAreaElement): void {

@@ -25,6 +25,20 @@ export abstract class Base {
     );
   }
 
+  protected put<T>(endpoint: string = '', body: any = {}, safe: boolean): Observable<T> {
+    return this.http.put<{ data: T }>(`${this.baseUrl}/${this.resourcePath}${endpoint}`, body).pipe(
+      map(response => response.data),
+      safe? catchError(this.handleError) : o => o
+    );
+  }
+
+  protected delete<T>(endpoint: string = '', safe: boolean): Observable<T> {
+    return this.http.delete<{ data: T }>(`${this.baseUrl}/${this.resourcePath}${endpoint}`).pipe(
+      map(response => response.data),
+      safe? catchError(this.handleError) : o => o
+    );
+  }
+
   protected handleError(error: any): Observable<never> {
     console.error(error)
     return throwError(() => error)

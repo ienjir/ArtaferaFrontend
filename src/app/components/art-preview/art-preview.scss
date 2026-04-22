@@ -42,5 +42,13 @@
         overflow-wrap: break-word;
       }
     }
+
+    &__meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.95rem;
+      color: var(--SubtleText);
+    }
   }
 }

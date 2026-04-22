@@ -336,6 +336,23 @@ input {
 
 }
 
+select {
+  padding: 0 0.8125rem;
+  min-height: calc(3rem - 6px);
+  flex-grow: 1;
+  border: 3px solid var(--Main);
+  background-color: transparent;
+  border-radius: 0;
+  width: 100%;
+  color: var(--Text);
+  font-size: 1rem;
+  outline: none;
+
+  &:focus-visible {
+    border: 3px solid var(--Focus)
+  }
+}
+
 input[type = "checkbox"] {
   -moz-appearance: none;
   -webkit-appearance: none;

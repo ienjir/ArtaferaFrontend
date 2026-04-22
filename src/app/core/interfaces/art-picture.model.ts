@@ -16,8 +16,8 @@ export type ArtPicture = z.infer<typeof ArtPictureSchema>
 
 export interface ArtPictureModel {
   id: number
-  createdAt: string
-  updatedAt: string
+  created_at: string
+  updated_at: string
   artId: number
   pictureId: number
   picture?: PictureModel

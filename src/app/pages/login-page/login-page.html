@@ -1,0 +1,20 @@
+<div class="page">
+  <div class="page__section page__section--v-centered">
+    <div class="artafera-card login">
+      <h2>{{ 'logIn' | transloco }}</h2>
+      <form [formGroup]="loginForm" class="login__form" (ngSubmit)="submitLogin()">
+        <InputWrapper [label]="'email' | transloco" type="text" [errorMessage]="emailError">
+          <input #input id="login-email" type="text" formControlName="email">
+        </InputWrapper>
+        <InputWrapper [label]="'password' | transloco" type="password" [errorMessage]="passwordError">
+          <input #input id="login-password" type="password" formControlName="password">
+        </InputWrapper>
+        <div class="login__actions">
+          <button type="submit" [disabled]="loginForm.invalid || isSubmitting()">
+            {{ 'logIn' | transloco }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
