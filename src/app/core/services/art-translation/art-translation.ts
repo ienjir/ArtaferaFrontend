@@ -11,6 +11,12 @@ export type CreateArtTranslationPayload = {
   text: string;
 };
 
+export type UpdateArtTranslationPayload = {
+  title?: string;
+  description?: string;
+  text?: string;
+};
+
 @Injectable({
   providedIn: 'root'
 })
@@ -22,4 +28,11 @@ export class ArtTranslationService extends Base {
       map((response) => response.language)
     );
   }
+
+  updateTranslation(id: number, payload: UpdateArtTranslationPayload): Observable<ArtTranslationModel> {
+    return this.put<{language: ArtTranslationModel}>(`/${id}`, payload, true).pipe(
+      map((response) => response.language)
+    );
+  }
 }
+

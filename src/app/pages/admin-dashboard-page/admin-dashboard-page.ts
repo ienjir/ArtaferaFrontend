@@ -1,5 +1,4 @@
-import {isPlatformBrowser} from '@angular/common';
-import {Component, computed, inject, PLATFORM_ID, signal, TemplateRef, ViewChild} from '@angular/core';
+import {Component, computed, inject, signal, TemplateRef, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {TranslocoPipe, TranslocoService} from '@jsverse/transloco';
 import {concatMap, finalize, from, map, of, switchMap, toArray} from 'rxjs';
@@ -34,7 +33,6 @@ export class AdminDashboardPage {
   private readonly currencyService = inject(CurrencyService);
   private readonly toastService = inject(ToastService);
   private readonly transloco = inject(TranslocoService);
-  private readonly platformId = inject(PLATFORM_ID);
   private readonly modalService = inject(NgbModal);
 
   @ViewChild('artFormModal') private artFormModal?: TemplateRef<unknown>;
@@ -54,6 +52,8 @@ export class AdminDashboardPage {
   readonly isSavingPictureOrder = signal(false);
   readonly uploadQueue = signal<QueuedImage[]>([]);
   readonly initialPictureOrder = signal<number[]>([]);
+  readonly deletingArtId = signal<number | null>(null);
+  readonly deletingPictureId = signal<number | null>(null);
 
   readonly form = new FormGroup({
     price: new FormControl<number | null>(null, [Validators.required, Validators.min(0)]),
@@ -148,7 +148,6 @@ export class AdminDashboardPage {
   }
 
   refreshList() {
-    this.offset.set(0);
     this.loadArts(true);
   }
 
@@ -213,32 +212,47 @@ export class AdminDashboardPage {
       ? this.artService.updateArt(this.editingArtId()!, payload as UpdateArtPayload)
       : this.artService.createArt(payload as CreateArtPayload);
 
-    request.pipe(
-      switchMap((art) => {
-        if (isEditing) {
-          return of(art);
-        }
+    request
+      .pipe(
+        switchMap((art) => {
+          const languageCode = (this.form.controls.language_code.value ?? '').trim();
+          const title = (this.form.controls.title.value ?? '').trim();
+          const description = (this.form.controls.description.value ?? '').trim();
+          const text = (this.form.controls.text.value ?? '').trim();
 
-        const translationPayload = this.buildTranslationPayload(art.id);
-        if (!translationPayload) {
-          return of(art);
-        }
+          if (!languageCode || !title || !description || !text) {
+            return of(art);
+          }
 
-        return this.artTranslationService.createTranslation(translationPayload).pipe(map(() => art));
-      }),
-      switchMap((art) => this.savePicturesForArt(art.id).pipe(map(() => art))),
-      finalize(() => this.isSaving.set(false))
-    ).subscribe({
-      next: () => {
-        this.toastService.success('adminDashboardSaved');
-        this.resetForm();
-        this.modalService.dismissAll();
-        this.refreshList();
-      },
-      error: () => {
-        this.toastService.error('adminDashboardSaveFailed');
-      }
-    });
+          if (isEditing) {
+            const existingTranslation = this.editingArt()?.translations?.find(
+              (t) => t.language?.language_code === languageCode
+            );
+            if (existingTranslation) {
+              return this.artTranslationService
+                .updateTranslation(existingTranslation.id, {title, description, text})
+                .pipe(map(() => art));
+            }
+          }
+
+          return this.artTranslationService
+            .createTranslation({artID: art.id, languageCode, title, description, text})
+            .pipe(map(() => art));
+        }),
+        switchMap((art) => this.savePicturesForArt(art.id).pipe(map(() => art))),
+        finalize(() => this.isSaving.set(false))
+      )
+      .subscribe({
+        next: () => {
+          this.toastService.success('adminDashboardSaved');
+          this.resetForm();
+          this.modalService.dismissAll();
+          this.refreshList();
+        },
+        error: () => {
+          this.toastService.error('adminDashboardSaveFailed');
+        }
+      });
   }
 
   toggleFeatured() {
@@ -257,15 +271,45 @@ export class AdminDashboardPage {
     this.updateArtFlags(art.id, {available: !art.available});
   }
 
-  deleteArt(art: ArtModel) {
-    if (!this.canConfirmDelete(art)) {
-      return;
-    }
+  requestDeleteArt(art: ArtModel) {
+    this.deletingArtId.set(art.id);
+  }
 
+  cancelDeleteArt() {
+    this.deletingArtId.set(null);
+  }
+
+  confirmDeleteArt(art: ArtModel) {
+    this.deletingArtId.set(null);
     this.artService.deleteArt(art.id).subscribe({
       next: () => {
         this.toastService.success('adminDashboardDeleted');
         this.refreshList();
+      },
+      error: () => {
+        this.toastService.error('adminDashboardDeleteFailed');
+      }
+    });
+  }
+
+  requestDeletePicture(pictureId: number) {
+    this.deletingPictureId.set(pictureId);
+  }
+
+  cancelDeletePicture() {
+    this.deletingPictureId.set(null);
+  }
+
+  confirmDeletePicture(pictureId: number) {
+    const artId = this.editingArtId();
+    if (!artId) {
+      return;
+    }
+    this.deletingPictureId.set(null);
+    this.artService.deleteArtPicture(artId, pictureId).subscribe({
+      next: () => {
+        this.toastService.success('adminDashboardDeleted');
+        this.loadArtDetails(artId);
       },
       error: () => {
         this.toastService.error('adminDashboardDeleteFailed');
@@ -317,27 +361,27 @@ export class AdminDashboardPage {
   }
 
   moveQueuedImageUp(index: number) {
-    this.uploadQueue.update((current) => this.swapQueueItems(current, index, index - 1));
+    this.uploadQueue.update((current) => this.reorderItem(current, index, index - 1));
   }
 
   moveQueuedImageDown(index: number) {
-    this.uploadQueue.update((current) => this.swapQueueItems(current, index, index + 1));
+    this.uploadQueue.update((current) => this.reorderItem(current, index, index + 1));
   }
 
   setQueuedPreview(index: number) {
-    this.uploadQueue.update((current) => this.moveQueueItem(current, index, 0));
+    this.uploadQueue.update((current) => this.reorderItem(current, index, 0));
   }
 
   movePictureUp(index: number) {
-    this.reorderArtPictures((pictures) => this.swapQueueItems(pictures, index, index - 1));
+    this.reorderArtPictures((pictures) => this.reorderItem(pictures, index, index - 1));
   }
 
   movePictureDown(index: number) {
-    this.reorderArtPictures((pictures) => this.swapQueueItems(pictures, index, index + 1));
+    this.reorderArtPictures((pictures) => this.reorderItem(pictures, index, index + 1));
   }
 
   setPreviewPicture(index: number) {
-    this.reorderArtPictures((pictures) => this.moveQueueItem(pictures, index, 0));
+    this.reorderArtPictures((pictures) => this.reorderItem(pictures, index, 0));
   }
 
   getArtPictureUrl(artPicture: ArtPictureModel): string {
@@ -346,6 +390,14 @@ export class AdminDashboardPage {
       return '';
     }
     return `${environment.pictureUrl}/${picture.name}${picture.type}`;
+  }
+
+  getArtThumbnailUrl(art: ArtModel): string {
+    const firstPicture = art.artPictures?.[0];
+    if (!firstPicture) {
+      return '';
+    }
+    return this.getArtPictureUrl(firstPicture);
   }
 
   getArtTitle(art: ArtModel): string {
@@ -361,12 +413,19 @@ export class AdminDashboardPage {
   }
 
   private updateArtFlags(id: number, payload: UpdateArtPayload) {
+    this.arts.update((arts) =>
+      arts.map((a) => (a.id === id ? {...a, ...payload} : a))
+    );
+
     this.artService.updateArt(id, payload).subscribe({
-      next: () => {
+      next: (updatedArt) => {
+        this.arts.update((arts) =>
+          arts.map((a) => (a.id === id ? {...a, ...updatedArt} : a))
+        );
         this.toastService.success('adminDashboardSaved');
-        this.refreshList();
       },
       error: () => {
+        this.refreshList();
         this.toastService.error('adminDashboardSaveFailed');
       }
     });
@@ -377,6 +436,15 @@ export class AdminDashboardPage {
       next: (art) => {
         this.editingArt.set(art);
         this.initialPictureOrder.set(art.artPictures?.map((picture) => picture.id) ?? []);
+        const translation = this.getPrimaryTranslation(art);
+        if (translation) {
+          this.form.patchValue({
+            language_code: translation.language?.language_code ?? 'en',
+            title: translation.title ?? '',
+            description: translation.description ?? '',
+            text: translation.text ?? ''
+          });
+        }
       },
       error: () => {
         this.toastService.error('adminDashboardLoadFailed');
@@ -429,25 +497,6 @@ export class AdminDashboardPage {
     return payload;
   }
 
-  private buildTranslationPayload(artId: number): CreateArtTranslationPayload | null {
-    const languageCode = (this.form.controls.language_code.value ?? '').trim();
-    const title = (this.form.controls.title.value ?? '').trim();
-    const description = (this.form.controls.description.value ?? '').trim();
-    const text = (this.form.controls.text.value ?? '').trim();
-
-    if (!languageCode || !title || !description || !text) {
-      return null;
-    }
-
-    return {
-      artID: artId,
-      languageCode,
-      title,
-      description,
-      text
-    };
-  }
-
   private savePicturesForArt(artId: number) {
     const queue = this.uploadQueue();
     const existingOrder = this.editingArt()?.artPictures?.map((picture) => picture.id) ?? [];
@@ -497,21 +546,12 @@ export class AdminDashboardPage {
     );
   }
 
-  private canConfirmDelete(art: ArtModel): boolean {
-    if (!isPlatformBrowser(this.platformId)) {
-      return false;
-    }
-
-    const message = this.transloco.translate('adminDashboardConfirmDelete', {
-      id: art.id
-    });
-    return window.confirm(message);
-  }
-
   private getPrimaryTranslation(art: ArtModel): ArtTranslationModel | undefined {
     const translations = art.translations ?? [];
-    return translations.find((translation) => translation.language?.language_code === 'en')
-      ?? translations[0];
+    return (
+      translations.find((translation) => translation.language?.language_code === 'en') ??
+      translations[0]
+    );
   }
 
   private clearUploadQueue() {
@@ -519,9 +559,7 @@ export class AdminDashboardPage {
     this.uploadQueue.set([]);
   }
 
-  private reorderArtPictures(
-    update: (pictures: ArtPictureModel[]) => ArtPictureModel[]
-  ) {
+  private reorderArtPictures(update: (pictures: ArtPictureModel[]) => ArtPictureModel[]) {
     this.editingArt.update((current) => {
       if (!current?.artPictures) {
         return current;
@@ -533,18 +571,14 @@ export class AdminDashboardPage {
     });
   }
 
-  private swapQueueItems<T>(items: T[], fromIndex: number, toIndex: number): T[] {
-    if (toIndex < 0 || toIndex >= items.length || fromIndex === toIndex) {
-      return items;
-    }
-    const next = [...items];
-    const [moved] = next.splice(fromIndex, 1);
-    next.splice(toIndex, 0, moved);
-    return next;
-  }
-
-  private moveQueueItem<T>(items: T[], fromIndex: number, toIndex: number): T[] {
-    if (fromIndex < 0 || fromIndex >= items.length || fromIndex === toIndex) {
+  private reorderItem<T>(items: T[], fromIndex: number, toIndex: number): T[] {
+    if (
+      fromIndex < 0 ||
+      fromIndex >= items.length ||
+      toIndex < 0 ||
+      toIndex >= items.length ||
+      fromIndex === toIndex
+    ) {
       return items;
     }
     const next = [...items];

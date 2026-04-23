@@ -20,11 +20,17 @@
       </div>
       <div class="admin-dashboard__stat">
         <span class="admin-dashboard__stat-label">{{ 'adminDashboardStatsFeatured' | transloco }}</span>
-        <span class="admin-dashboard__stat-value">{{ featuredCount() }}</span>
+        <div class="admin-dashboard__stat-value-group">
+          <span class="admin-dashboard__stat-value">{{ featuredCount() }}</span>
+          <span class="admin-dashboard__stat-subtext">{{ 'adminDashboardStatsOfLoaded' | transloco: {count: loadedCount()} }}</span>
+        </div>
       </div>
       <div class="admin-dashboard__stat">
         <span class="admin-dashboard__stat-label">{{ 'adminDashboardStatsAvailable' | transloco }}</span>
-        <span class="admin-dashboard__stat-value">{{ availableCount() }}</span>
+        <div class="admin-dashboard__stat-value-group">
+          <span class="admin-dashboard__stat-value">{{ availableCount() }}</span>
+          <span class="admin-dashboard__stat-subtext">{{ 'adminDashboardStatsOfLoaded' | transloco: {count: loadedCount()} }}</span>
+        </div>
       </div>
       <div class="admin-dashboard__stat">
         <span class="admin-dashboard__stat-label">{{ 'adminDashboardStatsLoaded' | transloco }}</span>
@@ -88,6 +94,13 @@
         @for (art of filteredArts(); track art.id) {
           <div class="admin-dashboard__row">
             <div class="admin-dashboard__cell admin-dashboard__cell--id">
+              @if (getArtThumbnailUrl(art)) {
+                <img
+                  class="admin-dashboard__thumbnail"
+                  [src]="getArtThumbnailUrl(art)"
+                  [alt]="getArtTitle(art)"
+                  loading="lazy">
+              }
               <span>#{{ art.id }}</span>
               <span class="admin-dashboard__subtext">{{ art.creation_year }}</span>
             </div>
@@ -134,9 +147,19 @@
               <button type="button" (click)="startEdit(art)">
                 {{ 'adminDashboardEdit' | transloco }}
               </button>
-              <button type="button" class="admin-dashboard__danger" (click)="deleteArt(art)">
-                {{ 'adminDashboardDelete' | transloco }}
-              </button>
+              @if (deletingArtId() === art.id) {
+                <span class="admin-dashboard__confirm-label">{{ 'adminDashboardConfirmQuestion' | transloco }}</span>
+                <button type="button" class="admin-dashboard__danger" (click)="confirmDeleteArt(art)">
+                  {{ 'adminDashboardConfirmYes' | transloco }}
+                </button>
+                <button type="button" (click)="cancelDeleteArt()">
+                  {{ 'adminDashboardConfirmNo' | transloco }}
+                </button>
+              } @else {
+                <button type="button" class="admin-dashboard__danger" (click)="requestDeleteArt(art)">
+                  {{ 'adminDashboardDelete' | transloco }}
+                </button>
+              }
             </div>
           </div>
         }
@@ -371,6 +394,25 @@
                           [disabled]="index === 0">
                           {{ 'adminDashboardSetPreview' | transloco }}
                         </button>
+                        @if (deletingPictureId() === picture.id) {
+                          <span class="admin-dashboard__confirm-label">{{ 'adminDashboardConfirmQuestion' | transloco }}</span>
+                          <button
+                            type="button"
+                            class="admin-dashboard__danger"
+                            (click)="confirmDeletePicture(picture.id)">
+                            {{ 'adminDashboardConfirmYes' | transloco }}
+                          </button>
+                          <button type="button" (click)="cancelDeletePicture()">
+                            {{ 'adminDashboardConfirmNo' | transloco }}
+                          </button>
+                        } @else {
+                          <button
+                            type="button"
+                            class="admin-dashboard__danger"
+                            (click)="requestDeletePicture(picture.id)">
+                            {{ 'adminDashboardDelete' | transloco }}
+                          </button>
+                        }
                       </div>
                     </figcaption>
                   </figure>
@@ -381,8 +423,12 @@
         </section>
 
         <div class="admin-dashboard__form-actions">
-          <button type="submit" [disabled]="form.invalid || isSaving()">
-            {{ 'adminDashboardSaveAll' | transloco }}
+          <button type="submit" [disabled]="form.invalid || isSaving() || isSavingPictureOrder()">
+            @if (isSavingPictureOrder()) {
+              {{ 'adminDashboardSavingOrder' | transloco }}
+            } @else {
+              {{ 'adminDashboardSaveAll' | transloco }}
+            }
           </button>
           <button type="button" (click)="resetForm()">
             {{ 'adminDashboardClear' | transloco }}
