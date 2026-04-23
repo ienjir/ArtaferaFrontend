@@ -84,6 +84,10 @@ export class ArtService extends Base {
       .pipe(map((response) => response.data.artPicture));
   }
 
+  deleteArtPicture(artId: number, pictureId: number): Observable<{message: string}> {
+    return this.delete<{message: string}>(`/${artId}/pictures/${pictureId}`, true);
+  }
+
   updateArtPictureOrder(artId: number, artPictureIds: number[]): Observable<void> {
     return this.put(`/${artId}/pictures/order`, {artPictureIds}, true)
       .pipe(map(() => undefined));

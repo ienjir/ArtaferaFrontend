@@ -70,6 +70,20 @@
     align-items: center;
   }
 
+  &__stat-value-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.1rem;
+  }
+
+  &__stat-subtext {
+    font-size: 0.65rem;
+    opacity: 0.5;
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+  }
+
   &__stat-label {
     text-transform: uppercase;
     letter-spacing: 0.1rem;
@@ -196,7 +210,7 @@
 
     &--active {
       background: var(--Main);
-      color: #0d0d0d;
+      color: var(--Background);
     }
   }
 
@@ -248,12 +262,28 @@
     flex-direction: row;
     flex-wrap: wrap;
     gap: 0.5rem;
+    align-items: center;
 
     button {
       min-height: 2.5rem;
       padding: 0 0.75rem;
       font-size: 0.8rem;
     }
+  }
+
+  &__thumbnail {
+    width: 100%;
+    max-width: 80px;
+    height: 60px;
+    object-fit: cover;
+    background: rgba(255, 255, 255, 0.06);
+    display: block;
+  }
+
+  &__confirm-label {
+    font-size: 0.75rem;
+    opacity: 0.8;
+    white-space: nowrap;
   }
 
   &__price {
